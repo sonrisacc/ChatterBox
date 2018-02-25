@@ -2,9 +2,8 @@
 
 import React from 'react';
 import { render } from 'react-dom';
-import App from './App';
+import App from './components/App';
 
-console.log('running');
 const renderApp = () => {
   render(<App />, document.getElementById('app'));
 };
@@ -15,7 +14,7 @@ renderApp();
 // everything else, babel config already provided joints, only the top level component need this
 // module varibale come from webpack
 if (module.hot) {
-  module.hot.accept('./App', () => {
+  module.hot.accept('./components/App', () => {
     renderApp();
   });
 }

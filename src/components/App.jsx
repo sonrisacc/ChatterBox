@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+// import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-console.log('running');
 class App extends Component {
   render() {
     return <div>Hello hey</div>;

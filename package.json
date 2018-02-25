@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "webpack -p --display-error-details --colors",
-    "start": "NODE_ENV=production node server/index.js",
+    "start": "NODE_ENV=development node server/index.js",
     "s-dev": "nodemon server/index.js",
     "web-dev": "NODE_ENV=development webpack-dev-server"
   },
@@ -23,6 +23,7 @@
     "express": "^4.16.2",
     "moment": "^2.20.1",
     "mongoose": "^5.0.6",
+    "morgan": "^1.9.0",
     "node-sass": "^4.7.2",
     "prop-types": "15.5.10",
     "react": "^16.2.0",
