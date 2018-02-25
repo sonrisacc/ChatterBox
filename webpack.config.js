@@ -3,7 +3,13 @@ const webpack = require('webpack');
 
 module.exports = {
   context: __dirname,
-  entry: './src/index.jsx',
+  entry: [
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://127.0.0.1:8080',
+    // hot reloader, there are other kinds
+    'webpack/hot/only-dev-server',
+    './src/index.jsx'
+  ],
   devtool: 'cheap-eval-source-map',
   output: {
     path: path.join(__dirname, 'public'),
@@ -13,8 +19,8 @@ module.exports = {
   devServer: {
     hot: true,
     publicPath: '/public/',
-    historyApiFallback: true,
-    port: 3001
+    historyApiFallback: true
+    // port: 3001
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.css', '.scss']
