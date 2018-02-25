@@ -1,43 +1,26 @@
 require('./dbConnection');
+const mongoose = require('mongoose');
+
 const msn = require('./smartyData/dummyMsn.json');
 const users = require('./smartyData/smartyUsers.json');
 
 const Message = require('./models/Message.js');
 const User = require('./models/User.js');
 
-const seedDB = () => {
-  msn.forEach(cur => {
-    const newMsn = new Message({
-      author: cur.author,
-      message: cur.message,
-      selfDestruct: cur.selfDestruct,
-      destructAt: cur.destructAt
-    });
-
-    newMsn.save(err => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log('new msn saved');
-      }
-    });
-  });
-
-  users.forEach(cur => {
-    const newUser = new User({
-      username: cur.username
-    });
-    newUser.save(err => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log('new user saved');
-      }
-    });
-  });
-
-  console.log('Database seeded!');
+const onInsert = (err, docs) => {
+  if (err) {
+    console.error.bind(console, 'connection error:');
+  } else {
+    console.info('data successfully stored.', docs.insertedCount);
+  }
 };
+
+const seedDB = () =>
+  new Promise(resolve => {
+    User.collection.insert(users, onInsert);
+    Message.collection.insert(msn, onInsert);
+    resolve();
+  });
 
 const cleanMessage = () =>
   Message.remove({}, err => {
@@ -57,7 +40,10 @@ const cleanUser = () =>
     }
   });
 
-// const closeDB = () => mongoose.disconnect();
 cleanUser()
   .then(cleanMessage)
-  .then(seedDB);
+  .then(seedDB)
+  .then(() => {
+    mongoose.connection.close();
+    console.log('Database seeded and closed!');
+  });

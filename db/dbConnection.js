@@ -10,7 +10,7 @@ const chatsDB = mongoose.connection;
 
 chatsDB.on('error', console.error.bind(console, 'connection error:'));
 chatsDB.once('open', () => {
-  console.log('connected to MongoDB');
+  console.info('connected to MongoDB');
 });
 
 module.exports = chatsDB;
