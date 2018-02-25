@@ -4,9 +4,8 @@ const logger = require('morgan');
 // const path = require('path');
 // const favicon = require('serve-favicon');
 
-const index = require('./routes/index');
+// const index = require('./routes/index');
 const auth = require('./routes/auth');
-const chat = require('./routes/chat');
 const erase = require('./routes/erase');
 
 const app = express();
@@ -15,14 +14,13 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('public'));
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'w')));
 
-app.use('/', index);
+// app.use('/', index);
 app.use('/auth', auth);
-app.use('/chat', chat);
 app.use('/erase', erase);
 
 // catch 404 and forward to error handler

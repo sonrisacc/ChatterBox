@@ -2,7 +2,7 @@ const http = require('http');
 const app = require('./server.js');
 const chatSockets = require('./sockets/chat-socket.js');
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3033;
 const socketio = require('socket.io');
 
 const server = http.createServer(app);

@@ -10,7 +10,8 @@
     "build": "webpack -p --display-error-details --colors",
     "start": "NODE_ENV=development node server/index.js",
     "s-dev": "nodemon server/index.js",
-    "web-dev": "NODE_ENV=development webpack-dev-server"
+    "web-dev": "NODE_ENV=development webpack-dev-server",
+    "watch": "webpack -wd"
   },
   "repository": {
     "type": "git",
