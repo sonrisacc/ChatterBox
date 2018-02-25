@@ -1,3 +1,4 @@
+require('../db/dbConnection');
 const http = require('http');
 const app = require('./server.js');
 const chatSockets = require('./sockets/chat-socket.js');
