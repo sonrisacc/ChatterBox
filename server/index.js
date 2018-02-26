@@ -1,4 +1,5 @@
 const express = require('express');
+const http = require('http');
 const bodyParser = require('body-parser');
 const router = require('./routes');
 
@@ -12,7 +13,8 @@ app.use('/api', router);
 
 const PORT = process.env.PORT || 8080;
 const HOST = 'localhost';
+const server = http.createServer(app);
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`listening on http://${HOST}:${PORT}`);
 });
