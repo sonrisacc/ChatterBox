@@ -4,6 +4,9 @@ import socket from '../socketConnection';
 
 class App extends Component {
   render() {
+    socket.on('time', timeString => {
+      console.log(`Server time: ${timeString}`);
+    });
     socket.on('news', data => {
       console.log(data);
       socket.emit('myTestEvent', { my: 'data' });

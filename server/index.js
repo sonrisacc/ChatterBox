@@ -1,18 +1,20 @@
 require('dotenv').config();
 require('../db/dbConnection');
-const http = require('http');
-const app = require('./server.js');
 const chatSockets = require('./sockets/chat-socket.js');
-
-console.info('process.env.NODE_ENV', process.env.NODE_ENV);
-const port = process.env.PORT || 3033;
+// const http = require('http');
+const app = require('./server.js');
 const socketio = require('socket.io');
 
-const server = http.createServer(app);
-const io = socketio(server);
-app.io = io;
-chatSockets(io);
+console.info('process.env.NODE_ENV', process.env.NODE_ENV);
+const PORT = process.env.PORT || 3033;
 
-server.listen(port, 'localhost', () =>
-  console.log('http server listening on port: ', port)
+// const server = http.createServer(app);
+const server = app.listen(PORT, 'localhost', () =>
+  console.log('http server listening on PORT: ', PORT)
 );
+//
+const io = socketio().listen(server);
+
+app.io = io;
+
+chatSockets(io);
