@@ -10,7 +10,7 @@
     "build": "webpack -p --display-error-details --colors",
     "start": "NODE_ENV=production node server/index.js",
     "s-dev": "nodemon server/index.js",
-    "web-dev": "NODE_ENV=development webpack-dev-server",
+    "w-dev": "NODE_ENV=development webpack-dev-server",
     "watch": "webpack -wd",
     "seed": "node db/seed.js",
     "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress"
