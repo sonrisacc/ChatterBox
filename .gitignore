@@ -7,11 +7,12 @@ yarn-error.log*
 
 # folder #
 node_modules/
+public/bundle.js
 
 # system files #
 .DS_Store
 .DS_Store?
-*.bundle.js
+
 *.hot-update.js
 
 # config files #

@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HEROKU_URL = require('./config');
 
-console.log('webpack config', URL);
+console.log('webpack config', HEROKU_URL);
 module.exports = {
   context: __dirname,
   entry: './src/index.jsx',
