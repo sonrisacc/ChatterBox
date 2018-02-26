@@ -1,21 +1,18 @@
-require('dotenv').config();
-require('../db/dbConnection');
-// const chatSockets = require('./sockets/chat-socket.js');
-// const http = require('http');
-const app = require('./server.js');
-// const socketio = require('socket.io');
+const express = require('express');
+const bodyParser = require('body-parser');
+const router = require('./routes');
 
-console.info('process.env.NODE_ENV', process.env.NODE_ENV);
+const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+// for parsing application/x-www-form-urlencoded
 
-const PORT = process.env.PORT || 3033;
+app.use(express.static('public'));
+app.use('/api', router);
 
-// const server = http.createServer(app);
-app.listen(PORT, 'localhost', () =>
-  console.log('http server listening on PORT: ', PORT)
-);
-//
-// const io = socketio().listen(server);
-//
-// app.io = io;
-//
-// chatSockets(io);
+const PORT = 8080;
+const HOST = 'localhost';
+
+app.listen(PORT, () => {
+  console.log(`listening on http://${HOST}:${PORT}`);
+});
