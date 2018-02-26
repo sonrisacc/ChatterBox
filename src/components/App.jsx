@@ -8,7 +8,7 @@ class App extends Component {
       console.log(data);
       socket.emit('myTestEvent', { my: 'data' });
     });
-    return <div>Hello</div>;
+    return <div>Hello testing</div>;
   }
 }
 
