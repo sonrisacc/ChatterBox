@@ -1,8 +1,10 @@
+require('dotenv').config();
 require('../db/dbConnection');
 const http = require('http');
 const app = require('./server.js');
 const chatSockets = require('./sockets/chat-socket.js');
 
+console.info('process.env.NODE_ENV', process.env.NODE_ENV);
 const port = process.env.PORT || 3033;
 const socketio = require('socket.io');
 
