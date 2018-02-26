@@ -6,24 +6,42 @@ const users = require('./smartyData/smartyUsers.json');
 const Message = require('./models/Message.js');
 const User = require('./models/User.js');
 
-const onInsert = (err, docs) => {
-  if (err) {
-    console.error.bind(console, 'connection error:');
-  } else {
-    console.info('data successfully stored.', docs.insertedCount);
-  }
-};
+// const onInsert = (err, docs) => {
+//   if (err) {
+//     console.error.bind(console, 'connection error:');
+//   } else {
+//     console.info('data successfully stored.', docs.insertedCount);
+//   }
+// };
 
-const seedDB = () =>
+const seedUser = () =>
   new Promise(resolve => {
-    User.collection.insert(users, onInsert);
-    Message.collection.insert(msn, onInsert);
-    resolve();
+    User.collection.insert(users, (err, docs) => {
+      if (err) {
+        console.error.bind(console, 'connection error:');
+      } else {
+        console.info('Total users successfully stored :', docs.insertedCount);
+        resolve();
+      }
+    });
+  });
+
+const seedMsn = () =>
+  new Promise(resolve => {
+    Message.collection.insert(users, (err, docs) => {
+      if (err) {
+        console.error.bind(console, 'connection error:');
+      } else {
+        console.info('Total msns successfully stored :', docs.insertedCount);
+        resolve();
+      }
+    });
   });
 
 chatsDB
   .dropDatabase()
-  .then(seedDB)
+  .then(seedUser)
+  .then(seedMsn)
   .then(() => {
     chatsDB.close();
     console.log('Database seeded and closed!');
