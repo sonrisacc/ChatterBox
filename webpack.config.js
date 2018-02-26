@@ -1,7 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
-const { URL } = require('./config');
+const HEROKU_URL = require('./config');
 
+console.log('webpack config', URL);
 module.exports = {
   context: __dirname,
   entry: './src/index.jsx',
@@ -14,7 +15,8 @@ module.exports = {
     hot: true,
     contentBase: path.join(__dirname, 'public'),
     historyApiFallback: true,
-    port: 3001
+    port: 3001,
+    overlay: true
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.css', '.scss']
@@ -30,7 +32,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
-      'process.env': { URL }
+      'process.env': { HEROKU_URL }
     })
   ],
   module: {
