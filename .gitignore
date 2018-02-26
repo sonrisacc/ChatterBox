@@ -8,6 +8,9 @@ yarn-error.log*
 # folder #
 node_modules/
 public/bundle.js
+server/oldindex.js
+server/server.js
+
 
 # system files #
 .DS_Store
