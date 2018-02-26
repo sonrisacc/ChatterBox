@@ -12,7 +12,8 @@
     "s-dev": "nodemon server/index.js",
     "web-dev": "NODE_ENV=development webpack-dev-server",
     "watch": "webpack -wd",
-    "seed": "node db/seed.js"
+    "seed": "node db/seed.js",
+    "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress"
   },
   "repository": {
     "type": "git",
