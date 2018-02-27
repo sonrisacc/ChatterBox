@@ -10,4 +10,7 @@ chatsDB.once('open', () => {
   console.info('connected to MongoDB');
 });
 
+require('./models/User');
+require('./models/Message');
+
 module.exports = chatsDB;

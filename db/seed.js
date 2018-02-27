@@ -28,7 +28,7 @@ const seedUser = () =>
 
 const seedMsn = () =>
   new Promise(resolve => {
-    Message.collection.insert(users, (err, docs) => {
+    Message.collection.insert(msn, (err, docs) => {
       if (err) {
         console.error.bind(console, 'connection error:');
       } else {

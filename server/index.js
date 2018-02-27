@@ -1,6 +1,7 @@
 require('../db/dbConnection');
 const express = require('express');
 const http = require('http');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const socketio = require('socket.io');
 
@@ -11,6 +12,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // for parsing application/x-www-form-urlencoded
+app.use(cors());
 
 app.use(express.static('public'));
 app.use('/api', router);
