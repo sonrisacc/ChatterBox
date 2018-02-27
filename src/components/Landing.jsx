@@ -9,14 +9,14 @@ class Landing extends Component {
     userNameInput: ''
   };
 
-  // handleSubmit = event => {
-  //   console.log('searched', props.loginUsername);
-  //   event.preventDefault();
-  // };
-  //
   handleChange = event => {
     this.setState({ userNameInput: event.target.value });
   };
+
+  goToLobby = () => {
+    this.props.history.push('/lobby');
+  };
+
   render() {
     return (
       <div className="landing">
@@ -28,9 +28,10 @@ class Landing extends Component {
           onChange={this.handleChange}
         />
         <button
-          onClick={() =>
-            this.props.handleLoginUserNameChange(this.state.userNameInput)
-          }
+          onClick={() => {
+            this.props.handleLoginUserNameChange(this.state.userNameInput);
+            this.goToLobby();
+          }}
         >
           LogIn
         </button>
