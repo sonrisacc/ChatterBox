@@ -16,16 +16,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
 
-app.use('/', express.static('public'));
+app.use(express.static('public'));
 app.use('/api', router);
 
-// app.get('/', (req, res) => {
-//   res.sendFile(path.resolve('./dist/index.html'));
-// });
-//
-// app.get('*', (req, res) => {
-//   res.sendFile(path.resolve('./public/index.html'));
-// });
+app.get('/', (req, res) => {
+  res.sendFile(path.resolve('./dist/index.html'));
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve('./public/index.html'));
+});
 
 const PORT = process.env.PORT || 8080;
 const HOST = 'localhost';
