@@ -1,7 +1,7 @@
 import { SET_LOGIN_USERNAME } from '../actions/actions';
 
 const DEFAULT_STATE = {
-  LOGIN_USERNAME: ''
+  loginUsername: ''
 };
 
 const setLoginUserName = (state, action) =>
