@@ -11,7 +11,6 @@ exports.loadMessages = () =>
     })
       .sort({ createdAt: 1 })
       .then(data => {
-        // console.log('msnCtrl loadMessages data ', data);
         resolve(data);
       })
       .catch(err => {

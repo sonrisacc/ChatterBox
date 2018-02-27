@@ -9,14 +9,7 @@ import PageNotFound from './PageNotFound';
 import Chathistory from './Chathistory';
 
 class App extends Component {
-  // state = {
-  //   chatHistory: []
-  // };
-  // componentDidMount() {
-  //
-  // }
   render() {
-    // console.log(this.state.chatHistory);
     return (
       <BrowserRouter>
         <Provider store={store}>

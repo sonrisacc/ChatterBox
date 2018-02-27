@@ -1,10 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Chathistory = props => (
   <div className="Chathistory">
-    <h1> Chathistory</h1>
+    <h1> Chat History</h1>
     <p>{JSON.stringify(props.apiData)}</p>
+    <button>
+      <Link to="/lobby"> Back to lobby</Link>
+    </button>
   </div>
 );
 
