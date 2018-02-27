@@ -11,7 +11,7 @@ export function addAPIData(apiData) {
 
 export function getApiDetails() {
   return dispatch => {
-    fetch(`${URL}api/history`, {
+    fetch(`${URL}/api/history`, {
       method: 'GET',
       headers: new Headers({
         'Content-Type': 'application/json',
