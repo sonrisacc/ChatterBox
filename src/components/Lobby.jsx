@@ -12,10 +12,9 @@ class Lobby extends Component {
     this.props.history.push('/history');
   };
   render() {
-    console.log('redux-thunk data', this.props.apiData);
-    socket.on('time', timeString => {
-      console.log(`Server time: ${timeString}`);
-    });
+    // socket.on('time', timeString => {
+    //   console.log(`Server time: ${timeString}`);
+    // });
     socket.on('news', data => {
       console.log(data);
       socket.emit('myTestEvent', { my: 'data' });
