@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const url = process.env.MONGODB_URI || 'mongodb://127.0.0.1/chatsDB';
+console.log('dbConnection url', url);
 mongoose.connect(url);
 
 const chatsDB = mongoose.connection;

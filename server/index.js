@@ -2,6 +2,7 @@ require('../db/dbConnection');
 const express = require('express');
 const http = require('http');
 const cors = require('cors');
+const path = require('path');
 const bodyParser = require('body-parser');
 const socketio = require('socket.io');
 
@@ -17,6 +18,15 @@ app.use(cors());
 
 app.use(express.static('public'));
 app.use('/api', router);
+
+app.get('/', (req, res) => {
+  console.log('memememem', path.resolve('./dist/index.html'));
+  res.sendFile(path.resolve('./dist/index.html'));
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve('./public/index.html'));
+});
 
 const PORT = process.env.PORT || 8080;
 const HOST = 'localhost';
