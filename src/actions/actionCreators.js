@@ -1,5 +1,6 @@
 import { SET_LOGIN_USERNAME, ADD_API_DATA } from './actions';
 
+const URL = process.env.HEROKU_URL || 'http://localhost:8080';
 export function setLoginUserName(loginUsername) {
   return { type: SET_LOGIN_USERNAME, payload: loginUsername };
 }
@@ -10,7 +11,7 @@ export function addAPIData(apiData) {
 
 export function getApiDetails() {
   return dispatch => {
-    fetch('http://localhost:8080/api/history', {
+    fetch(`${URL}/api/history`, {
       method: 'GET',
       headers: new Headers({
         'Content-Type': 'application/json',

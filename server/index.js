@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
 
-app.use(express.static('public'));
+// app.use(express.static('public'));
 app.use('/api', router);
 
 const PORT = process.env.PORT || 8080;
