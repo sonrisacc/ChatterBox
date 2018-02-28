@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getApiDetails } from '../actions/actionCreators';
 import socket from '../socketConnection';
 import MessageCard from './MessageCard';
+import Header from './Header';
 
 class Lobby extends Component {
   componentDidMount() {
@@ -22,28 +23,35 @@ class Lobby extends Component {
     });
     return (
       <div className="container">
-        <h1>This is lobby</h1>
-        <div>Hello! {this.props.loginUsername}</div>
+        <Header />
         <div className="box">
           <div className="main">
             {this.props.apiData.map(curMsn => (
-              <MessageCard key={curMsn.id} {...curMsn} />
+              <MessageCard key={curMsn._id} {...curMsn} />
             ))}
           </div>
-          <div className="dropdown">option</div>
-          <div
-            className="input-area"
-            contentEditable="true"
-            aria-multiline="true"
-            role="textbox"
-            aria-label="Note"
-            spellCheck="true"
-          >
-            Start typing here..
+          <div className="input-box">
+            <div className="dropdown">
+              <div className="dropdown-content">
+                <ul>30s</ul>
+                <ul>1 min</ul>
+                <ul>2 min</ul>
+                <ul>5 min</ul>
+                <ul>1 hr</ul>
+              </div>
+              <button className="dropbtn">Dropdown</button>
+            </div>
+            <div
+              className="input-area"
+              contentEditable="true"
+              aria-multiline="true"
+              role="textbox"
+              aria-label="Note"
+              spellCheck="true"
+            >
+              Start typing here..
+            </div>
           </div>
-          <button className="history" onClick={this.goToHistory}>
-            All chat history
-          </button>
         </div>
       </div>
     );

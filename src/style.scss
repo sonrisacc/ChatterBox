@@ -2,18 +2,27 @@ body {
   font-family: helvetica;
 }
 
+.sub-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.historyBtn {
+  margin-left: 5px;
+}
 .container {
   display: flex;
   border: 1px solid lightgrey;
   min-height: 100vh;
   flex-direction: column;
-  margin: 20 px;
   justify-content: center;
   align-items: center;
 }
 .test {
   color: pink;
 }
+
 .box {
   display: flex;
   flex-direction: column;
@@ -33,15 +42,28 @@ body {
   border: 1px solid lightgrey;
 }
 
+.input-box {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  width: 100%;
+  z-index: 1;
+  bottom: 100%;
+}
+
 .dropdown {
+  display: flex;
+  flex-direction: column-reverse;
   border: 1px solid lightgrey;
 }
 
 .input-area {
-  min-height: 35px;
+  flex: 1;
   border: 1px solid lightgrey;
-  color: lightgrey;
+  color: black;
   font-style: italic;
+  max-height: 100px;
+  overflow-y: scroll;
 }
 
 h1 {
@@ -53,6 +75,44 @@ p {
   display: inline;
 }
 
-input {
-  background: lightblue;
+ul {
+  margin: 0px;
+  padding: 0px;
+  font-size: 16px;
+}
+
+.dropbtn {
+  background-color: #4caf50;
+  color: white;
+  // padding: 2px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  max-height: inherit;
+  overflow-y: scroll;
+  // position: absolute;
+  background-color: #f1f1f1;
+  min-width: 60px;
+  // box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content ul:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  // bottom: 100%;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
 }
