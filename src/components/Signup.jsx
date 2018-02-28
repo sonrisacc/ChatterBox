@@ -13,7 +13,6 @@ class Signup extends Component {
   };
 
   handleSignUp = () => {
-    console.log('clicked');
     signUpUser(this.state.userNameInput).then(data => {
       if (data !== null) {
         this.props.handleLoginUserNameChange(data);

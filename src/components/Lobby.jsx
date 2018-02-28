@@ -22,7 +22,7 @@ class Lobby extends Component {
     return (
       <div className="lobby">
         <h1>This is lobby</h1>
-        <p>Hello! {this.props.loginUsername}</p>
+        <p className="test">Hello! {this.props.loginUsername}</p>
         <button onClick={this.goToHistory}>All chat history</button>
       </div>
     );
