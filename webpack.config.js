@@ -8,8 +8,9 @@ module.exports = {
   entry: './src/index.jsx',
   devtool: 'cheap-eval-source-map',
   output: {
-    path: path.join(__dirname, 'public'),
-    filename: 'bundle.js'
+    path: path.join(__dirname, 'public/'),
+    filename: 'bundle.js',
+    publicPath: '/'
   },
   devServer: {
     hot: true,

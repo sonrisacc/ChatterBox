@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setLoginUserName } from '../actions/actionCreators';
+import { checkUserNameExistence } from '../utli/httpHelpers';
 
 class Landing extends Component {
   state = {
@@ -17,24 +18,31 @@ class Landing extends Component {
     this.props.history.push('/lobby');
   };
 
+  goToSignUp = () => {
+    this.props.history.push('/signup');
+  };
+
+  handleCheckingUserName = () => {
+    checkUserNameExistence(this.state.userNameInput).then(data => {
+      if (data !== null) {
+        this.props.handleLoginUserNameChange(data.username);
+        this.goToLobby();
+      } else if (data === null) {
+        this.goToSignUp();
+      }
+    });
+  };
+
   render() {
     return (
       <div className="landing">
-        <h1>Hello {this.props.loginUsername}</h1>
-
+        <h1>Hello</h1>
         <input
           type="text"
           placeholder="Input username here"
           onChange={this.handleChange}
         />
-        <button
-          onClick={() => {
-            this.props.handleLoginUserNameChange(this.state.userNameInput);
-            this.goToLobby();
-          }}
-        >
-          LogIn
-        </button>
+        <button onClick={this.handleCheckingUserName}>LogIn</button>
         <button>
           <Link to="/signUp"> SignUp </Link>
         </button>

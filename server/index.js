@@ -8,6 +8,7 @@ const socketio = require('socket.io');
 
 const chatSockets = require('./sockets/chat-socket.js');
 const router = require('./routes');
+const auth = require('./routes/auth');
 
 const app = express();
 app.use(bodyParser.json());
@@ -18,7 +19,7 @@ app.use(cors());
 
 app.use(express.static('public'));
 app.use('/api', router);
-
+app.use('/auth', auth);
 app.get('/', (req, res) => {
   res.sendFile(path.resolve('./dist/index.html'));
 });

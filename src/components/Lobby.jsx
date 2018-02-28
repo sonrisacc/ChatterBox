@@ -22,12 +22,16 @@ class Lobby extends Component {
     return (
       <div className="lobby">
         <h1>This is lobby</h1>
+        <p>Hello! {this.props.loginUsername}</p>
         <button onClick={this.goToHistory}>All chat history</button>
       </div>
     );
   }
 }
-const mapStateToProps = state => ({ apiData: state.apiData });
+const mapStateToProps = state => ({
+  apiData: state.apiData,
+  loginUsername: state.loginUsername
+});
 const mapDispatchToProps = dispatch => ({
   handleGetApiDetails() {
     dispatch(getApiDetails());
