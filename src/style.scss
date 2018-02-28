@@ -11,18 +11,30 @@ body {
   justify-content: center;
   align-items: center;
 }
-
+.test {
+  color: pink;
+}
 .box {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   border: 1px solid lightgrey;
   min-width: 100vh;
-  min-height: 300px;
+  max-height: 50vh;
 }
 
 .main {
+  max-height: inherit;
   min-height: 250px;
+  overflow-x: scroll;
+}
+
+.msnCard {
+  border: 1px solid lightgrey;
+}
+
+.dropdown {
+  border: 1px solid lightgrey;
 }
 
 .input-area {
@@ -34,6 +46,11 @@ body {
 
 h1 {
   color: lightblue;
+}
+
+h5,
+p {
+  display: inline;
 }
 
 input {

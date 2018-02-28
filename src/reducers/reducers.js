@@ -10,7 +10,7 @@ const loginUsername = (state = '', action) => {
 
 const apiData = (state = [], action) => {
   if (action.type === ADD_API_DATA) {
-    return [...state, ...action.payload];
+    return [...action.payload];
   }
   return state;
 };

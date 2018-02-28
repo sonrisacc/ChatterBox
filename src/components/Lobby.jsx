@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getApiDetails } from '../actions/actionCreators';
 import socket from '../socketConnection';
+import MessageCard from './MessageCard';
 
 class Lobby extends Component {
   componentDidMount() {
@@ -22,8 +23,14 @@ class Lobby extends Component {
     return (
       <div className="container">
         <h1>This is lobby</h1>
+        <div>Hello! {this.props.loginUsername}</div>
         <div className="box">
-          <div className="main">Hello! {this.props.loginUsername}</div>
+          <div className="main">
+            {this.props.apiData.map(curMsn => (
+              <MessageCard key={curMsn.id} {...curMsn} />
+            ))}
+          </div>
+          <div className="dropdown">option</div>
           <div
             className="input-area"
             contentEditable="true"
