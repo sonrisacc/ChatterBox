@@ -1,23 +1,3 @@
-[contenteditable='true']:active,
-[contenteditable='true']::before {
-  // content: 'Edit Me!';
-}
-
-[contenteditable='true']:focus::after {
-  border: none;
-  outline: none;
-}
-[contenteditable='true']:focus > style {
-  // font-size: 0.75em;
-  color: blue;
-  // font-family: courier, sans-serif;
-  background: #fff;
-  // line-height: 1.5;
-  position: relative;
-  // right: -36em;
-  // top: -2em;
-}
-
 body {
   font-family: helvetica;
 }
@@ -28,38 +8,47 @@ body {
   justify-content: center;
 }
 
-.historyBtn {
-  margin-left: 5px;
-}
 .container {
   display: flex;
-  border: 1px solid lightgrey;
   min-height: 100vh;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.test {
-  color: pink;
+
+.historyBtn {
+  margin-left: 5px;
 }
 
-.box {
+.lobby-wrapper {
+  margin-top: 5px;
+  border-radius: 10px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  padding-top: 35px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  border: 1px solid lightgrey;
+
   min-width: 100vh;
   max-height: 50vh;
 }
 
 .main {
+  // border: 3px solid lightblue;
+  border-radius: 3px;
   max-height: inherit;
   min-height: 250px;
   overflow-x: scroll;
 }
 
 .msnCard {
-  border: 1px solid lightgrey;
+  padding: 2px;
+  padding-left: 5px;
+  margin: 5px;
+  border-radius: 5px;
+
+  // border: 1px solid lightgrey;
 }
 
 .editing-box {
@@ -68,22 +57,21 @@ body {
 }
 
 .input-box {
+  // border: 2px solid lightgrey;
+  border-radius: 10px;
   text-align: center;
   display: flex;
   flex-direction: row;
   align-items: stretch;
-
-  width: 100%;
+  width: inherit;
   z-index: 1;
-
-  // bottom: 100%;
 }
 
 .dropdown {
   // display: flex;
   width: 30px;
   // flex-direction: column;
-  border: 1px solid lightgrey;
+  // border: 1px solid lightgrey;
 }
 
 .input-area {
@@ -91,12 +79,13 @@ body {
   font-style: italic;
   font-size: 12px;
   flex: 1;
-  border: 1px solid lightgrey;
+  border: 1px solid lightblue;
   color: black;
   min-height: 20px;
   max-height: 50px;
   overflow-y: visible;
   resize: none;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
 }
 
 .ghost {
@@ -141,12 +130,14 @@ ul {
 }
 
 .dropbtn {
-  background-color: #4caf50;
+  background-color: lightblue;
   color: white;
   min-height: 25px;
+  min-width: 25px;
   // padding: 2px;
   border: none;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
 }
 .dropdown:hover .dropbtn {
-  background-color: #3e8e41;
+  background-color: #66c2ff;
 }

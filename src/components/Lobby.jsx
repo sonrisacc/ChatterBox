@@ -25,7 +25,7 @@ class Lobby extends Component {
     return (
       <div className="container">
         <Header />
-        <div className="box">
+        <div className="lobby-wrapper">
           <div className="main">
             {this.props.apiData.map(curMsn => (
               <MessageCard key={curMsn._id} {...curMsn} />
