@@ -4,6 +4,7 @@ import { getApiDetails } from '../actions/actionCreators';
 import socket from '../socketConnection';
 import MessageCard from './MessageCard';
 import Header from './Header';
+import Inputbox from './Inputbox';
 
 class Lobby extends Component {
   componentDidMount() {
@@ -30,28 +31,7 @@ class Lobby extends Component {
               <MessageCard key={curMsn._id} {...curMsn} />
             ))}
           </div>
-          <div className="input-box">
-            <div className="dropdown">
-              <div className="dropdown-content">
-                <ul>30s</ul>
-                <ul>1 min</ul>
-                <ul>2 min</ul>
-                <ul>5 min</ul>
-                <ul>1 hr</ul>
-              </div>
-              <button className="dropbtn">Dropdown</button>
-            </div>
-            <div
-              className="input-area"
-              contentEditable="true"
-              aria-multiline="true"
-              role="textbox"
-              aria-label="Note"
-              spellCheck="true"
-            >
-              Start typing here..
-            </div>
-          </div>
+          <Inputbox />
         </div>
       </div>
     );
