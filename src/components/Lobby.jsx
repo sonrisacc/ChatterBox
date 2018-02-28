@@ -20,10 +20,24 @@ class Lobby extends Component {
       socket.emit('myTestEvent', { my: 'data' });
     });
     return (
-      <div className="lobby">
+      <div className="container">
         <h1>This is lobby</h1>
-        <p className="test">Hello! {this.props.loginUsername}</p>
-        <button onClick={this.goToHistory}>All chat history</button>
+        <div className="box">
+          <div className="main">Hello! {this.props.loginUsername}</div>
+          <div
+            className="input-area"
+            contentEditable="true"
+            aria-multiline="true"
+            role="textbox"
+            aria-label="Note"
+            spellCheck="true"
+          >
+            Start typing here..
+          </div>
+          <button className="history" onClick={this.goToHistory}>
+            All chat history
+          </button>
+        </div>
       </div>
     );
   }

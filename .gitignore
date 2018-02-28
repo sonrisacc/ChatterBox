@@ -22,3 +22,4 @@ server/server.js
 .editorconfig
 yarn.lock
 .env
+.prettierignore

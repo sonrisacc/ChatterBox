@@ -1,3 +1,41 @@
+body {
+  font-family: helvetica;
+}
+
+.container {
+  display: flex;
+  border: 1px solid lightgrey;
+  min-height: 100vh;
+  flex-direction: column;
+  margin: 20 px;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border: 1px solid lightgrey;
+  min-width: 100vh;
+  min-height: 300px;
+}
+
+.main {
+  min-height: 250px;
+}
+
+.input-area {
+  min-height: 35px;
+  border: 1px solid lightgrey;
+  color: lightgrey;
+  font-style: italic;
+}
+
 h1 {
-  color: blue;
+  color: lightblue;
+}
+
+input {
+  background: lightblue;
 }

@@ -16,15 +16,7 @@ module.exports = {
     hot: true,
     contentBase: path.join(__dirname, 'public'),
     historyApiFallback: true,
-    port: 3001,
-    // overlay: true,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-      'Access-Control-Allow-Headers':
-        'X-Requested-With, content-type, Authorization',
-      'Content-Type': 'application/json'
-    }
+    port: 3001
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.css', '.scss']
