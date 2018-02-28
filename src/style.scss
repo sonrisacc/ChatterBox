@@ -68,9 +68,11 @@ body {
 }
 
 .input-box {
+  text-align: center;
   display: flex;
   flex-direction: row;
   align-items: stretch;
+
   width: 100%;
   z-index: 1;
 
@@ -78,34 +80,29 @@ body {
 }
 
 .dropdown {
-  display: flex;
+  // display: flex;
   width: 30px;
-  flex-direction: column-reverse;
+  // flex-direction: column;
   border: 1px solid lightgrey;
 }
 
 .input-area {
+  text-align: left;
+  font-style: italic;
+  font-size: 12px;
   flex: 1;
   border: 1px solid lightgrey;
   color: black;
   min-height: 20px;
-  font-style: italic;
   max-height: 50px;
   overflow-y: visible;
   resize: none;
 }
 
-.input-ghost {
-  flex: 1;
-  border: 1px solid lightgrey;
-  color: black;
-  font-style: italic;
-  min-height: 20px;
-  max-height: 50px;
+.ghost {
   white-space: pre-wrap;
   word-wrap: break-word;
   visibility: hidden;
-
   top: 0;
 }
 
@@ -125,28 +122,28 @@ ul {
 }
 
 .dropdown-content {
-  display: none;
-  // max-height: inherit;
-  // overflow-y: scroll;
-  // position: absolute;
+  display: block;
   background-color: #f1f1f1;
-  min-width: 30px;
-  // box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
   z-index: 1;
+  bottom: 100%;
+
+  margin: 2px;
+  padding: 2px;
+  width: 60px;
+  max-height: 100px;
+  overflow-y: scroll;
 }
 
 .dropdown-content ul:hover {
   background-color: #ddd;
 }
 
-.dropdown:hover .dropdown-content {
-  display: block;
-  bottom: 100%;
-}
-
 .dropbtn {
   background-color: #4caf50;
   color: white;
+  min-height: 25px;
   // padding: 2px;
   border: none;
 }

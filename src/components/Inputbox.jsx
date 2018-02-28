@@ -7,7 +7,8 @@ const DEFAULT_HEIGHT = 20;
 class Inputbox extends Component {
   state = {
     msgBody: '',
-    textAreaHeight: DEFAULT_HEIGHT
+    textAreaHeight: DEFAULT_HEIGHT,
+    listIsHidden: true
   };
 
   setRef = node => {
@@ -43,7 +44,7 @@ class Inputbox extends Component {
   );
 
   getGhostField = () => (
-    <div className="input-ghost" ref={this.setGhostRef} aria-hidden="true">
+    <div className="input-area ghost" ref={this.setGhostRef} aria-hidden="true">
       {this.state.msgBody}
     </div>
   );
@@ -56,14 +57,24 @@ class Inputbox extends Component {
     }
   };
 
+  toggleHiddenList = () => {
+    console.log('clicked');
+    this.setState({ listIsHidden: !this.state.listIsHidden });
+  };
+
   render() {
     return (
       <div className="editing-box">
+        {this.getGhostField()}
         <div className="input-box">
-          <Dropdown />
+          <div className="dropdown">
+            <button className="dropbtn" onClick={this.toggleHiddenList}>
+              +
+            </button>
+          </div>
           {this.getExpandableField()}
         </div>
-        <div className="input-box">{this.getGhostField()}</div>
+        {!this.state.listIsHidden && <Dropdown />}
       </div>
     );
   }
