@@ -1,14 +1,53 @@
 import React, { Component } from 'react';
 // import { connect } from 'react-redux';
 
+import Dropdown from './Dropdown';
+
+const DEFAULT_HEIGHT = 20;
 class Inputbox extends Component {
-  // state = {
-  //   msgBody: ''
-  // };
+  state = {
+    msgBody: '',
+    textAreaHeight: DEFAULT_HEIGHT
+  };
 
   setRef = node => {
     this.test = node;
   };
+
+  setGhostRef = node => {
+    this.ghost = node;
+  };
+
+  setValue = e => {
+    const { value } = e.target;
+    this.setState({ msgBody: value });
+  };
+
+  setFilledTextareaHeight = () => {
+    const ghostHeight = this.ghost.clientHeight;
+    this.setState({ textAreaHeight: ghostHeight });
+  };
+
+  getExpandableField = () => (
+    <textarea
+      className="input-area"
+      rows="4"
+      cols="50"
+      style={{ height: this.state.textAreaHeight }}
+      ref={this.setRef}
+      placeholder="Type......."
+      onKeyPress={this.handleKeyPress}
+      onChange={this.setValue}
+      onKeyUp={this.setFilledTextareaHeight}
+    />
+  );
+
+  getGhostField = () => (
+    <div className="input-ghost" ref={this.setGhostRef} aria-hidden="true">
+      {this.state.msgBody}
+    </div>
+  );
+
   handleKeyPress = e => {
     if (e.charCode === 13 && e.altKey) {
       console.log('do validate');
@@ -19,36 +58,12 @@ class Inputbox extends Component {
 
   render() {
     return (
-      <div className="input-box">
-        <div className="dropdown">
-          <div className="dropdown-content">
-            <ul>30s</ul>
-            <ul>1 min</ul>
-            <ul>2 min</ul>
-            <ul>5 min</ul>
-            <ul>1 hr</ul>
-          </div>
-          <button className="dropbtn">+</button>
+      <div className="editing-box">
+        <div className="input-box">
+          <Dropdown />
+          {this.getExpandableField()}
         </div>
-        {/* <div role="button" onKeyPress={this.handleKeyPress}> */}
-        {/* <div
-            className="input-area"
-            contentEditable="true"
-            aria-multiline="true"
-            role="textbox"
-            aria-label="Note"
-            spellCheck="true"
-
-          /> */}
-        <textarea
-          className="input-area"
-          rows="4"
-          cols="50"
-          ref={this.setRef}
-          placeholder="Type......."
-          onKeyPress={this.handleKeyPress}
-        />
-        {/* </div> */}
+        <div className="input-box">{this.getGhostField()}</div>
       </div>
     );
   }

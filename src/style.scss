@@ -62,6 +62,11 @@ body {
   border: 1px solid lightgrey;
 }
 
+.editing-box {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
 .input-box {
   display: flex;
   flex-direction: row;
@@ -83,10 +88,25 @@ body {
   flex: 1;
   border: 1px solid lightgrey;
   color: black;
+  min-height: 20px;
   font-style: italic;
-  max-height: 100px;
+  max-height: 50px;
   overflow-y: visible;
   resize: none;
+}
+
+.input-ghost {
+  flex: 1;
+  border: 1px solid lightgrey;
+  color: black;
+  font-style: italic;
+  min-height: 20px;
+  max-height: 50px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  visibility: hidden;
+
+  top: 0;
 }
 
 h1 {
