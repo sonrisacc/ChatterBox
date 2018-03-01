@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-// import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { setLoginUserName, getApiDetails } from '../actions/actionCreators';
 import { checkUserNameExistence } from '../utli/httpHelpers';
 import { emitNewUser } from '../utli/socketHelpers';
 
 class Landing extends Component {
   state = {
-    userNameInput: ''
+    userNameInput: '',
+    redirectToReferrer: false
   };
 
   handleChange = event => {
@@ -29,16 +29,32 @@ class Landing extends Component {
       if (data !== null) {
         this.props.handleLoginUserNameChange(data.username);
         this.props.handleGetApiDetails();
-        this.goToLobby();
+        this.setState({ redirectToReferrer: true });
+        // setTimeout(this.goToLobby, 1000);
       } else if (data === null) {
         this.goToSignUp();
       }
     });
   };
 
+  renderHistoryPath = from => (
+    <div>
+      <p>You must log in to view the page at {from.pathname}</p>
+    </div>
+  );
+
   render() {
+    const { from } = this.props.location.state || {
+      from: { pathname: '/lobby' }
+    };
+    const { redirectToReferrer } = this.state;
+
+    if (redirectToReferrer) {
+      return <Redirect to={from.pathname} />;
+    }
     return (
       <div className="landing">
+        {this.renderHistoryPath(from)}
         <h1 className="welcome">Hello {this.state.userNameInput}</h1>
         <div className="landing-wrapper">
           <input

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getApiDetails } from '../actions/actionCreators';
+import { setLoginUserName, getApiDetails } from '../actions/actionCreators';
 
 import MessageCard from './MessageCard';
 import Header from './Header';
@@ -51,6 +51,7 @@ class Lobby extends Component {
 
   handleLogOut = () => {
     emitUserLeft(this.props.loginUsername);
+    this.props.handleLoginUserNameChange(null);
     this.props.history.push('/');
   };
 
@@ -86,6 +87,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  handleLoginUserNameChange(username) {
+    dispatch(setLoginUserName(username));
+  },
   handleGetApiDetails() {
     dispatch(getApiDetails());
   }

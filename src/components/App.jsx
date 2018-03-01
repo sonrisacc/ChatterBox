@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from '../store/store';
 import Landing from './Landing';
@@ -7,25 +7,33 @@ import Lobby from './Lobby';
 import Signup from './Signup';
 import PageNotFound from './PageNotFound';
 import Chathistory from './Chathistory';
+import PrivateRoute from './PrivateRoute';
 
-class App extends Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <Provider store={store}>
-          <div className="app">
-            <Switch>
-              <Route exact path="/" component={Landing} />
-              <Route path="/signup" component={Signup} />
-              <Route path="/lobby" component={Lobby} />
-              <Route path="/history" component={Chathistory} />
-              <Route component={PageNotFound} />
-            </Switch>
-          </div>
-        </Provider>
-      </BrowserRouter>
-    );
-  }
-}
+const App = () => (
+  <Router>
+    <Provider store={store}>
+      <div className="for production">
+        <ul>
+          <li>
+            <Link to="/signup">signup Page</Link>
+          </li>
+          <li>
+            <Link to="/lobby">lobby Page</Link>
+          </li>
+          <li>
+            <Link to="/history">history Page</Link>
+          </li>
+        </ul>
+        <Switch>
+          <Route exact path="/" component={Landing} />
+          <Route path="/signup" component={Signup} />
+          <PrivateRoute path="/lobby" component={Lobby} />
+          <PrivateRoute path="/history" component={Chathistory} />
+          <Route component={PageNotFound} />
+        </Switch>
+      </div>
+    </Provider>
+  </Router>
+);
 
 export default App;
