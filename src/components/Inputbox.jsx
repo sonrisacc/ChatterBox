@@ -57,8 +57,13 @@ class Inputbox extends Component {
   };
 
   handleKeyPress = e => {
-    if (e.charCode === 13 && e.altKey) {
+    console.log('do validate');
+    console.log('e.charCode', e.charCode);
+    console.log('e.altKey', e.altKey);
+    if ((e.charCode === 13 && e.altKey) || (e.charCode === 10 && e.altKey)) {
       console.log('do validate');
+      console.log('e.charCode', e.charCode);
+      console.log('e.altKey', e.altKey);
       console.log(
         'emitNewMsg',
         this.props.loginUsername,

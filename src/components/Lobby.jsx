@@ -11,9 +11,17 @@ import { emitUserLeft, receiveNewMessage } from '../utli/socketHelpers';
 
 class Lobby extends Component {
   componentDidMount() {
+    this.scrollToBottom();
     receiveNewMessage(this.props.handleGetApiDetails);
   }
 
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
+  setGhostDiv = node => {
+    this.ghostDiv = node;
+  };
   goToHistory = () => {
     this.props.history.push('/history');
   };
@@ -21,6 +29,11 @@ class Lobby extends Component {
   handleLogOut = () => {
     emitUserLeft(this.props.loginUsername);
     this.props.history.push('/');
+  };
+
+  scrollToBottom = () => {
+    console.log('scrollToBottom running', this.ghostDiv);
+    this.ghostDiv.scrollIntoView({ behavior: 'smooth' });
   };
 
   render() {
@@ -33,6 +46,9 @@ class Lobby extends Component {
             {this.props.apiData.map(curMsn => (
               <MessageCard key={curMsn._id} {...curMsn} />
             ))}
+            <div id="ghost-div" className="msnCard" ref={this.setGhostDiv}>
+              mememem
+            </div>
           </div>
           <Inputbox />
         </div>

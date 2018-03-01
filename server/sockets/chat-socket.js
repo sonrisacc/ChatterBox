@@ -26,7 +26,7 @@ module.exports = io => {
       // save to database then
       utli.addNewMessages(data).then(res => {
         console.log('newMsg saved to db', res);
-        socket.broadcast.emit('oneNewMessage', data);
+        io.emit('oneNewMessage', data);
       });
     });
 

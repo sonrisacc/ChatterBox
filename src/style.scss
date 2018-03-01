@@ -51,7 +51,7 @@ body {
   margin-top: 10px;
   max-height: inherit;
   min-height: 250px;
-  overflow-x: scroll;
+  overflow: scroll;
 }
 
 .msnCard {
@@ -105,6 +105,12 @@ body {
   word-wrap: break-word;
   visibility: hidden;
   top: 0;
+}
+
+#ghost-div {
+  font-size: 2px;
+  visibility: hidden;
+  height: 5px;
 }
 
 h1 {
