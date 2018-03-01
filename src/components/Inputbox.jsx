@@ -57,17 +57,13 @@ class Inputbox extends Component {
   };
 
   handleKeyPress = e => {
-    console.log('do validate');
-    console.log('e.charCode', e.charCode);
-    console.log('e.altKey', e.altKey);
-    console.log('e.shiftKey', e.shiftKey);
     if (e.charCode === 13 && e.shiftKey) {
       console.log('do validate');
-      console.log(
-        'emitNewMsg',
-        this.props.loginUsername,
-        this.textAreaNode.value
-      );
+      // console.log(
+      //   'emitNewMsg',
+      //   this.props.loginUsername,
+      //   this.textAreaNode.value
+      // );
       emitNewMsg(this.props.loginUsername, this.textAreaNode.value);
       this.textAreaNode.value = '';
     }

@@ -8,7 +8,8 @@ class GeneralInfo extends Component {
     newUserExist: false,
     offLineUserExist: false,
     newUser: '',
-    offLineUser: ''
+    offLineUser: '',
+    userNumber: 1
   };
 
   componentDidMount() {
@@ -24,12 +25,20 @@ class GeneralInfo extends Component {
   };
 
   handleNewUserAcativity = data => {
-    this.setState({ newUser: data.username, newUserExist: true });
+    this.setState({
+      newUser: data.username,
+      newUserExist: true,
+      userNumber: this.state.userNumber + 1
+    });
     setTimeout(this.resetUserOnlineDiv, 1000);
   };
 
   handleOffLineUserAcativity = data => {
-    this.setState({ offLineUser: data.username, offLineUserExist: true });
+    this.setState({
+      offLineUser: data.username,
+      offLineUserExist: true,
+      userNumber: this.state.userNumber - 1
+    });
     setTimeout(this.resetUserOfflineDiv, 1000);
   };
 
@@ -39,7 +48,7 @@ class GeneralInfo extends Component {
   render() {
     return (
       <div className="socket-info">
-        <div>10 participants</div>
+        <div>{this.state.userNumber} participants</div>
         {!!this.state.newUserExist && this.handleNewUserOnline()}
         {!!this.state.offLineUserExist && this.handleNewUserOffline()}
       </div>
