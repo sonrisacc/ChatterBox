@@ -37,7 +37,8 @@ class GeneralInfo extends Component {
       newUser: data.username,
       newUserExist: true
     });
-    setTimeout(this.resetUserOnlineDiv, 1000);
+    this.handleOnlineUserNumber();
+    setTimeout(this.resetUserOnlineDiv, 2000);
   };
 
   handleOffLineUserAcativity = data => {
@@ -45,7 +46,8 @@ class GeneralInfo extends Component {
       offLineUser: data.username,
       offLineUserExist: true
     });
-    setTimeout(this.resetUserOfflineDiv, 1000);
+    this.handleOnlineUserNumber();
+    setTimeout(this.resetUserOfflineDiv, 2000);
   };
 
   handleNewUserOnline = () => <div>{this.state.newUser} just joined</div>;
