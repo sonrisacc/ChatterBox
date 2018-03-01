@@ -11,8 +11,8 @@ class Inputbox extends Component {
     listIsHidden: true
   };
 
-  setRef = node => {
-    this.test = node;
+  setTextAreaRef = node => {
+    this.textAreaNode = node;
   };
 
   setGhostRef = node => {
@@ -35,7 +35,7 @@ class Inputbox extends Component {
       rows="4"
       cols="50"
       style={{ height: this.state.textAreaHeight }}
-      ref={this.setRef}
+      ref={this.setTextAreaRef}
       placeholder="Type......."
       onKeyPress={this.handleKeyPress}
       onChange={this.setValue}
@@ -52,13 +52,12 @@ class Inputbox extends Component {
   handleKeyPress = e => {
     if (e.charCode === 13 && e.altKey) {
       console.log('do validate');
-      console.log('hey', this.test.value);
-      this.test.value = '';
+      console.log('hey', this.textAreaNode.value);
+      this.textAreaNode.value = '';
     }
   };
 
   toggleHiddenList = () => {
-    console.log('clicked');
     this.setState({ listIsHidden: !this.state.listIsHidden });
   };
 
