@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setLoginUserName } from '../actions/actionCreators';
 import { checkUserNameExistence } from '../utli/httpHelpers';
+import { emitNewUser } from '../utli/socketHelpers';
 
 class Landing extends Component {
   state = {
@@ -15,6 +16,7 @@ class Landing extends Component {
   };
 
   goToLobby = () => {
+    emitNewUser(this.state.userNameInput);
     this.props.history.push('/lobby');
   };
 

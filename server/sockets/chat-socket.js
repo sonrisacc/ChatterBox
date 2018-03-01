@@ -8,6 +8,20 @@ module.exports = io => {
       console.log(data);
     });
 
-    socket.on('disconnect', () => console.log('Client disconnected'));
+    socket.on('userLogIn', data => {
+      console.log('userLogIn', data);
+      socket.broadcast.emit('newUserOnline', data);
+    });
+
+    socket.on('userLogOff', data => {
+      console.log('one user userLogOff', data);
+      socket.broadcast.emit('newUserOffline', data);
+      // socket.disconnect();
+    });
+
+    socket.on('disconnect', () => {
+      console.log('me disconnected', socket.id);
+      socket.broadcast.emit('newUserOffline', socket.id);
+    });
   });
 };
