@@ -39,7 +39,7 @@ class Landing extends Component {
   render() {
     return (
       <div className="landing">
-        <h1 className="welcome">Hello</h1>
+        <h1 className="welcome">Hello {this.state.userNameInput}</h1>
         <div className="landing-wrapper">
           <input
             className="login-input"

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import Dropdown from './Dropdown';
 import { emitNewMsg, emitTypingEvent } from '../utli/socketHelpers';
 
@@ -9,7 +8,8 @@ class Inputbox extends Component {
   state = {
     msgBody: '',
     textAreaHeight: DEFAULT_HEIGHT,
-    listIsHidden: true
+    listIsHidden: true,
+    showFormValidation: false
   };
 
   setTextAreaRef = node => {
@@ -58,20 +58,30 @@ class Inputbox extends Component {
 
   handleKeyPress = e => {
     if (e.charCode === 13 && e.shiftKey) {
-      console.log('do validate');
-      // console.log(
-      //   'emitNewMsg',
-      //   this.props.loginUsername,
-      //   this.textAreaNode.value
-      // );
-      emitNewMsg(this.props.loginUsername, this.textAreaNode.value);
-      this.textAreaNode.value = '';
+      if (!this.textAreaNode.value.replace(/\s/g, '').length) {
+        // string only contained whitespace (ie. spaces, tabs or line breaks)
+        console.log('invalid input');
+        this.toggleRenderFormValidation();
+        this.textAreaNode.value = '';
+        setTimeout(this.toggleRenderFormValidation, 1000);
+      } else {
+        emitNewMsg(this.props.loginUsername, this.textAreaNode.value);
+        this.textAreaNode.value = '';
+      }
     }
+  };
+
+  toggleRenderFormValidation = () => {
+    this.setState({ showFormValidation: !this.state.showFormValidation });
   };
 
   toggleHiddenList = () => {
     this.setState({ listIsHidden: !this.state.listIsHidden });
   };
+
+  renderInvalidInputExists = () => (
+    <div className="form-validation"> InvalidInput </div>
+  );
 
   render() {
     return (
@@ -86,6 +96,7 @@ class Inputbox extends Component {
           {this.getExpandableField()}
         </div>
         {!this.state.listIsHidden && <Dropdown />}
+        {!!this.state.showFormValidation && this.renderInvalidInputExists()}
       </div>
     );
   }

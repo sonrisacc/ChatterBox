@@ -7,13 +7,14 @@ import {
   receiveOnlineUserNumber
 } from '../utli/socketHelpers';
 
+const ONLINE_USER_NUM = 1;
 class GeneralInfo extends Component {
   state = {
     newUserExist: false,
     offLineUserExist: false,
     newUser: '',
     offLineUser: '',
-    userNumber: 1
+    userNumber: ONLINE_USER_NUM
   };
 
   componentDidMount() {
@@ -32,6 +33,7 @@ class GeneralInfo extends Component {
   handleOnlineUserNumber = data => {
     this.setState({ userNumber: data });
   };
+
   handleNewUserAcativity = data => {
     this.setState({
       newUser: data.username,
@@ -56,7 +58,7 @@ class GeneralInfo extends Component {
   render() {
     return (
       <div className="socket-info">
-        <div>{this.state.userNumber} participants</div>
+        <div>{this.state.userNumber || ONLINE_USER_NUM} participants</div>
         {!!this.state.newUserExist && this.handleNewUserOnline()}
         {!!this.state.offLineUserExist && this.handleNewUserOffline()}
       </div>
