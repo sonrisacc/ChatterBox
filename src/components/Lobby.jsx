@@ -7,11 +7,11 @@ import Header from './Header';
 import Inputbox from './Inputbox';
 import Footer from './Footer';
 import GeneralInfo from './GeneralInfo';
-import { emitUserLeft } from '../utli/socketHelpers';
+import { emitUserLeft, receiveNewMessage } from '../utli/socketHelpers';
 
 class Lobby extends Component {
   componentDidMount() {
-    this.props.handleGetApiDetails();
+    receiveNewMessage(this.props.handleGetApiDetails);
   }
 
   goToHistory = () => {
@@ -41,10 +41,12 @@ class Lobby extends Component {
     );
   }
 }
+
 const mapStateToProps = state => ({
   apiData: state.apiData,
   loginUsername: state.loginUsername
 });
+
 const mapDispatchToProps = dispatch => ({
   handleGetApiDetails() {
     dispatch(getApiDetails());

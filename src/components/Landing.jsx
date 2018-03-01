@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setLoginUserName } from '../actions/actionCreators';
+import { setLoginUserName, getApiDetails } from '../actions/actionCreators';
 import { checkUserNameExistence } from '../utli/httpHelpers';
 import { emitNewUser } from '../utli/socketHelpers';
 
@@ -28,6 +28,7 @@ class Landing extends Component {
     checkUserNameExistence(this.state.userNameInput).then(data => {
       if (data !== null) {
         this.props.handleLoginUserNameChange(data.username);
+        this.props.handleGetApiDetails();
         this.goToLobby();
       } else if (data === null) {
         this.goToSignUp();
@@ -57,6 +58,9 @@ const mapStateToProps = state => ({ loginUsername: state.loginUsername });
 const mapDispatchToProps = dispatch => ({
   handleLoginUserNameChange(username) {
     dispatch(setLoginUserName(username));
+  },
+  handleGetApiDetails() {
+    dispatch(getApiDetails());
   }
 });
 

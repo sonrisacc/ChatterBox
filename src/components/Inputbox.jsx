@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 
 import Dropdown from './Dropdown';
+import { emitNewMsg, emitTypingEvent } from '../utli/socketHelpers';
 
 const DEFAULT_HEIGHT = 20;
 class Inputbox extends Component {
@@ -39,7 +40,7 @@ class Inputbox extends Component {
       placeholder="Type......."
       onKeyPress={this.handleKeyPress}
       onChange={this.setValue}
-      onKeyUp={this.setFilledTextareaHeight}
+      onKeyUp={this.handleTextAreaChange}
     />
   );
 
@@ -49,10 +50,21 @@ class Inputbox extends Component {
     </div>
   );
 
+  handleTextAreaChange = () => {
+    this.setFilledTextareaHeight();
+    // need debounce
+    emitTypingEvent(this.props.loginUsername);
+  };
+
   handleKeyPress = e => {
     if (e.charCode === 13 && e.altKey) {
       console.log('do validate');
-      console.log('hey', this.textAreaNode.value);
+      console.log(
+        'emitNewMsg',
+        this.props.loginUsername,
+        this.textAreaNode.value
+      );
+      emitNewMsg(this.props.loginUsername, this.textAreaNode.value);
       this.textAreaNode.value = '';
     }
   };
@@ -79,9 +91,9 @@ class Inputbox extends Component {
   }
 }
 
-export default Inputbox;
-// const mapStateToProps = state => ({
-//   loginUsername: state.loginUsername
-// });
+// export default Inputbox;
+const mapStateToProps = state => ({
+  loginUsername: state.loginUsername
+});
 
-// export default connect(mapStateToProps)(Inputbox);
+export default connect(mapStateToProps)(Inputbox);
