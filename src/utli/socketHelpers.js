@@ -43,3 +43,7 @@ export function receiveNewMessage(cb) {
     cb(data);
   });
 }
+
+export function receiveOnlineUserNumber(cb) {
+  socket.on('updateOnineUserNumber', data => cb(data));
+}

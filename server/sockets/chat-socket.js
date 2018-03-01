@@ -14,11 +14,13 @@ module.exports = io => {
 
     socket.on('userLogIn', data => {
       socket.broadcast.emit('newUserOnline', data);
+      io.emit('updateOnineUserNumber', onLineUser.length);
     });
 
     socket.on('userLogOff', data => {
       console.log('one user userLogOff', data);
       socket.broadcast.emit('newUserOffline', data);
+      io.emit('updateOnineUserNumber', onLineUser.length);
     });
 
     socket.on('newMsg', data => {

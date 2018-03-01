@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { receiveNewUser, receiveOffLineUser } from '../utli/socketHelpers';
+import {
+  receiveNewUser,
+  receiveOffLineUser,
+  receiveOnlineUserNumber
+} from '../utli/socketHelpers';
 
 class GeneralInfo extends Component {
   state = {
@@ -15,6 +19,7 @@ class GeneralInfo extends Component {
   componentDidMount() {
     receiveNewUser(this.handleNewUserAcativity);
     receiveOffLineUser(this.handleOffLineUserAcativity);
+    receiveOnlineUserNumber(this.handleOnlineUserNumber);
   }
 
   resetUserOnlineDiv = () => {
@@ -24,11 +29,13 @@ class GeneralInfo extends Component {
     this.setState({ offLineUserExist: false });
   };
 
+  handleOnlineUserNumber = data => {
+    this.setState({ userNumber: data });
+  };
   handleNewUserAcativity = data => {
     this.setState({
       newUser: data.username,
-      newUserExist: true,
-      userNumber: this.state.userNumber + 1
+      newUserExist: true
     });
     setTimeout(this.resetUserOnlineDiv, 1000);
   };
@@ -36,8 +43,7 @@ class GeneralInfo extends Component {
   handleOffLineUserAcativity = data => {
     this.setState({
       offLineUser: data.username,
-      offLineUserExist: true,
-      userNumber: this.state.userNumber - 1
+      offLineUserExist: true
     });
     setTimeout(this.resetUserOfflineDiv, 1000);
   };
