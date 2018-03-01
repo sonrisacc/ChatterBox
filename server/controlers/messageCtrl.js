@@ -29,6 +29,7 @@ exports.addNewMessages = data =>
         console.log(err);
         reject();
       }
+      console.log('new message saved from msgCtrl');
       resolve(doc);
     });
   });

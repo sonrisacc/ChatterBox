@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = props => (
   <div className="Footer">
-    <button className="logout-btn" onClick={props.logout}>
+    <button className="btn logout-btn" onClick={props.logout}>
       Log out
     </button>
   </div>

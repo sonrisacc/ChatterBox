@@ -30,8 +30,14 @@ exports.addNewUser = userName =>
     }).then(data => {
       if (data === null) {
         const newUser = new User({ username: userName });
-        newUser.save();
-        resolve(userName);
+        newUser.save((err, doc) => {
+          if (err) {
+            console.log(err);
+            reject();
+          }
+          console.log('new message saved from userCtrl');
+          resolve(doc);
+        });
       } else if (data !== null) {
         resolve(null);
       }

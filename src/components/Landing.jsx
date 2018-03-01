@@ -39,14 +39,22 @@ class Landing extends Component {
   render() {
     return (
       <div className="landing">
-        <h1>Hello</h1>
-        <input
-          type="text"
-          placeholder="Input username here"
-          onChange={this.handleChange}
-        />
-        <button onClick={this.handleCheckingUserName}>LogIn</button>
-        <button>
+        <h1 className="welcome">Hello</h1>
+        <div className="landing-wrapper">
+          <input
+            className="login-input"
+            type="text"
+            placeholder="Input username here"
+            onChange={this.handleChange}
+          />
+          <button
+            className="btn btn-submmit"
+            onClick={this.handleCheckingUserName}
+          >
+            LogIn
+          </button>
+        </div>
+        <button className="btn ">
           <Link to="/signUp"> SignUp </Link>
         </button>
       </div>
