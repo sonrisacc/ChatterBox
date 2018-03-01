@@ -5,6 +5,7 @@ import socket from '../socketConnection';
 import MessageCard from './MessageCard';
 import Header from './Header';
 import Inputbox from './Inputbox';
+import Footer from './Footer';
 
 class Lobby extends Component {
   componentDidMount() {
@@ -15,6 +16,10 @@ class Lobby extends Component {
     this.props.history.push('/history');
   };
 
+  handleLogOut = () => {
+    console.log('clicked');
+    this.props.history.push('/');
+  };
   render() {
     // socket.on('time', timeString => {
     //   console.log(`Server time: ${timeString}`);
@@ -39,6 +44,7 @@ class Lobby extends Component {
           </div>
           <Inputbox />
         </div>
+        <Footer logout={this.handleLogOut} />
       </div>
     );
   }
