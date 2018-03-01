@@ -32,8 +32,9 @@ body {
   border-radius: 10px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   padding: 10px;
-  min-width: 100vh;
-  max-height: 80vh;
+  min-width: 40vh;
+  max-width: 60vh;
+  max-height: 60vh;
 }
 
 .socket-info {
@@ -51,7 +52,8 @@ body {
   margin-top: 10px;
   max-height: inherit;
   min-height: 250px;
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .msnCard {
