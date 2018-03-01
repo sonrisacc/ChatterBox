@@ -7,12 +7,22 @@ import Header from './Header';
 import Inputbox from './Inputbox';
 import Footer from './Footer';
 import GeneralInfo from './GeneralInfo';
-import { emitUserLeft, receiveNewMessage } from '../utli/socketHelpers';
+import Loading from './Loading';
+import {
+  emitUserLeft,
+  receiveNewMessage,
+  receiveOneUserTyping
+} from '../utli/socketHelpers';
 
 class Lobby extends Component {
+  state = {
+    isTyping: false,
+    oneUser: 'One user'
+  };
   componentDidMount() {
     this.scrollToBottom();
     receiveNewMessage(this.props.handleGetApiDetails);
+    receiveOneUserTyping(this.handleToggleIsTypingComponent);
   }
 
   componentDidUpdate() {
@@ -22,6 +32,19 @@ class Lobby extends Component {
   setGhostDiv = node => {
     this.ghostDiv = node;
   };
+
+  getUserIsTying = () => (
+    <div className="msnCard">
+      {this.state.oneUser} is typing:
+      <Loading />
+    </div>
+  );
+
+  scrollToBottom = () => {
+    console.log('scrollToBottom running', this.ghostDiv);
+    this.ghostDiv.scrollIntoView({ behavior: 'smooth' });
+  };
+
   goToHistory = () => {
     this.props.history.push('/history');
   };
@@ -31,9 +54,9 @@ class Lobby extends Component {
     this.props.history.push('/');
   };
 
-  scrollToBottom = () => {
-    console.log('scrollToBottom running', this.ghostDiv);
-    this.ghostDiv.scrollIntoView({ behavior: 'smooth' });
+  handleToggleIsTypingComponent = data => {
+    console.log('handleToggleIsTypingComponent', data);
+    this.setState({ oneUser: data, isTyping: true });
   };
 
   render() {
@@ -46,9 +69,8 @@ class Lobby extends Component {
             {this.props.apiData.map(curMsn => (
               <MessageCard key={curMsn._id} {...curMsn} />
             ))}
-            <div id="ghost-div" className="msnCard" ref={this.setGhostDiv}>
-              mememem
-            </div>
+            {this.state.isTyping && this.getUserIsTying()}
+            <div id="ghost-div" className="msnCard" ref={this.setGhostDiv} />
           </div>
           <Inputbox />
         </div>

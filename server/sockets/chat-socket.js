@@ -32,9 +32,9 @@ module.exports = io => {
       });
     });
 
-    socket.on('userTyping', data => {
+    socket.on('test', data => {
       console.log('I am typing', data);
-      // socket.broadcast.emit('oneUserTyping', data);
+      socket.broadcast.emit('oneUserTyping', data);
     });
 
     socket.on('disconnect', () => {

@@ -21,8 +21,8 @@ export function emitUserLeft(name) {
 }
 
 export function emitTypingEvent(name) {
-  console.log('need debounce', name);
-  // socket.emit('userTyping', name);
+  console.log('need debounce test asdasd', name);
+  socket.emit('test', name);
 }
 
 export function receiveNewUser(cb) {
