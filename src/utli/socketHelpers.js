@@ -3,11 +3,13 @@ import socket from '../socketConnection';
 
 const lifeObj = {
   A: 0,
-  B: 30,
-  C: 60,
-  D: 120,
-  E: 300,
-  F: 3600
+  B: 3,
+  C: 5,
+  D: 30,
+  E: 60,
+  F: 120,
+  G: 300,
+  H: 3600
 };
 // socket.on('time', timeString => {
 //   console.log(`Server time: ${timeString}`);

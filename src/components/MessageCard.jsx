@@ -13,7 +13,6 @@ class MessageCard extends Component {
   componentDidMount() {
     if (this.props.selfDestruct) this.handleCountDown();
   }
-
   handleMouseEnter = () => {
     this.setState({ isHovering: true });
   };
@@ -34,13 +33,22 @@ class MessageCard extends Component {
 
   handleCountDown = () => {
     const interval = 1000;
-    const evetTime = moment(this.props.destructAt, 'YYYY-MM-DD hh:mm:ss');
+    const eventTime = moment(this.props.destructAt, 'YYYY-MM-DD hh:mm:ss');
     const now = moment();
-    let duration = evetTime.diff(now);
+    console.log(eventTime, now);
+    let duration = eventTime.diff(now);
+    const init = moment.duration(duration, 'milliseconds');
+    this.setState({
+      hours: init.hours(),
+      minutes: init.minutes(),
+      seconds: init.seconds()
+    });
     const id = setInterval(() => {
-      console.log('running');
       duration = moment.duration(duration - interval, 'milliseconds');
-      if (duration.milliseconds() <= 0) clearTimeout(id);
+      if (duration.milliseconds() <= 0) {
+        clearTimeout(id);
+        this.handleDelete();
+      }
       this.setState({
         hours: duration.hours(),
         minutes: duration.minutes(),
