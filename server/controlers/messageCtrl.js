@@ -10,7 +10,7 @@ exports.loadMessages = () =>
       }
     })
       .sort({ createdAt: -1 })
-      .limit(20)
+      .limit(1)
       .then(data => {
         data.reverse();
         resolve(data);

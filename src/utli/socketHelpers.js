@@ -23,16 +23,18 @@ export function emitNewUser(name) {
 export function emitNewMsg(username, msg, destructAt) {
   const lifespan = lifeObj[destructAt];
   const cur = moment();
+  console.log('cur time', cur);
   let deadline;
   if (lifespan === 0) {
     deadline = lifespan;
   } else {
     deadline = cur
       .clone()
-      .add(lifespan, 'seconds')
+      .add(lifespan, 'second')
       .format();
   }
-
+  console.log(deadline);
+  deadline = JSON.stringify(deadline);
   socket.emit('newMsg', { username, msg, deadline });
 }
 

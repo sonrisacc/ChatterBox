@@ -16,7 +16,7 @@ const messageSchema = new mongoose.Schema(
       required: true,
       default: false
     },
-    destructAt: Date
+    destructAt: String
   },
   { timestamps: true }
 );

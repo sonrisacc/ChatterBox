@@ -4,8 +4,15 @@ import { emitDeleteMessage } from '../utli/socketHelpers';
 
 class MessageCard extends Component {
   state = {
-    isHovering: false
+    isHovering: false,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
   };
+
+  componentDidMount() {
+    if (this.props.selfDestruct) this.handleCountDown();
+  }
 
   handleMouseEnter = () => {
     this.setState({ isHovering: true });
@@ -25,12 +32,33 @@ class MessageCard extends Component {
     return disPlayTime;
   };
 
+  handleCountDown = () => {
+    const interval = 1000;
+    const evetTime = moment(this.props.destructAt, 'YYYY-MM-DD hh:mm:ss');
+    const now = moment();
+    let duration = evetTime.diff(now);
+    const id = setInterval(() => {
+      console.log('running');
+      duration = moment.duration(duration - interval, 'milliseconds');
+      if (duration.milliseconds() <= 0) clearTimeout(id);
+      this.setState({
+        hours: duration.hours(),
+        minutes: duration.minutes(),
+        seconds: duration.seconds()
+      });
+    }, interval);
+  };
+
   renderDeletCard = () => (
     <button id="msnCard-delete" onClick={this.handleDelete}>
       delete
     </button>
   );
-  renderDestructCard = () => <div>{this.props.destructAt}</div>;
+  renderDestructCard = () => (
+    <div>{`${this.state.hours}:${this.state.minutes}:${
+      this.state.seconds
+    }`}</div>
+  );
 
   render() {
     return (
