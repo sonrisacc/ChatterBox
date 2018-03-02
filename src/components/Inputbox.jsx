@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Dropdown from './Dropdown';
-import { emitNewMsg, emitTypingEvent } from '../utli/socketHelpers';
+import {
+  emitNewMsg,
+  emitTypingEvent,
+  emitTypingEventStoped
+} from '../utli/socketHelpers';
 
 const DEFAULT_HEIGHT = 20;
 const DEFAULT_SELECT_VALUE = 'A';
+let id;
 class Inputbox extends Component {
   state = {
     msgBody: '',
@@ -35,7 +40,9 @@ class Inputbox extends Component {
   handleTextAreaChange = () => {
     this.setFilledTextareaHeight();
     // need debounce
+    clearTimeout(id);
     emitTypingEvent(this.props.loginUsername);
+    id = setTimeout(() => emitTypingEventStoped(this.props.loginUsername), 500);
   };
 
   handleLifeSpanSlection = e => {

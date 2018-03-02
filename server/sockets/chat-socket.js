@@ -41,9 +41,13 @@ module.exports = io => {
       });
     });
 
-    socket.on('test', data => {
+    socket.on('user is typing', data => {
       console.log('I am typing', data);
       socket.broadcast.emit('oneUserTyping', data);
+    });
+    socket.on('user stopped typing', data => {
+      console.log('I stopped typing', data);
+      socket.broadcast.emit('oneUserStoppedTyping', data);
     });
 
     socket.on('disconnect', () => {

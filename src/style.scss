@@ -122,12 +122,15 @@ textarea:focus {
 .msnCard {
   display: flex;
   flex-direction: column;
-
   // padding: 2px;
   padding-left: 5px;
   // margin: 5px;
   // border-radius: 5px;
   // border: 1px solid lightgrey;
+}
+#typing {
+  font-size: 9px;
+  color: lightgrey;
 }
 
 .msnCard-header {
@@ -137,6 +140,7 @@ textarea:focus {
   align-items: baseline;
   // font-size: 10px;
 }
+
 #msnCard-body {
   margin: 2px;
 }

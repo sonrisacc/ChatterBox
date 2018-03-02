@@ -11,7 +11,8 @@ import Loading from './Loading';
 import {
   emitUserLeft,
   receiveNewMessage,
-  receiveOneUserTyping
+  receiveOneUserTyping,
+  oneUserStoppedTyping
 } from '../utli/socketHelpers';
 
 class Lobby extends Component {
@@ -23,6 +24,7 @@ class Lobby extends Component {
     this.scrollToBottom();
     receiveNewMessage(this.props.handleGetApiDetails);
     receiveOneUserTyping(this.handleToggleIsTypingComponent);
+    oneUserStoppedTyping(this.handleToggleStoppedTypingComponent);
   }
 
   componentDidUpdate() {
@@ -32,13 +34,6 @@ class Lobby extends Component {
   setGhostDiv = node => {
     this.ghostDiv = node;
   };
-
-  getUserIsTying = () => (
-    <div className="msnCard">
-      {this.state.oneUser} is typing:
-      <Loading />
-    </div>
-  );
 
   scrollToBottom = () => {
     console.log('scrollToBottom running', this.ghostDiv);
@@ -59,6 +54,17 @@ class Lobby extends Component {
     console.log('handleToggleIsTypingComponent', data);
     this.setState({ oneUser: data, isTyping: true });
   };
+  handleToggleStoppedTypingComponent = data => {
+    console.log('handleToggleStoppedTypingComponent', data);
+    this.setState({ oneUser: data, isTyping: false });
+  };
+
+  renderUserIsTying = () => (
+    <div className="msnCard" id="typing">
+      {this.state.oneUser} is typing:
+      <Loading />
+    </div>
+  );
 
   render() {
     return (
@@ -70,7 +76,7 @@ class Lobby extends Component {
             {this.props.apiData.map(curMsn => (
               <MessageCard key={curMsn._id} {...curMsn} />
             ))}
-            {this.state.isTyping && this.getUserIsTying()}
+            {this.state.isTyping && this.renderUserIsTying()}
             <div id="ghost-div" className="msnCard" ref={this.setGhostDiv} />
           </div>
           <Inputbox />

@@ -46,8 +46,12 @@ export function emitUserLeft(name) {
 }
 
 export function emitTypingEvent(name) {
-  console.log('need debounce test asdasd', name);
-  socket.emit('test', name);
+  console.log('user is typing', name);
+  socket.emit('user is typing', name);
+}
+
+export function emitTypingEventStoped(name) {
+  socket.emit('user stopped typing', name);
 }
 
 export function emitDeleteMessage(id) {
@@ -64,6 +68,10 @@ export function receiveOffLineUser(cb) {
 
 export function receiveOneUserTyping(cb) {
   socket.on('oneUserTyping', data => cb(data));
+}
+
+export function oneUserStoppedTyping(cb) {
+  socket.on('oneUserStoppedTyping', data => cb(data));
 }
 
 export function receiveNewMessage(cb) {

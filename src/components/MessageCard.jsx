@@ -35,7 +35,6 @@ class MessageCard extends Component {
     const interval = 1000;
     const eventTime = moment(this.props.destructAt, 'YYYY-MM-DD hh:mm:ss');
     const now = moment();
-    console.log(eventTime, now);
     let duration = eventTime.diff(now);
     const init = moment.duration(duration, 'milliseconds');
     this.setState({
