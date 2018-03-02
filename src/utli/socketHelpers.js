@@ -34,6 +34,10 @@ export function emitTypingEvent(name) {
   socket.emit('test', name);
 }
 
+export function emitDeleteMessage(id) {
+  socket.emit('oneDeletedMsg', id);
+}
+
 export function receiveNewUser(cb) {
   socket.on('newUserOnline', data => cb(data));
 }

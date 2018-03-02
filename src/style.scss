@@ -120,19 +120,33 @@ textarea:focus {
 }
 
 .msnCard {
-  padding: 2px;
+  display: flex;
+  flex-direction: column;
+
+  // padding: 2px;
   padding-left: 5px;
-  margin: 5px;
-  border-radius: 5px;
+  // margin: 5px;
+  // border-radius: 5px;
   // border: 1px solid lightgrey;
 }
 
 .msnCard-header {
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
+  align-items: baseline;
+  // font-size: 10px;
+}
+#msnCard-body {
+  margin: 2px;
+}
+#msnCard-author {
+  font-weight: bold;
+}
+#msnCard-time {
+  margin-left: 5px;
   font-size: 10px;
 }
-
 .editing-box {
   display: flex;
   flex-direction: column-reverse;
@@ -187,11 +201,11 @@ textarea:focus {
 h1 {
   color: lightblue;
 }
-
-h5,
-p {
-  display: inline;
-}
+//
+// h5,
+// p {
+//   display: inline;
+// }
 
 ul {
   margin: 0px;
@@ -209,4 +223,18 @@ ul {
 .dropdown-content select {
   background: transparent;
   // border: 1px solid #ccc;
+}
+
+#msnCard-delete {
+  font-family: helvetica;
+  font-size: 10px;
+
+  margin-left: 5px;
+  color: lightgrey;
+  border: none;
+  // visibility: hidden;
+}
+#msnCard-delete:hover {
+  color: lightblue;
+  cursor: pointer;
 }

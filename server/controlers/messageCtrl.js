@@ -48,3 +48,15 @@ exports.addNewMessages = data =>
       resolve(doc);
     });
   });
+
+exports.deleteMessages = data =>
+  new Promise((resolve, reject) => {
+    Message.findByIdAndRemove(data, (err, doc) => {
+      if (err) {
+        console.log(err);
+        reject();
+      }
+      console.log(' message deleted from msgCtrl');
+      resolve(doc);
+    });
+  });

@@ -32,6 +32,15 @@ module.exports = io => {
       });
     });
 
+    socket.on('oneDeletedMsg', data => {
+      console.log('one Msg was deleted', data);
+
+      utli.deleteMessages(data).then(res => {
+        console.log('one Msg deleted from db', res);
+        io.emit('oneNewMessage', data);
+      });
+    });
+
     socket.on('test', data => {
       console.log('I am typing', data);
       socket.broadcast.emit('oneUserTyping', data);
