@@ -4,13 +4,14 @@ import Dropdown from './Dropdown';
 import { emitNewMsg, emitTypingEvent } from '../utli/socketHelpers';
 
 const DEFAULT_HEIGHT = 20;
+const DEFAULT_SELECT_VALUE = 'A';
 class Inputbox extends Component {
   state = {
     msgBody: '',
     textAreaHeight: DEFAULT_HEIGHT,
     listIsHidden: true,
     showFormValidation: false,
-    selectValue: 'A'
+    selectValue: DEFAULT_SELECT_VALUE
   };
 
   setTextAreaRef = node => {
@@ -48,6 +49,7 @@ class Inputbox extends Component {
       console.log('invalid input');
       this.toggleRenderFormValidation();
       this.textAreaNode.value = '';
+      this.state.selectValue = DEFAULT_SELECT_VALUE;
       setTimeout(this.toggleRenderFormValidation, 1000);
     } else {
       emitNewMsg(
@@ -56,7 +58,7 @@ class Inputbox extends Component {
         this.state.selectValue
       );
       this.textAreaNode.value = '';
-      this.state.selectValue = 'A';
+      this.setState({ selectValue: DEFAULT_SELECT_VALUE });
     }
   };
 
