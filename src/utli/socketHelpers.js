@@ -1,5 +1,13 @@
 import socket from '../socketConnection';
 
+const lifeObj = {
+  A: 0,
+  B: 30,
+  C: 60,
+  D: 120,
+  E: 300,
+  F: 3600
+};
 // socket.on('time', timeString => {
 //   console.log(`Server time: ${timeString}`);
 // });
@@ -11,8 +19,9 @@ export function emitNewUser(name) {
   socket.emit('userLogIn', { username: name });
 }
 
-export function emitNewMsg(username, msg) {
-  socket.emit('newMsg', { username, msg });
+export function emitNewMsg(username, msg, destructAt) {
+  const lifespan = lifeObj[destructAt];
+  socket.emit('newMsg', { username, msg, lifespan });
 }
 
 export function emitUserLeft(name) {

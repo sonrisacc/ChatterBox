@@ -1,12 +1,15 @@
 import React from 'react';
 
-const Dropdown = () => (
+const Dropdown = props => (
   <div className="dropdown-content">
-    <ul>30s</ul>
-    <ul>1 min</ul>
-    <ul>2 min</ul>
-    <ul>5 min</ul>
-    <ul>1 hr</ul>
+    <select value={props.optionsState} onChange={props.change}>
+      <option value="A">+</option>
+      <option value="B">30s</option>
+      <option value="C">1 min</option>
+      <option value="D">2 min</option>
+      <option value="E">5 min</option>
+      <option value="F">1 hr</option>
+    </select>
   </div>
 );
 

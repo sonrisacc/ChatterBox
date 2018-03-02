@@ -23,7 +23,22 @@ exports.loadMessages = () =>
 
 exports.addNewMessages = data =>
   new Promise((resolve, reject) => {
-    const newMsg = new Message({ author: data.username, message: data.msg });
+    let newMsg;
+    if (data.lifespan !== 0) {
+      newMsg = new Message({
+        author: data.username,
+        message: data.msg,
+        destructAt: data.lifespan,
+        selfDestruct: true
+      });
+    } else {
+      newMsg = new Message({
+        author: data.username,
+        message: data.msg,
+        destructAt: -1,
+        selfDestruct: false
+      });
+    }
     newMsg.save((err, doc) => {
       if (err) {
         console.log(err);

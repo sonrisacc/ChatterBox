@@ -9,7 +9,8 @@ class Inputbox extends Component {
     msgBody: '',
     textAreaHeight: DEFAULT_HEIGHT,
     listIsHidden: true,
-    showFormValidation: false
+    showFormValidation: false,
+    selectValue: 'A'
   };
 
   setTextAreaRef = node => {
@@ -30,44 +31,38 @@ class Inputbox extends Component {
     this.setState({ textAreaHeight: ghostHeight });
   };
 
-  getExpandableField = () => (
-    <textarea
-      className="input-area"
-      rows="4"
-      cols="50"
-      style={{ height: this.state.textAreaHeight }}
-      ref={this.setTextAreaRef}
-      placeholder="Type......."
-      onKeyPress={this.handleKeyPress}
-      onChange={this.setValue}
-      onKeyUp={this.handleTextAreaChange}
-    />
-  );
-
-  getGhostField = () => (
-    <div className="input-area ghost" ref={this.setGhostRef} aria-hidden="true">
-      {this.state.msgBody}
-    </div>
-  );
-
   handleTextAreaChange = () => {
     this.setFilledTextareaHeight();
     // need debounce
     emitTypingEvent(this.props.loginUsername);
   };
 
+  handleLifeSpanSlection = e => {
+    console.log('lifespan', e.target.value);
+    this.setState({ selectValue: e.target.value });
+  };
+
+  handleSubmit = () => {
+    if (!this.textAreaNode.value.replace(/\s/g, '').length) {
+      // string only contained whitespace (ie. spaces, tabs or line breaks)
+      console.log('invalid input');
+      this.toggleRenderFormValidation();
+      this.textAreaNode.value = '';
+      setTimeout(this.toggleRenderFormValidation, 1000);
+    } else {
+      emitNewMsg(
+        this.props.loginUsername,
+        this.textAreaNode.value,
+        this.state.selectValue
+      );
+      this.textAreaNode.value = '';
+      this.state.selectValue = 'A';
+    }
+  };
+
   handleKeyPress = e => {
     if (e.charCode === 13 && e.shiftKey) {
-      if (!this.textAreaNode.value.replace(/\s/g, '').length) {
-        // string only contained whitespace (ie. spaces, tabs or line breaks)
-        console.log('invalid input');
-        this.toggleRenderFormValidation();
-        this.textAreaNode.value = '';
-        setTimeout(this.toggleRenderFormValidation, 1000);
-      } else {
-        emitNewMsg(this.props.loginUsername, this.textAreaNode.value);
-        this.textAreaNode.value = '';
-      }
+      this.handleSubmit();
     }
   };
 
@@ -83,20 +78,47 @@ class Inputbox extends Component {
     <div className="form-validation"> InvalidInput </div>
   );
 
+  renderGhostField = () => (
+    <div className="input-area ghost" ref={this.setGhostRef} aria-hidden="true">
+      {this.state.msgBody}
+    </div>
+  );
+
+  renderExpandableField = () => (
+    // <div className="textarea-box">
+    <textarea
+      className="input-area"
+      rows="4"
+      cols="50"
+      style={{ height: this.state.textAreaHeight }}
+      ref={this.setTextAreaRef}
+      placeholder="Shift + Enter to send Messages"
+      onKeyPress={this.handleKeyPress}
+      onChange={this.setValue}
+      onKeyUp={this.handleTextAreaChange}
+    />
+    // </div>
+  );
+
   render() {
     return (
-      <div className="editing-box">
-        {this.getGhostField()}
-        <div className="input-box">
-          <div className="dropdown">
-            <button className="dropbtn" onClick={this.toggleHiddenList}>
-              +
+      <div>
+        {this.renderGhostField()}
+        <div className="editing-box">
+          {!!this.state.showFormValidation && this.renderInvalidInputExists()}
+          <div className="input-box">
+            <div className="dropdown">
+              <Dropdown
+                optionsState={this.state.selectValue}
+                change={this.handleLifeSpanSlection}
+              />
+            </div>
+            {this.renderExpandableField()}
+            <button className="inputBtn" onClick={this.handleSubmit}>
+              Send
             </button>
           </div>
-          {this.getExpandableField()}
         </div>
-        {!this.state.listIsHidden && <Dropdown />}
-        {!!this.state.showFormValidation && this.renderInvalidInputExists()}
       </div>
     );
   }
