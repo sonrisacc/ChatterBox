@@ -30,7 +30,7 @@ class MessageCard extends Component {
       delete
     </button>
   );
-  renderDestructCard = () => <div>test</div>;
+  renderDestructCard = () => <div>{this.props.destructAt}</div>;
 
   render() {
     return (

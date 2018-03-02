@@ -24,11 +24,12 @@ exports.loadMessages = () =>
 exports.addNewMessages = data =>
   new Promise((resolve, reject) => {
     let newMsg;
-    if (data.lifespan !== 0) {
+
+    if (data.deadline !== 0) {
       newMsg = new Message({
         author: data.username,
         message: data.msg,
-        destructAt: data.lifespan,
+        destructAt: data.deadline,
         selfDestruct: true
       });
     } else {

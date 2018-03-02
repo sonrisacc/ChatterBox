@@ -1,3 +1,4 @@
+import moment from 'moment';
 import socket from '../socketConnection';
 
 const lifeObj = {
@@ -21,7 +22,18 @@ export function emitNewUser(name) {
 
 export function emitNewMsg(username, msg, destructAt) {
   const lifespan = lifeObj[destructAt];
-  socket.emit('newMsg', { username, msg, lifespan });
+  const cur = moment();
+  let deadline;
+  if (lifespan === 0) {
+    deadline = lifespan;
+  } else {
+    deadline = cur
+      .clone()
+      .add(lifespan, 'seconds')
+      .format();
+  }
+
+  socket.emit('newMsg', { username, msg, deadline });
 }
 
 export function emitUserLeft(name) {
