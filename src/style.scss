@@ -127,6 +127,12 @@ textarea:focus {
   // border: 1px solid lightgrey;
 }
 
+.msnCard-header {
+  display: flex;
+  flex-direction: row;
+  font-size: 10px;
+}
+
 .editing-box {
   display: flex;
   flex-direction: column-reverse;
