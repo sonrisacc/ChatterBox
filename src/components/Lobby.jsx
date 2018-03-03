@@ -9,6 +9,7 @@ import Footer from './Footer';
 import GeneralInfo from './GeneralInfo';
 import Loading from './Loading';
 import OnlineUser from './OnlineUser';
+import Privatechat from './Privatechat';
 
 import {
   updateOnlineUserList,
@@ -25,7 +26,8 @@ class Lobby extends Component {
     isTyping: false,
     oneUser: 'One user',
     selectValue: DEFAULT_SELECT_VALUE,
-    userList: null
+    userList: null,
+    isChating: false
     // hasNewitem: false
   };
 
@@ -100,6 +102,7 @@ class Lobby extends Component {
   };
   handleUserPrivateChat = () => {
     console.log('handleUserPrivateChat clicked');
+    this.setState({ isChating: !this.state.isChating });
   };
 
   renderUserIsTyping = () => (
@@ -108,6 +111,8 @@ class Lobby extends Component {
       <Loading />
     </div>
   );
+
+  renderPrivateChat = () => <Privatechat />;
 
   renderUserList = userList => {
     const userListArr = Object.keys(userList);
@@ -130,15 +135,18 @@ class Lobby extends Component {
       />
     ));
 
+  renderHeader = () => (
+    <Header
+      optionsState={this.state.selectValue}
+      change={this.handleRoomSlection}
+    />
+  );
   render() {
-    const { userList } = this.state;
+    const { userList, isChating } = this.state;
 
     return (
       <div className="container">
-        <Header
-          optionsState={this.state.selectValue}
-          change={this.handleRoomSlection}
-        />
+        {!isChating && this.renderHeader()}
         <div className="container-innerbox">
           <div className="online-user-wrapper">
             <div className="online-user-header">
@@ -148,6 +156,9 @@ class Lobby extends Component {
               {!!userList && this.renderUserList(userList)}
             </div>
             {/* <div className="online-user-footer">footer</div> */}
+          </div>
+          <div className="private-chat">
+            {!!isChating && this.renderPrivateChat()}
           </div>
           <div className="lobby-wrapper">
             <div className="main">
