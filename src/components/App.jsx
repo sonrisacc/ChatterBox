@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import Particles from 'react-particles-js';
 import { particles, style } from '../utli/particalHelpers';
 
 import store from '../store/store';
@@ -39,9 +38,6 @@ const App = () => (
         </div>
       </Provider>
     </Router>
-    <div className="background">
-      <Particles params={particles} style={style} />
-    </div>
   </div>
 );
 
