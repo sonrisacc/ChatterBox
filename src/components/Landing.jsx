@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
+
 import { setLoginUserName, getApiDetails } from '../actions/actionCreators';
 import { checkUserNameExistence } from '../utli/httpHelpers';
 import { emitNewUser } from '../utli/socketHelpers';
@@ -15,10 +16,10 @@ class Landing extends Component {
     this.setState({ userNameInput: event.target.value });
   };
 
-  // goToLobby = () => {
-  //   emitNewUser(this.state.userNameInput);
-  //   this.props.history.push('/lobby');
-  // };
+  goToLobby = () => {
+    emitNewUser(this.state.userNameInput);
+    this.props.history.push('/lobby');
+  };
 
   goToSignUp = () => {
     this.props.history.push('/signup');
@@ -55,25 +56,27 @@ class Landing extends Component {
     }
     return (
       <div className="landing">
-        {this.renderHistoryPath(from)}
-        <h1 className="welcome">Hello {this.state.userNameInput}</h1>
-        <div className="landing-wrapper">
-          <input
-            className="login-input"
-            type="text"
-            placeholder="Input username here"
-            onChange={this.handleChange}
-          />
-          <button
-            className="btn btn-submmit"
-            onClick={this.handleCheckingUserName}
-          >
-            LogIn
+        {/* {this.renderHistoryPath(from)} */}
+        <div className="f">
+          <h1 className="welcome">Hello {this.state.userNameInput}</h1>
+          <div className="landing-wrapper">
+            <input
+              className="login-input"
+              type="text"
+              placeholder="Input username here"
+              onChange={this.handleChange}
+            />
+            <button
+              className="btn btn-submmit"
+              onClick={this.handleCheckingUserName}
+            >
+              LogIn
+            </button>
+          </div>
+          <button className="btn ">
+            <Link to="/signUp"> SignUp </Link>
           </button>
         </div>
-        <button className="btn ">
-          <Link to="/signUp"> SignUp </Link>
-        </button>
       </div>
     );
   }

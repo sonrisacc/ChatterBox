@@ -44,23 +44,25 @@ class Signup extends Component {
   render() {
     return (
       <div className="landing signup">
-        <h1 className="welcome">Hello {this.state.userNameInput}</h1>
-        {!!this.state.showFormValidation && this.renderUserExists()}
-        <div className="landing-wrapper">
-          <input
-            className="login-input"
-            type="text"
-            placeholder="Input username here"
-            onChange={this.handleChange}
-          />
-          <button className="btn btn-submmit" onClick={this.handleSignUp}>
-            {' '}
-            SignUp
+        <div className="f">
+          <h1 className="welcome">Hello {this.state.userNameInput}</h1>
+          {!!this.state.showFormValidation && this.renderUserExists()}
+          <div className="landing-wrapper">
+            <input
+              className="login-input"
+              type="text"
+              placeholder="Input username here"
+              onChange={this.handleChange}
+            />
+            <button className="btn btn-submmit" onClick={this.handleSignUp}>
+              {' '}
+              SignUp
+            </button>
+          </div>
+          <button className="btn ">
+            <Link to="/"> Cancel </Link>
           </button>
         </div>
-        <button className="btn ">
-          <Link to="/"> Cancel </Link>
-        </button>
       </div>
     );
   }

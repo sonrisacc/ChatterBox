@@ -1,7 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import Particles from 'react-particles-js';
+import { particles, style } from '../utli/particalHelpers';
+
 import store from '../store/store';
+
 import Landing from './Landing';
 import Lobby from './Lobby';
 import Signup from './Signup';
@@ -10,10 +14,11 @@ import Chathistory from './Chathistory';
 import PrivateRoute from './PrivateRoute';
 
 const App = () => (
-  <Router>
-    <Provider store={store}>
-      <div className="for production">
-        <ul>
+  <div className="wrapper">
+    <Router>
+      <Provider store={store}>
+        <div className="for production">
+          {/* <ul>
           <li>
             <Link to="/signup">signup Page</Link>
           </li>
@@ -23,17 +28,21 @@ const App = () => (
           <li>
             <Link to="/history">history Page</Link>
           </li>
-        </ul>
-        <Switch>
-          <Route exact path="/" component={Landing} />
-          <Route path="/signup" component={Signup} />
-          <PrivateRoute path="/lobby" component={Lobby} />
-          <PrivateRoute path="/history" component={Chathistory} />
-          <Route component={PageNotFound} />
-        </Switch>
-      </div>
-    </Provider>
-  </Router>
+        </ul> */}
+          <Switch>
+            <Route exact path="/" component={Landing} />
+            <Route path="/signup" component={Signup} />
+            <PrivateRoute path="/lobby" component={Lobby} />
+            <PrivateRoute path="/history" component={Chathistory} />
+            <Route component={PageNotFound} />
+          </Switch>
+        </div>
+      </Provider>
+    </Router>
+    <div className="background">
+      <Particles params={particles} style={style} />
+    </div>
+  </div>
 );
 
 export default App;
