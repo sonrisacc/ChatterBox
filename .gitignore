@@ -8,6 +8,7 @@ yarn-error.log*
 # folder #
 node_modules/
 public/bundle.js
+public/app.js
 server/oldindex.js
 server/server.js
 

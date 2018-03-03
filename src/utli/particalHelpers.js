@@ -54,11 +54,11 @@ export const particles = {
     },
     move: {
       enable: true,
-      speed: 2,
+      speed: 0.8,
       direction: 'top',
       random: true,
       straight: true,
-      out_mode: 'grab',
+      out_mode: 'out',
       bounce: false,
       attract: {
         enable: false,
