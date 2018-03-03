@@ -12,6 +12,11 @@ const lifeObj = {
   H: 3600
 };
 
+export function switchRoom(room) {
+  console.log('switchRoom', room);
+  socket.emit('switchRoom', room);
+}
+
 export function emitNewUser(name) {
   socket.emit('userLogIn', { username: name });
 }

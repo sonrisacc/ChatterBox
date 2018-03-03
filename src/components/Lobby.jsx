@@ -12,7 +12,8 @@ import {
   emitUserLeft,
   receiveNewMessage,
   receiveOneUserTyping,
-  oneUserStoppedTyping
+  oneUserStoppedTyping,
+  switchRoom
 } from '../utli/socketHelpers';
 
 const DEFAULT_SELECT_VALUE = 'Lobby';
@@ -49,6 +50,7 @@ class Lobby extends Component {
   handleRoomSlection = e => {
     console.log('room', e.target.value);
     this.setState({ selectValue: e.target.value });
+    switchRoom(e.target.value);
   };
 
   handleLogOut = () => {
