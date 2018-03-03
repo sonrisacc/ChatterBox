@@ -7,17 +7,23 @@ class MessageCard extends Component {
     isHovering: false,
     hours: 0,
     minutes: 0,
-    seconds: 0
+    seconds: 0,
+    mayEdit: false
   };
 
   componentDidMount() {
     if (this.props.selfDestruct === true) this.handleCountDown();
   }
   handleMouseEnter = () => {
-    this.setState({ isHovering: true });
+    if (this.props.cur === this.props.author) {
+      this.setState({ mayEdit: true, isHovering: true });
+      this.setState({ isHovering: true });
+    }
   };
   handleMouseLeave = () => {
-    this.setState({ isHovering: false });
+    if (this.props.cur === this.props.author) {
+      this.setState({ mayEdit: true, isHovering: false });
+    }
   };
 
   handleDelete = () => {
@@ -80,7 +86,9 @@ class MessageCard extends Component {
           <div id="msnCard-author">{`${this.props.author}: `}</div>
           <div id="msnCard-time">{this.handleTimeFormat()}</div>
           {!!this.props.selfDestruct && this.renderDestructCard()}
-          {!!this.state.isHovering && this.renderDeletCard()}
+          {!!this.state.mayEdit &&
+            !!this.state.isHovering &&
+            this.renderDeletCard()}
         </div>
         <div id="msnCard-body">{this.props.message}</div>
       </div>

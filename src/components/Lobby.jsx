@@ -72,7 +72,11 @@ class Lobby extends Component {
           <GeneralInfo />
           <div className="main">
             {this.props.apiData.map(curMsn => (
-              <MessageCard key={curMsn._id} {...curMsn} />
+              <MessageCard
+                cur={this.props.loginUsername}
+                key={curMsn._id}
+                {...curMsn}
+              />
             ))}
             {this.state.isTyping && this.renderUserIsTying()}
             <div id="ghost-div" className="msnCard" ref={this.setGhostDiv} />
