@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 const Message = mongoose.model('Message');
 
-exports.loadMessages = () =>
+exports.loadMessages = room =>
   new Promise((resolve, reject) => {
-    Message.find({}, err => {
+    Message.find({ room }, err => {
       if (err) {
         console.error('err', err);
       }
@@ -29,6 +29,7 @@ exports.addNewMessages = data =>
       newMsg = new Message({
         author: data.username,
         message: data.msg,
+        room: data.room,
         destructAt: data.deadline,
         selfDestruct: true
       });
@@ -36,13 +37,14 @@ exports.addNewMessages = data =>
       newMsg = new Message({
         author: data.username,
         message: data.msg,
+        room: data.room,
         destructAt: -1,
         selfDestruct: false
       });
     }
     newMsg.save((err, doc) => {
       if (err) {
-        console.err(err);
+        console.error(err);
         reject();
       }
       resolve(doc);
@@ -53,7 +55,7 @@ exports.deleteMessages = data =>
   new Promise((resolve, reject) => {
     Message.findByIdAndRemove(data, (err, doc) => {
       if (err) {
-        console.err(err);
+        console.error(err);
         reject();
       }
       resolve(doc);

@@ -21,7 +21,7 @@ export function emitNewUser(name) {
   socket.emit('userLogIn', { username: name });
 }
 
-export function emitNewMsg(username, msg, destructAt) {
+export function emitNewMsg(username, msg, destructAt, room) {
   const lifespan = lifeObj[destructAt];
   const cur = moment();
 
@@ -35,7 +35,7 @@ export function emitNewMsg(username, msg, destructAt) {
       .format();
     deadline = JSON.stringify(deadline);
   }
-  socket.emit('newMsg', { username, msg, deadline });
+  socket.emit('newMsg', { username, msg, deadline, room });
 }
 
 export function emitUserLeft(name) {

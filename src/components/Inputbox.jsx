@@ -61,7 +61,8 @@ class Inputbox extends Component {
       emitNewMsg(
         this.props.loginUsername,
         this.textAreaNode.value,
-        this.state.selectValue
+        this.state.selectValue,
+        this.props.room
       );
       this.textAreaNode.value = '';
       this.setState({ selectValue: DEFAULT_SELECT_VALUE });

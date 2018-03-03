@@ -9,7 +9,8 @@ import { emitNewUser } from '../utli/socketHelpers';
 class Landing extends Component {
   state = {
     userNameInput: '',
-    redirectToReferrer: false
+    redirectToReferrer: false,
+    curRoom: 'Lobby'
   };
 
   handleChange = event => {
@@ -29,7 +30,8 @@ class Landing extends Component {
     checkUserNameExistence(this.state.userNameInput).then(data => {
       if (data !== null) {
         this.props.handleLoginUserNameChange(data.username);
-        this.props.handleGetApiDetails();
+        console.log('this.state.curRoom', this.state.curRoom);
+        this.props.handleGetApiDetails(this.state.curRoom);
         emitNewUser(this.state.userNameInput);
         this.setState({ redirectToReferrer: true });
         // setTimeout(this.goToLobby, 1000);
@@ -87,8 +89,8 @@ const mapDispatchToProps = dispatch => ({
   handleLoginUserNameChange(username) {
     dispatch(setLoginUserName(username));
   },
-  handleGetApiDetails() {
-    dispatch(getApiDetails());
+  handleGetApiDetails(room) {
+    dispatch(getApiDetails(room));
   }
 });
 

@@ -11,10 +11,15 @@ export function addAPIData(apiData) {
   return { type: ADD_API_DATA, payload: apiData };
 }
 
-export function getApiDetails() {
+export function getApiDetails(roomName) {
+  console.log('hmmmm', roomName);
   return dispatch => {
     axios
-      .get(`${URL}/api/history`)
+      .get(`${URL}/api/history`, {
+        params: {
+          room: roomName
+        }
+      })
       .then(res => {
         console.log('get request res', res.data);
         dispatch(addAPIData(res.data));

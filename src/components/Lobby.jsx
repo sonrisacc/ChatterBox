@@ -26,7 +26,9 @@ class Lobby extends Component {
 
   componentDidMount() {
     this.scrollToBottom();
-    receiveNewMessage(this.props.handleGetApiDetails);
+    receiveNewMessage(() =>
+      this.props.handleGetApiDetails(this.state.selectValue)
+    );
     receiveOneUserTyping(this.handleToggleIsTypingComponent);
     oneUserStoppedTyping(this.handleToggleStoppedTypingComponent);
   }
@@ -93,7 +95,7 @@ class Lobby extends Component {
             {this.state.isTyping && this.renderUserIsTyping()}
             <div id="ghost-div" className="msnCard" ref={this.setGhostDiv} />
           </div>
-          <Inputbox />
+          <Inputbox room={this.state.selectValue} />
         </div>
         <Footer logout={this.handleLogOut} />
       </div>
@@ -110,8 +112,8 @@ const mapDispatchToProps = dispatch => ({
   handleLoginUserNameChange(username) {
     dispatch(setLoginUserName(username));
   },
-  handleGetApiDetails() {
-    dispatch(getApiDetails());
+  handleGetApiDetails(room) {
+    dispatch(getApiDetails(room));
   }
 });
 
