@@ -22,6 +22,7 @@ class Lobby extends Component {
     isTyping: false,
     oneUser: 'One user',
     selectValue: DEFAULT_SELECT_VALUE
+    // hasNewitem: false
   };
 
   componentDidMount() {
@@ -40,7 +41,9 @@ class Lobby extends Component {
   setGhostDiv = node => {
     this.ghostDiv = node;
   };
-
+  setNewRoomRef = node => {
+    this.newRoomRef = node;
+  };
   scrollToBottom = () => {
     this.ghostDiv.scrollIntoView({ behavior: 'smooth' });
   };
@@ -49,11 +52,28 @@ class Lobby extends Component {
     this.props.history.push('/history');
   };
 
+  addRoom = () => {
+    // open modal,
+    // get room name
+    // update renderNewRoomOption
+    // update state
+  };
+
+  handleAddRoom = () => {
+    this.addRoom('test');
+    this.toggleHasNewitem();
+    setTimeout(this.toggleHasNewitem, 300);
+  };
+
   handleRoomSlection = e => {
-    console.log('room', e.target.value);
-    this.setState({ selectValue: e.target.value });
-    this.props.handleGetApiDetails(e.target.value);
-    switchRoom(e.target.value);
+    const roomName = e.target.value;
+    if (roomName !== 'More') {
+      this.setState({ selectValue: roomName });
+      this.props.handleGetApiDetails(roomName);
+      switchRoom(roomName);
+    } else {
+      this.handleAddRoom();
+    }
   };
 
   handleLogOut = () => {

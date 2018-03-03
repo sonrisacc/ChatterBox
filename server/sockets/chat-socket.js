@@ -68,7 +68,6 @@ module.exports = io => {
     socket.on('disconnect', () => {
       delete usernames[socket.username];
       numUsers = Object.keys(usernames).length;
-      console.log('disconnect socket.username', socket.username);
       io.sockets.emit('newUserOffline', { username: socket.username });
       io.sockets.emit('updateOnineUserNumber', numUsers);
       socket.leave(socket.room);

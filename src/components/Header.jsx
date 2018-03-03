@@ -8,10 +8,15 @@ const Header = props => (
     <div className="sub-header">
       <div>Hello! {props.loginUsername}</div>
       <div className="dropdown-content room">
-        <select value={props.optionsState} onChange={props.change}>
+        <select
+          ref={props.setRef}
+          value={props.optionsState}
+          onChange={props.change}
+        >
           <option value="Lobby">Lobby</option>
           <option value="Beach">Beach</option>
           <option value="Sandstorm">Sandstorm</option>
+          {/* <option value="More">Add new room</option> */}
         </select>
       </div>
       {/* <button className="historyBtn">
