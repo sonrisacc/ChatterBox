@@ -14,7 +14,7 @@ module.exports = io => {
       socket.username = username; // eslint-disable-line
       socket.room = defaultRoom; // eslint-disable-line
       usernames[username] = socket.id;
-      numUsers += 1;
+      numUsers = Object.keys(usernames).length;
       socket.join(defaultRoom);
       socket.broadcast.emit('newUserOnline', data);
       io.emit('updateOnineUserNumber', numUsers);
@@ -30,8 +30,8 @@ module.exports = io => {
 
     socket.on('userLogOff', data => {
       const { username } = data;
-      numUsers -= 1;
       delete usernames[username];
+      numUsers = Object.keys(usernames).length;
       socket.broadcast.emit('newUserOffline', data);
       io.emit('updateOnineUserNumber', numUsers);
       socket.leave(socket.room);
@@ -66,8 +66,11 @@ module.exports = io => {
     });
 
     socket.on('disconnect', () => {
-      console.log('cur socket disconnected', socket.id);
-      socket.broadcast.emit('newUserOffline', socket.id);
+      delete usernames[socket.username];
+      numUsers = Object.keys(usernames).length;
+      console.log('disconnect socket.username', socket.username);
+      io.sockets.emit('newUserOffline', { username: socket.username });
+      io.sockets.emit('updateOnineUserNumber', numUsers);
       socket.leave(socket.room);
     });
   });

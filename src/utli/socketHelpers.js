@@ -59,7 +59,10 @@ export function receiveNewUser(cb) {
 }
 
 export function receiveOffLineUser(cb) {
-  socket.on('newUserOffline', data => cb(data));
+  socket.on('newUserOffline', data => {
+    console.log('newUserOffline data', data);
+    cb(data);
+  });
 }
 
 export function receiveOneUserTyping(cb) {
