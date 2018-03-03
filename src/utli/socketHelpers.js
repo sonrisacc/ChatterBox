@@ -11,21 +11,16 @@ const lifeObj = {
   G: 300,
   H: 3600
 };
-// socket.on('time', timeString => {
-//   console.log(`Server time: ${timeString}`);
-// });
-// socket.on('news', data => {
-//   console.log(data);
-//   socket.emit('myTestEvent', { my: 'data' });
-// });
+
 export function emitNewUser(name) {
+  console.log('emitNewUser running', name);
   socket.emit('userLogIn', { username: name });
 }
 
 export function emitNewMsg(username, msg, destructAt) {
   const lifespan = lifeObj[destructAt];
   const cur = moment();
-  console.log('cur time', cur);
+
   let deadline;
   if (lifespan === 0) {
     deadline = lifespan;
@@ -34,9 +29,8 @@ export function emitNewMsg(username, msg, destructAt) {
       .clone()
       .add(lifespan, 'second')
       .format();
+    deadline = JSON.stringify(deadline);
   }
-  console.log(deadline);
-  deadline = JSON.stringify(deadline);
   socket.emit('newMsg', { username, msg, deadline });
 }
 
@@ -46,7 +40,6 @@ export function emitUserLeft(name) {
 }
 
 export function emitTypingEvent(name) {
-  console.log('user is typing', name);
   socket.emit('user is typing', name);
 }
 
@@ -59,6 +52,7 @@ export function emitDeleteMessage(id) {
 }
 
 export function receiveNewUser(cb) {
+  console.log('newUseronline');
   socket.on('newUserOnline', data => cb(data));
 }
 
@@ -76,7 +70,6 @@ export function oneUserStoppedTyping(cb) {
 
 export function receiveNewMessage(cb) {
   socket.on('oneNewMessage', data => {
-    console.log('receiveNewMessage', data);
     cb(data);
   });
 }

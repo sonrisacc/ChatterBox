@@ -6,7 +6,7 @@ module.exports = io => {
     const onLineUser = Object.keys(io.sockets.sockets);
     console.log('onLineUser', onLineUser);
     console.log('cur socket connected: ', socket.id);
-    // setInterval(() => io.emit('time', new Date().toTimeString()), 10000);
+
     socket.emit('news', { hello: 'world' });
     socket.on('myTestEvent', data => {
       console.log(data);
@@ -14,39 +14,34 @@ module.exports = io => {
 
     socket.on('userLogIn', data => {
       socket.broadcast.emit('newUserOnline', data);
+      console.log('userLogIn.length', onLineUser.length);
       io.emit('updateOnineUserNumber', onLineUser.length);
     });
 
     socket.on('userLogOff', data => {
-      console.log('one user userLogOff', data);
+      console.log('one user is gone data', data);
       socket.broadcast.emit('newUserOffline', data);
-      io.emit('updateOnineUserNumber', onLineUser.length);
+      console.log('onLineUser.length', onLineUser.length);
+      io.emit('updateOnineUserNumber', onLineUser.length - 1);
     });
 
     socket.on('newMsg', data => {
-      console.log('newMsg written', data);
-      // save to database then
       utli.addNewMessages(data).then(res => {
-        console.log('newMsg saved to db', res);
-        io.emit('oneNewMessage', data);
+        io.emit('oneNewMessage', res);
       });
     });
 
     socket.on('oneDeletedMsg', data => {
-      console.log('one Msg was deleted', data);
-
       utli.deleteMessages(data).then(res => {
-        console.log('one Msg deleted from db', res);
-        io.emit('oneNewMessage', data);
+        io.emit('oneNewMessage', res);
       });
     });
 
     socket.on('user is typing', data => {
-      console.log('I am typing', data);
       socket.broadcast.emit('oneUserTyping', data);
     });
+
     socket.on('user stopped typing', data => {
-      console.log('I stopped typing', data);
       socket.broadcast.emit('oneUserStoppedTyping', data);
     });
 

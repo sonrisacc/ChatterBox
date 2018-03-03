@@ -15,10 +15,10 @@ class Landing extends Component {
     this.setState({ userNameInput: event.target.value });
   };
 
-  goToLobby = () => {
-    emitNewUser(this.state.userNameInput);
-    this.props.history.push('/lobby');
-  };
+  // goToLobby = () => {
+  //   emitNewUser(this.state.userNameInput);
+  //   this.props.history.push('/lobby');
+  // };
 
   goToSignUp = () => {
     this.props.history.push('/signup');
@@ -29,6 +29,7 @@ class Landing extends Component {
       if (data !== null) {
         this.props.handleLoginUserNameChange(data.username);
         this.props.handleGetApiDetails();
+        emitNewUser(this.state.userNameInput);
         this.setState({ redirectToReferrer: true });
         // setTimeout(this.goToLobby, 1000);
       } else if (data === null) {

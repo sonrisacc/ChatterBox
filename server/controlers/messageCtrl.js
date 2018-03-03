@@ -42,10 +42,9 @@ exports.addNewMessages = data =>
     }
     newMsg.save((err, doc) => {
       if (err) {
-        console.log(err);
+        console.err(err);
         reject();
       }
-      console.log('new message saved from msgCtrl');
       resolve(doc);
     });
   });
@@ -54,10 +53,9 @@ exports.deleteMessages = data =>
   new Promise((resolve, reject) => {
     Message.findByIdAndRemove(data, (err, doc) => {
       if (err) {
-        console.log(err);
+        console.err(err);
         reject();
       }
-      console.log(' message deleted from msgCtrl');
       resolve(doc);
     });
   });

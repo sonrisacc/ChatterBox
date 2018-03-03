@@ -11,7 +11,10 @@ class MessageCard extends Component {
   };
 
   componentDidMount() {
-    if (this.props.selfDestruct) this.handleCountDown();
+    if (this.props.selfDestruct === true) {
+      console.log(this.props.selfDestruct);
+      this.handleCountDown();
+    }
   }
   handleMouseEnter = () => {
     this.setState({ isHovering: true });

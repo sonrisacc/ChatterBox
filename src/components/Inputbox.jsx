@@ -39,7 +39,6 @@ class Inputbox extends Component {
 
   handleTextAreaChange = () => {
     this.setFilledTextareaHeight();
-    // need debounce
     clearTimeout(id);
     emitTypingEvent(this.props.loginUsername);
     id = setTimeout(() => emitTypingEventStoped(this.props.loginUsername), 500);

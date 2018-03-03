@@ -20,6 +20,7 @@ class Lobby extends Component {
     isTyping: false,
     oneUser: 'One user'
   };
+
   componentDidMount() {
     this.scrollToBottom();
     receiveNewMessage(this.props.handleGetApiDetails);
@@ -36,7 +37,6 @@ class Lobby extends Component {
   };
 
   scrollToBottom = () => {
-    console.log('scrollToBottom running', this.ghostDiv);
     this.ghostDiv.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -47,15 +47,13 @@ class Lobby extends Component {
   handleLogOut = () => {
     emitUserLeft(this.props.loginUsername);
     this.props.handleLoginUserNameChange(null);
-    this.props.history.push('/');
+    // this.props.history.push('/');
   };
 
   handleToggleIsTypingComponent = data => {
-    console.log('handleToggleIsTypingComponent', data);
     this.setState({ oneUser: data, isTyping: true });
   };
   handleToggleStoppedTypingComponent = data => {
-    console.log('handleToggleStoppedTypingComponent', data);
     this.setState({ oneUser: data, isTyping: false });
   };
 

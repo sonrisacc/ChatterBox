@@ -35,6 +35,7 @@ class GeneralInfo extends Component {
   };
 
   handleNewUserAcativity = data => {
+    console.log('data.username', data.username);
     this.setState({
       newUser: data.username,
       newUserExist: true
