@@ -52,6 +52,7 @@ class Lobby extends Component {
   handleRoomSlection = e => {
     console.log('room', e.target.value);
     this.setState({ selectValue: e.target.value });
+    this.props.handleGetApiDetails(e.target.value);
     switchRoom(e.target.value);
   };
 
