@@ -15,10 +15,12 @@ import {
   oneUserStoppedTyping
 } from '../utli/socketHelpers';
 
+const DEFAULT_SELECT_VALUE = 'Lobby';
 class Lobby extends Component {
   state = {
     isTyping: false,
-    oneUser: 'One user'
+    oneUser: 'One user',
+    selectValue: DEFAULT_SELECT_VALUE
   };
 
   componentDidMount() {
@@ -44,6 +46,11 @@ class Lobby extends Component {
     this.props.history.push('/history');
   };
 
+  handleRoomSlection = e => {
+    console.log('room', e.target.value);
+    this.setState({ selectValue: e.target.value });
+  };
+
   handleLogOut = () => {
     emitUserLeft(this.props.loginUsername);
     this.props.handleLoginUserNameChange(null);
@@ -57,7 +64,7 @@ class Lobby extends Component {
     this.setState({ oneUser: data, isTyping: false });
   };
 
-  renderUserIsTying = () => (
+  renderUserIsTyping = () => (
     <div className="msnCard" id="typing">
       {this.state.oneUser} is typing:
       <Loading />
@@ -67,7 +74,10 @@ class Lobby extends Component {
   render() {
     return (
       <div className="container">
-        <Header />
+        <Header
+          optionsState={this.state.selectValue}
+          change={this.handleRoomSlection}
+        />
         <div className="lobby-wrapper">
           <GeneralInfo />
           <div className="main">
@@ -78,7 +88,7 @@ class Lobby extends Component {
                 {...curMsn}
               />
             ))}
-            {this.state.isTyping && this.renderUserIsTying()}
+            {this.state.isTyping && this.renderUserIsTyping()}
             <div id="ghost-div" className="msnCard" ref={this.setGhostDiv} />
           </div>
           <Inputbox />
