@@ -3,7 +3,7 @@ import React from 'react';
 const Dropdown = props => (
   <div className="dropdown-content">
     <select value={props.optionsState} onChange={props.change}>
-      <option value="A">+</option>
+      <option value="A">LifeSpan</option>
       <option value="B">2s</option>
       <option value="C">5s</option>
       <option value="D">30s</option>

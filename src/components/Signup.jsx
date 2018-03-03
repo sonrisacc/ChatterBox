@@ -45,7 +45,7 @@ class Signup extends Component {
     return (
       <div className="landing signup">
         <div className="f">
-          <h1 className="welcome">Hello {this.state.userNameInput}</h1>
+          <h1 className="welcome">Welcome! {this.state.userNameInput}</h1>
           {!!this.state.showFormValidation && this.renderUserExists()}
           <div className="landing-wrapper">
             <input
