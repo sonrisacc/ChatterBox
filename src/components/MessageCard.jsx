@@ -11,10 +11,7 @@ class MessageCard extends Component {
   };
 
   componentDidMount() {
-    if (this.props.selfDestruct === true) {
-      console.log(this.props.selfDestruct);
-      this.handleCountDown();
-    }
+    if (this.props.selfDestruct === true) this.handleCountDown();
   }
   handleMouseEnter = () => {
     this.setState({ isHovering: true });
@@ -65,9 +62,11 @@ class MessageCard extends Component {
     </button>
   );
   renderDestructCard = () => (
-    <div>{`${this.state.hours}:${this.state.minutes}:${
-      this.state.seconds
-    }`}</div>
+    <div id="msnCard-self-delete">
+      {`count down timer: ${this.state.hours}:${this.state.minutes}:${
+        this.state.seconds
+      }`}
+    </div>
   );
 
   render() {

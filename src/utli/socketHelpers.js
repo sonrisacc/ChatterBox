@@ -13,7 +13,6 @@ const lifeObj = {
 };
 
 export function emitNewUser(name) {
-  console.log('emitNewUser running', name);
   socket.emit('userLogIn', { username: name });
 }
 
@@ -35,7 +34,6 @@ export function emitNewMsg(username, msg, destructAt) {
 }
 
 export function emitUserLeft(name) {
-  console.log('user left fired', name);
   socket.emit('userLogOff', { username: name });
 }
 
@@ -52,7 +50,6 @@ export function emitDeleteMessage(id) {
 }
 
 export function receiveNewUser(cb) {
-  console.log('newUseronline');
   socket.on('newUserOnline', data => cb(data));
 }
 
