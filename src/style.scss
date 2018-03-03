@@ -97,6 +97,7 @@ canvas {
   padding: 20px;
   margin-top: 20vh;
 }
+
 .landing-wrapper {
   display: flex;
   flex-direction: row;
@@ -133,6 +134,16 @@ canvas {
 
 .logout-btn {
   color: black;
+}
+.container-innerbox {
+  display: flex;
+  flex-direction: row;
+  border: 3px solid lightpink;
+}
+
+.online-user-wrapper {
+  border: 3px solid lightblue;
+  min-width: 100px;
 }
 
 .lobby-wrapper {

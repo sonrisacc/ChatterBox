@@ -8,6 +8,7 @@ module.exports = io => {
   console.log('io running');
   io.on('connection', socket => {
     // const onLineUser = Object.keys(io.sockets.sockets);
+    io.emit('cur online user list', usernames);
 
     socket.on('userLogIn', data => {
       const { username } = data;
@@ -17,6 +18,7 @@ module.exports = io => {
       numUsers = Object.keys(usernames).length;
       socket.join(defaultRoom);
       socket.broadcast.emit('newUserOnline', data);
+      io.emit('cur online user list', usernames);
       io.emit('updateOnineUserNumber', numUsers);
       console.log(
         'cur user.room',
@@ -33,6 +35,7 @@ module.exports = io => {
       delete usernames[username];
       numUsers = Object.keys(usernames).length;
       socket.broadcast.emit('newUserOffline', data);
+      io.emit('cur online user list', usernames);
       io.emit('updateOnineUserNumber', numUsers);
       socket.leave(socket.room);
     });

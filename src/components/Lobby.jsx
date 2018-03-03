@@ -8,7 +8,10 @@ import Inputbox from './Inputbox';
 import Footer from './Footer';
 import GeneralInfo from './GeneralInfo';
 import Loading from './Loading';
+import OnlineUser from './OnlineUser';
+
 import {
+  updateOnlineUserList,
   emitUserLeft,
   receiveNewMessage,
   receiveOneUserTyping,
@@ -21,7 +24,8 @@ class Lobby extends Component {
   state = {
     isTyping: false,
     oneUser: 'One user',
-    selectValue: DEFAULT_SELECT_VALUE
+    selectValue: DEFAULT_SELECT_VALUE,
+    userList: null
     // hasNewitem: false
   };
 
@@ -32,6 +36,7 @@ class Lobby extends Component {
     );
     receiveOneUserTyping(this.handleToggleIsTypingComponent);
     oneUserStoppedTyping(this.handleToggleStoppedTypingComponent);
+    updateOnlineUserList(this.handleUpdateOnlineUserList);
   }
 
   componentDidUpdate() {
@@ -76,6 +81,11 @@ class Lobby extends Component {
     }
   };
 
+  handleUpdateOnlineUserList = data => {
+    console.log('handleUpdateOnlineUserList data', data);
+    this.setState({ userList: data });
+  };
+
   handleLogOut = () => {
     emitUserLeft(this.props.loginUsername);
     this.props.handleLoginUserNameChange(null);
@@ -96,27 +106,48 @@ class Lobby extends Component {
     </div>
   );
 
+  renderUserList = userList => {
+    const userListArr = Object.keys(userList);
+    return userListArr.map(curUser => (
+      <OnlineUser
+        key={userList[curUser]}
+        name={curUser}
+        id={userList[curUser]}
+      />
+    ));
+  };
+
+  renderMessageCard = () =>
+    this.props.apiData.map(curMsn => (
+      <MessageCard
+        cur={this.props.loginUsername}
+        key={curMsn._id}
+        {...curMsn}
+      />
+    ));
+
   render() {
+    const { userList } = this.state;
+
     return (
       <div className="container">
         <Header
           optionsState={this.state.selectValue}
           change={this.handleRoomSlection}
         />
-        <div className="lobby-wrapper">
-          <GeneralInfo />
-          <div className="main">
-            {this.props.apiData.map(curMsn => (
-              <MessageCard
-                cur={this.props.loginUsername}
-                key={curMsn._id}
-                {...curMsn}
-              />
-            ))}
-            {this.state.isTyping && this.renderUserIsTyping()}
-            <div id="ghost-div" className="msnCard" ref={this.setGhostDiv} />
+        <div className="container-innerbox">
+          <div className="online-user-wrapper">
+            {!!userList && this.renderUserList(userList)}
           </div>
-          <Inputbox room={this.state.selectValue} />
+          <div className="lobby-wrapper">
+            <GeneralInfo />
+            <div className="main">
+              {this.renderMessageCard()}
+              {this.state.isTyping && this.renderUserIsTyping()}
+              <div id="ghost-div" className="msnCard" ref={this.setGhostDiv} />
+            </div>
+            <Inputbox room={this.state.selectValue} />
+          </div>
         </div>
         <Footer logout={this.handleLogOut} />
       </div>
