@@ -11,6 +11,10 @@ const messageSchema = new mongoose.Schema(
       type: String,
       required: true
     },
+    room: {
+      type: String,
+      required: true
+    },
     selfDestruct: {
       type: Boolean,
       required: true,
