@@ -138,12 +138,43 @@ canvas {
 .container-innerbox {
   display: flex;
   flex-direction: row;
-  border: 3px solid lightpink;
+  // border: 3px solid lightpink;
+  border-radius: 10px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+.userBtn {
+  font-weight: bold;
+  margin: 0;
+  width: 100%;
+  height: 15px;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+.userBtn:hover {
+  color: white;
 }
 
 .online-user-wrapper {
-  border: 3px solid lightblue;
-  min-width: 100px;
+  // border: 2px solid lightblue;
+  background: lightblue;
+  border-radius: 10px 0 0 10px;
+  min-width: 80px;
+  display: flex;
+  flex-direction: column;
+}
+
+.online-user-header {
+  margin: 5px;
+  margin-top: 10px;
+}
+
+.online-user-body {
+  display: flex;
+  flex-direction: column;
+}
+.online-user-footer {
 }
 
 .lobby-wrapper {
@@ -151,8 +182,8 @@ canvas {
   flex-direction: column;
   justify-content: space-around;
   margin-top: 5px;
-  border-radius: 10px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  // border-radius: 10px;
+  // box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   padding: 10px;
   min-width: 40vh;
   min-height: 40vh;
@@ -163,7 +194,7 @@ canvas {
 
 .socket-info {
   display: flex;
-  color: lightgrey;
+  color: white;
   flex-direction: column;
   justify-content: center;
   align-items: center;

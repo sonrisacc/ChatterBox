@@ -98,6 +98,9 @@ class Lobby extends Component {
   handleToggleStoppedTypingComponent = data => {
     this.setState({ oneUser: data, isTyping: false });
   };
+  handleUserPrivateChat = () => {
+    console.log('handleUserPrivateChat clicked');
+  };
 
   renderUserIsTyping = () => (
     <div className="msnCard" id="typing">
@@ -113,6 +116,7 @@ class Lobby extends Component {
         key={userList[curUser]}
         name={curUser}
         id={userList[curUser]}
+        click={this.handleUserPrivateChat}
       />
     ));
   };
@@ -137,10 +141,15 @@ class Lobby extends Component {
         />
         <div className="container-innerbox">
           <div className="online-user-wrapper">
-            {!!userList && this.renderUserList(userList)}
+            <div className="online-user-header">
+              <GeneralInfo />
+            </div>
+            <div className="online-user-body">
+              {!!userList && this.renderUserList(userList)}
+            </div>
+            {/* <div className="online-user-footer">footer</div> */}
           </div>
           <div className="lobby-wrapper">
-            <GeneralInfo />
             <div className="main">
               {this.renderMessageCard()}
               {this.state.isTyping && this.renderUserIsTyping()}
