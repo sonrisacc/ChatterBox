@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import { setLoginUserName, getApiDetails } from '../actions/actionCreators';
 
 import MessageCard from './MessageCard';
@@ -22,6 +24,14 @@ import {
 
 const DEFAULT_SELECT_VALUE = 'Lobby';
 class Lobby extends Component {
+  static propTypes = {
+    history: ReactRouterPropTypes.history.isRequired,
+    handleLoginUserNameChange: PropTypes.func.isRequired,
+    handleGetApiDetails: PropTypes.func.isRequired,
+    loginUsername: PropTypes.string.isRequired,
+    apiData: PropTypes.arrayOf(PropTypes.object).isRequired
+  };
+
   state = {
     isTyping: false,
     oneUser: 'One user',
@@ -68,8 +78,8 @@ class Lobby extends Component {
 
   handleAddRoom = () => {
     this.addRoom('test');
-    this.toggleHasNewitem();
-    setTimeout(this.toggleHasNewitem, 300);
+    // this.toggleHasNewitem();
+    // setTimeout(this.toggleHasNewitem, 300);
   };
 
   handleRoomSlection = e => {
@@ -83,15 +93,13 @@ class Lobby extends Component {
     }
   };
 
-  handleUpdateOnlineUserList = data => {
-    console.log('handleUpdateOnlineUserList data', data);
-    this.setState({ userList: data });
-  };
-
   handleLogOut = () => {
     emitUserLeft(this.props.loginUsername);
     this.props.handleLoginUserNameChange(null);
-    // this.props.history.push('/');
+  };
+
+  handleUpdateOnlineUserList = data => {
+    this.setState({ userList: data });
   };
 
   handleToggleIsTypingComponent = data => {
@@ -100,7 +108,7 @@ class Lobby extends Component {
   handleToggleStoppedTypingComponent = data => {
     this.setState({ oneUser: data, isTyping: false });
   };
-  handleUserPrivateChat = () => {
+  handleToggleUserPrivateChat = () => {
     console.log('handleUserPrivateChat clicked');
     this.setState({ isChating: !this.state.isChating });
   };
@@ -121,7 +129,7 @@ class Lobby extends Component {
         key={userList[curUser]}
         name={curUser}
         id={userList[curUser]}
-        click={this.handleUserPrivateChat}
+        click={this.handleToggleUserPrivateChat}
       />
     ));
   };
@@ -139,8 +147,10 @@ class Lobby extends Component {
     <Header
       optionsState={this.state.selectValue}
       change={this.handleRoomSlection}
+      setRef={this.setNewRoomRef}
     />
   );
+
   render() {
     const { userList, isChating } = this.state;
 

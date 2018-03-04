@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
+
 import store from '../store/store';
 
 import Landing from './Landing';
@@ -15,17 +16,6 @@ const App = () => (
     <Router>
       <Provider store={store}>
         <div className="for production">
-          {/* <ul>
-          <li>
-            <Link to="/signup">signup Page</Link>
-          </li>
-          <li>
-            <Link to="/lobby">lobby Page</Link>
-          </li>
-          <li>
-            <Link to="/history">history Page</Link>
-          </li>
-        </ul> */}
           <Switch>
             <Route exact path="/" component={Landing} />
             <Route path="/signup" component={Signup} />
@@ -40,3 +30,4 @@ const App = () => (
 );
 
 export default App;
+// "react/prop-types": "on",

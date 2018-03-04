@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const Chathistory = props => (
   <div className="Chathistory">
@@ -12,6 +13,9 @@ const Chathistory = props => (
   </div>
 );
 
+Chathistory.propTypes = {
+  apiData: PropTypes.arrayOf(PropTypes.object).isRequired
+};
 const mapStateToProps = state => ({ apiData: state.apiData });
 
 export default connect(mapStateToProps)(Chathistory);

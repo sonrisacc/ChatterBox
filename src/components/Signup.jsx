@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import { signUpUser } from '../utli/httpHelpers';
 import { setLoginUserName, getApiDetails } from '../actions/actionCreators';
 
 class Signup extends Component {
+  static propTypes = {
+    handleLoginUserNameChange: PropTypes.func.isRequired,
+    history: ReactRouterPropTypes.history.isRequired,
+    handleGetApiDetails: PropTypes.func.isRequired
+  };
+
   state = {
     userNameInput: '',
     showFormValidation: false
@@ -21,12 +29,10 @@ class Signup extends Component {
   handleSignUp = () => {
     signUpUser(this.state.userNameInput).then(data => {
       if (data !== null) {
-        console.log('this is handle signUpUser', data);
         this.props.handleLoginUserNameChange(data.username);
         this.props.handleGetApiDetails();
         this.goToLobby();
       } else if (data === null) {
-        console.log('user exists');
         this.toggleRenderFormValidation();
         setTimeout(this.toggleRenderFormValidation, 1000);
       }

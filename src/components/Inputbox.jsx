@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Dropdown from './Dropdown';
 import {
@@ -9,8 +10,14 @@ import {
 
 const DEFAULT_HEIGHT = 20;
 const DEFAULT_SELECT_VALUE = 'A';
-let id;
+let id; // for clearTimeout deouncing user type event
+
 class Inputbox extends Component {
+  static propTypes = {
+    loginUsername: PropTypes.string.isRequired,
+    room: PropTypes.string.isRequired
+  };
+
   state = {
     msgBody: '',
     textAreaHeight: DEFAULT_HEIGHT,

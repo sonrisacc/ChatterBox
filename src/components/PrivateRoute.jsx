@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -20,6 +22,12 @@ const PrivateRoute = ({ component: Component, loginUsername, ...rest }) => (
     }
   />
 );
+
+PrivateRoute.propTypes = {
+  loginUsername: PropTypes.string.isRequired,
+  location: ReactRouterPropTypes.location.isRequired, // eslint-disable-line
+  component: PropTypes.func.isRequired
+};
 
 const mapStateToProps = state => ({
   loginUsername: state.loginUsername

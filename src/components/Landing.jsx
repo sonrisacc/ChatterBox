@@ -1,51 +1,48 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-
+import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import { setLoginUserName, getApiDetails } from '../actions/actionCreators';
 import { checkUserNameExistence } from '../utli/httpHelpers';
 import { emitNewUser } from '../utli/socketHelpers';
 
 class Landing extends Component {
+  static propTypes = {
+    history: ReactRouterPropTypes.history.isRequired,
+    handleLoginUserNameChange: PropTypes.func.isRequired,
+    handleGetApiDetails: PropTypes.func.isRequired,
+    location: ReactRouterPropTypes.location.isRequired
+  };
+
   state = {
     userNameInput: '',
     redirectToReferrer: false,
     curRoom: 'Lobby'
   };
 
-  handleChange = event => {
-    this.setState({ userNameInput: event.target.value });
-  };
-
-  goToLobby = () => {
-    emitNewUser(this.state.userNameInput);
-    this.props.history.push('/lobby');
-  };
-
   goToSignUp = () => {
     this.props.history.push('/signup');
+  };
+
+  handleUserInputChange = event => {
+    this.setState({ userNameInput: event.target.value });
   };
 
   handleCheckingUserName = () => {
     checkUserNameExistence(this.state.userNameInput).then(data => {
       if (data !== null) {
+        // if sucessfully logged in
         this.props.handleLoginUserNameChange(data.username);
-        console.log('this.state.curRoom', this.state.curRoom);
         this.props.handleGetApiDetails(this.state.curRoom);
         emitNewUser(this.state.userNameInput);
         this.setState({ redirectToReferrer: true });
-        // setTimeout(this.goToLobby, 1000);
       } else if (data === null) {
+        // if failed logged in
         this.goToSignUp();
       }
     });
   };
-
-  renderHistoryPath = from => (
-    <div>
-      <p>You must log in to view the page at {from.pathname}</p>
-    </div>
-  );
 
   render() {
     const { from } = this.props.location.state || {
@@ -58,7 +55,6 @@ class Landing extends Component {
     }
     return (
       <div className="landing">
-        {/* {this.renderHistoryPath(from)} */}
         <div className="f">
           <h1 className="welcome">Hello {this.state.userNameInput}</h1>
           <div className="landing-wrapper">
@@ -66,7 +62,7 @@ class Landing extends Component {
               className="login-input"
               type="text"
               placeholder="Input username here"
-              onChange={this.handleChange}
+              onChange={this.handleUserInputChange}
             />
             <button
               className="btn btn-submmit"
@@ -75,7 +71,7 @@ class Landing extends Component {
               LogIn
             </button>
           </div>
-          <button className="btn ">
+          <button className="btn">
             <Link to="/signUp"> SignUp </Link>
           </button>
         </div>

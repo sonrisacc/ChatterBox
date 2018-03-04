@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Footer = props => (
   <div className="Footer">
@@ -8,4 +9,7 @@ const Footer = props => (
   </div>
 );
 
+Footer.propTypes = {
+  logout: PropTypes.func.isRequired
+};
 export default Footer;

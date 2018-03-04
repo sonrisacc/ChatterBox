@@ -1,8 +1,19 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import { emitDeleteMessage } from '../utli/socketHelpers';
 
 class MessageCard extends Component {
+  static propTypes = {
+    selfDestruct: PropTypes.bool.isRequired,
+    cur: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
+    createdAt: PropTypes.string.isRequired,
+    destructAt: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired
+  };
+
   state = {
     isHovering: false,
     hours: 0,

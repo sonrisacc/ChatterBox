@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const OnlineUser = props => (
   <div className="online-user">
@@ -8,5 +9,10 @@ const OnlineUser = props => (
     </button>
   </div>
 );
+
+OnlineUser.propTypes = {
+  click: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired // eslint-disable-line
+};
 
 export default OnlineUser;

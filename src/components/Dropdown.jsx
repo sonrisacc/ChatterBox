@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Dropdown = props => (
   <div className="dropdown-content">
@@ -15,4 +16,8 @@ const Dropdown = props => (
   </div>
 );
 
+Dropdown.propTypes = {
+  change: PropTypes.func.isRequired,
+  optionsState: PropTypes.string.isRequired
+};
 export default Dropdown;

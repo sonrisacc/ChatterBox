@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 // import { Link } from 'react-router-dom';
 
 const Header = props => (
@@ -25,6 +26,13 @@ const Header = props => (
     </div>
   </div>
 );
+
+Header.propTypes = {
+  optionsState: PropTypes.string.isRequired,
+  loginUsername: PropTypes.string.isRequired,
+  setRef: PropTypes.func.isRequired,
+  change: PropTypes.func.isRequired
+};
 
 const mapStateToProps = state => ({
   loginUsername: state.loginUsername
