@@ -2,11 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const OnlineUser = props => (
-  <div className="online-user">
-    <button onClick={props.click} className="btn userBtn">
-      {' '}
-      + {props.name}
-    </button>
+  <div className="userlist_body_info">
+    <button onClick={props.click}> + {props.name}</button>
   </div>
 );
 

@@ -62,3 +62,17 @@
 @mixin title($color:$lightblue) {
   color: $color;
 }
+
+@mixin formValidation($color:$lightpink) {
+  color: $color;
+  color: 12px;
+}
+
+@mixin info ($color: white) {
+  display: flex;
+  color: $color;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+}

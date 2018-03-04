@@ -1,0 +1,24 @@
+.userlist {
+  background: lightblue;
+  border-radius: 10px 0 0 10px;
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  &_header {
+    margin: 5px;
+    margin-top: 10px;
+    &_info {
+      @include info;
+      margin: 10px;
+    }
+  }
+  &_body {
+    display: flex;
+    flex-direction: column;
+    & button {
+      @include userBtn;
+    }
+  }
+  &_footer {
+  }
+}

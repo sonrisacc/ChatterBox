@@ -12,4 +12,10 @@
     @include landingInput;
     margin: 10;
   }
+  &_footer {
+    @include btn;
+  }
+  &_validation-error {
+    @include formValidation;
+  }
 }

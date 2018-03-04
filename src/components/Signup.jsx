@@ -47,28 +47,31 @@ class Signup extends Component {
   };
 
   renderUserExists = () => (
-    <div className="form-validation"> User Exists! </div>
+    <div className="landing_validation-error"> User Exists! </div>
   );
 
   render() {
     return (
-      <div className="landing signup">
-        <div className="f">
-          <h1 className="welcome">Welcome! {this.state.userNameInput}</h1>
+      <div className="landing">
+        <div className="landing_container">
+          <h1 className="landing_title">Welcome! {this.state.userNameInput}</h1>
           {!!this.state.showFormValidation && this.renderUserExists()}
-          <div className="landing-wrapper">
+          <div className="landing_inputbox">
             <input
-              className="login-input"
+              className="landing_inputbox_input"
               type="text"
               placeholder="Input username here"
               onChange={this.handleChange}
             />
-            <button className="btn btn-submmit" onClick={this.handleSignUp}>
+            <button
+              className="landing_inputbox_btn"
+              onClick={this.handleSignUp}
+            >
               {' '}
               SignUp
             </button>
           </div>
-          <button className="btn ">
+          <button className="landing_footer">
             <Link to="/"> Cancel </Link>
           </button>
         </div>

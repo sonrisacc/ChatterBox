@@ -155,17 +155,17 @@ class Lobby extends Component {
     const { userList, isChating } = this.state;
 
     return (
-      <div className="container">
+      <div className="chatterbox">
         {!isChating && this.renderHeader()}
-        <div className="container-innerbox">
-          <div className="online-user-wrapper">
-            <div className="online-user-header">
+        <div className="chatterbox_container">
+          <div className="chatterbox_container_userlist userlist">
+            <div className="userlist_header">
               <GeneralInfo />
             </div>
-            <div className="online-user-body">
+            <div className="userlist_body">
               {!!userList && this.renderUserList(userList)}
             </div>
-            {/* <div className="online-user-footer">footer</div> */}
+            {/* <div className="userlist_footer">footer</div> */}
           </div>
           <div className="private-chat">
             {!!isChating && this.renderPrivateChat()}

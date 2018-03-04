@@ -58,7 +58,7 @@ class GeneralInfo extends Component {
 
   render() {
     return (
-      <div className="socket-info">
+      <div className="userlist_header_info">
         <div>{this.state.userNumber || ONLINE_USER_NUM} participants</div>
         {!!this.state.newUserExist && this.handleNewUserOnline()}
         {!!this.state.offLineUserExist && this.handleNewUserOffline()}
