@@ -13,5 +13,6 @@ chatsDB.once('open', () => {
 
 require('./models/User');
 require('./models/Message');
+require('./models/Room');
 
 module.exports = chatsDB;
