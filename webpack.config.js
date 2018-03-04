@@ -68,7 +68,11 @@ const config = {
 if (process.env.NODE_ENV === 'production') {
   config.entry = './src/index.jsx';
   config.devtool = false;
-  config.plugins = [];
+  config.plugins = [
+    new webpack.DefinePlugin({
+      'process.env': { HEROKU_URL }
+    })
+  ];
 }
 
 module.exports = config;
