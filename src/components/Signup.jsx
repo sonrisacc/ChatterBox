@@ -80,8 +80,8 @@ const mapDispatchToProps = dispatch => ({
   handleLoginUserNameChange(username) {
     dispatch(setLoginUserName(username));
   },
-  handleGetApiDetails() {
-    dispatch(getApiDetails());
+  handleGetApiDetails(room) {
+    dispatch(getApiDetails(room));
   }
 });
 
