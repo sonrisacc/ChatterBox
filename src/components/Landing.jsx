@@ -55,17 +55,17 @@ class Landing extends Component {
     }
     return (
       <div className="landing">
-        <div className="f">
-          <h1 className="welcome">Hello {this.state.userNameInput}</h1>
-          <div className="landing-wrapper">
+        <div className="landing_container">
+          <h1 className="landing_title">Hello {this.state.userNameInput}</h1>
+          <div className="landing_inputbox">
             <input
-              className="login-input"
+              className="landing_inputbox_input"
               type="text"
               placeholder="Input username here"
               onChange={this.handleUserInputChange}
             />
             <button
-              className="btn btn-submmit"
+              className="landing_inputbox_btn"
               onClick={this.handleCheckingUserName}
             >
               LogIn

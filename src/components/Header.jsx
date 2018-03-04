@@ -5,15 +5,18 @@ import PropTypes from 'prop-types';
 
 const Header = props => (
   <div className="header">
-    <h1>This is {props.optionsState}</h1>
-    <div className="sub-header">
+    <h1 className="header_title">This is {props.optionsState}</h1>
+    <div className="header_sub">
       <div>Hello! {props.loginUsername}</div>
-      <div className="dropdown-content room">
+      <div className="header_dropdown">
         <select
           ref={props.setRef}
           value={props.optionsState}
           onChange={props.change}
         >
+          <option value="" disabled="disabled" selected="selected">
+            Choose a room
+          </option>
           <option value="Lobby">Lobby</option>
           <option value="Beach">Beach</option>
           <option value="Sandstorm">Sandstorm</option>

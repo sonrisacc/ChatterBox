@@ -1,5 +1,5 @@
 import moment from 'moment';
-import socket from '../socketConnection';
+import socket from './socketConnection';
 
 const lifeObj = {
   A: 0,

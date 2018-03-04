@@ -1,0 +1,18 @@
+.header {
+  // border: 2px solid $lightblue;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  &_title {
+    @include title;
+  }
+  &_sub {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    // border: 2px solid lightblue;
+  }
+  &_dropdown {
+    @include dropdown;
+  }
+}

@@ -1,0 +1,15 @@
+.landing {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &_container {
+    @include landing;
+  }
+  &_title {
+    @include title;
+  }
+  &_inputbox {
+    @include landingInput;
+    margin: 10;
+  }
+}

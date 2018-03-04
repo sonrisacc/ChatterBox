@@ -1,124 +1,9 @@
-* {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: helvetica;
-  margin: 0;
-  padding: 0;
-  // background: #2e3250;
-  // max-height: 100vh;
-  // max-width: 100vh;
-}
-
-a:link,
-a:active {
-  text-decoration: none;
-  color: inherit;
-  background-color: none;
-}
-
-button:focus,
-input:focus,
-textarea:focus {
-  outline: none;
-}
-
-canvas {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-}
-.wrapper {
-  display: block;
-  // float: left;
-}
-
-.background {
-  // z-index: -100;
-  // position: absolute;
-  // max-height: 100vh;
-}
-
-.sub-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.btn {
-  margin: 20px;
-  padding: 5px;
-  color: Black;
-  min-height: 25px;
-  min-width: 25px;
-  border: 2px solid lightblue;
-  z-index: 100;
-}
-
-.btn:hover {
-  background-color: #66c2ff;
-}
-
-.btn-submmit {
-  background-color: lightblue;
-  margin: 0px;
-}
-
-.btn-submmit:hover {
-  background-color: #66c2ff;
-}
-
-.landing {
-  display: flex;
-  // background: white;
-  // flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  // font-size: 16px;
-  // z-index: 100;
-
-  // width: 500px;
-}
-
-.f {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  justify-content: center;
-  border-radius: 10px;
-  background: white;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
-  min-height: 40vh;
-  padding: 20px;
-  margin-top: 20vh;
-}
-
-.landing-wrapper {
-  display: flex;
-  flex-direction: row;
-  border: 1px solid lightblue;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
-  z-index: 100;
-  // min-height: 60vh;
-}
-
 // .wrapper {
 //   height: 100vh;
 //   width: 100vw;
 //   line-height: 100vh;
 //   text-align: center;
 // }
-
-.login-input {
-  font-size: 16px;
-  min-height: 25px;
-  z-index: 100px;
-}
 
 .container {
   display: flex;
@@ -311,24 +196,12 @@ h1 {
 // h5,
 // p {
 //   display: inline;
-// }
+//
 
 ul {
   margin: 0px;
   padding: 0px;
   font-size: 16px;
-}
-
-.dropdown-content {
-  text-align: center;
-  min-width: 60px;
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.dropdown-content select {
-  background: transparent;
-  // border: 1px solid #ccc;
 }
 
 #msnCard-delete {
