@@ -6,6 +6,7 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 import { signUpUser } from '../utli/httpHelpers';
 import { setLoginUserName, getApiDetails } from '../actions/actionCreators';
 
+const DEFAULT_SELECT_VALUE = 'Lobby';
 class Signup extends Component {
   static propTypes = {
     handleLoginUserNameChange: PropTypes.func.isRequired,
@@ -30,7 +31,7 @@ class Signup extends Component {
     signUpUser(this.state.userNameInput).then(data => {
       if (data !== null) {
         this.props.handleLoginUserNameChange(data.username);
-        this.props.handleGetApiDetails();
+        this.props.handleGetApiDetails(DEFAULT_SELECT_VALUE);
         this.goToLobby();
       } else if (data === null) {
         this.toggleRenderFormValidation();
