@@ -24,9 +24,13 @@ const PrivateRoute = ({ component: Component, loginUsername, ...rest }) => (
 );
 
 PrivateRoute.propTypes = {
-  loginUsername: PropTypes.string.isRequired,
+  loginUsername: PropTypes.string,
   location: ReactRouterPropTypes.location.isRequired, // eslint-disable-line
   component: PropTypes.func.isRequired
+};
+
+PrivateRoute.defaultProps = {
+  loginUsername: 'Visitor'
 };
 
 const mapStateToProps = state => ({

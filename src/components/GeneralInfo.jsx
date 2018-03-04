@@ -8,6 +8,7 @@ import {
 } from '../utli/socketHelpers';
 
 const ONLINE_USER_NUM = 1;
+
 class GeneralInfo extends Component {
   state = {
     newUserExist: false,
