@@ -1,4 +1,5 @@
 require('../db/dbConnection');
+require('babel-register');
 const express = require('express');
 const http = require('http');
 const cors = require('cors');

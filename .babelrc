@@ -15,6 +15,14 @@
       }
     ]
   ],
+  "env": {
+    "server": {
+      "plugins": ["transform-es2015-modules-commonjs"]
+    },
+    "development": {
+      "plugins": ["transform-es2015-modules-commonjs"]
+    }
+  },
   "plugins": [
     "react-hot-loader/babel",
     "babel-plugin-transform-class-properties"

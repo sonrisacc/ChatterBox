@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const HEROKU_URL = require('./config');
 
 console.log('webpack config', HEROKU_URL);
-module.exports = {
+const config = {
   context: __dirname,
   entry: './src/index.jsx',
   devtool: 'cheap-eval-source-map',
@@ -64,3 +64,11 @@ module.exports = {
     ]
   }
 };
+
+if (process.env.NODE_ENV === 'production') {
+  config.entry = './src/index.jsx';
+  config.devtool = false;
+  config.plugins = [];
+}
+
+module.exports = config;
