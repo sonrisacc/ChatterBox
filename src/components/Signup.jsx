@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { signUpUser } from '../utli/httpHelpers';
 import { setLoginUserName, getApiDetails } from '../actions/actionCreators';
+import { emitNewUser } from '../utli/socketHelpers';
 
 const DEFAULT_SELECT_VALUE = 'Lobby';
 class Signup extends Component {
@@ -32,6 +33,7 @@ class Signup extends Component {
       if (data !== null) {
         this.props.handleLoginUserNameChange(data.username);
         this.props.handleGetApiDetails(DEFAULT_SELECT_VALUE);
+        emitNewUser(this.state.userNameInput);
         this.goToLobby();
       } else if (data === null) {
         this.toggleRenderFormValidation();
