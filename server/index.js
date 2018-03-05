@@ -29,7 +29,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve('./public/index.html'));
 });
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 1111;
 const HOST = 'localhost';
 const server = http.createServer(app);
 

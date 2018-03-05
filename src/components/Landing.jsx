@@ -3,7 +3,11 @@ import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
-import { setLoginUserName, getApiDetails } from '../actions/actionCreators';
+import {
+  setLoginUserName,
+  getApiDetails,
+  getRoomApiDetails
+} from '../actions/actionCreators';
 import { checkUserNameExistence } from '../utli/httpHelpers';
 import { emitNewUser } from '../utli/socketHelpers';
 
@@ -11,6 +15,7 @@ class Landing extends Component {
   static propTypes = {
     history: ReactRouterPropTypes.history.isRequired,
     handleLoginUserNameChange: PropTypes.func.isRequired,
+    handleGetRoomDetails: PropTypes.func.isRequired,
     handleGetApiDetails: PropTypes.func.isRequired,
     location: ReactRouterPropTypes.location.isRequired
   };
@@ -35,6 +40,7 @@ class Landing extends Component {
         // if sucessfully logged in
         this.props.handleLoginUserNameChange(data.username);
         this.props.handleGetApiDetails(this.state.curRoom);
+        this.props.handleGetRoomDetails();
         emitNewUser(this.state.userNameInput);
         this.setState({ redirectToReferrer: true });
       } else if (data === null) {
@@ -87,6 +93,9 @@ const mapDispatchToProps = dispatch => ({
   },
   handleGetApiDetails(room) {
     dispatch(getApiDetails(room));
+  },
+  handleGetRoomDetails() {
+    dispatch(getRoomApiDetails());
   }
 });
 

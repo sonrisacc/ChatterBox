@@ -27,7 +27,7 @@ class Lobby extends Component {
     history: ReactRouterPropTypes.history.isRequired,
     handleLoginUserNameChange: PropTypes.func.isRequired,
     handleGetApiDetails: PropTypes.func.isRequired,
-
+    // handleGetRoomDetails: PropTypes.func.isRequired,
     loginUsername: PropTypes.string.isRequired
   };
 
@@ -84,10 +84,6 @@ class Lobby extends Component {
     this.setState({ userList: data });
   };
 
-  handleUpdateRoomList = data => {
-    console.log('hahahahahhah room', data);
-  };
-
   handleToggleUserPrivateChat = () => {
     console.log('handleUserPrivateChat clicked');
     this.setState({ isChating: !this.state.isChating });
@@ -132,9 +128,7 @@ class Lobby extends Component {
 }
 
 const mapStateToProps = state => ({
-  loginUsername: state.loginUsername,
-  roomLists: state.roomList,
-  roomData: state.roomData
+  loginUsername: state.loginUsername
 });
 
 const mapDispatchToProps = dispatch => ({

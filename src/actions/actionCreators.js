@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { SET_LOGIN_USERNAME, ADD_API_DATA, ADD_API_ROOM_DATA } from './actions';
 
-const URL = process.env.HEROKU_URL || 'http://localhost:8080';
+const URL = process.env.HEROKU_URL || 'http://localhost:1111';
 
 export function setLoginUserName(loginUsername) {
   return { type: SET_LOGIN_USERNAME, payload: loginUsername };
@@ -33,12 +33,11 @@ export function getApiDetails(roomName) {
 }
 
 export function getRoomApiDetails() {
-  console.log('hmmmm getting rooms');
   return dispatch => {
     axios
       .get(`${URL}/api/rooms`)
       .then(res => {
-        console.log('get room request res', res.data);
+        console.log('get room', res.data);
         dispatch(addRoomAPIData(res.data));
       })
       .catch(error => console.error('Error:', error));
