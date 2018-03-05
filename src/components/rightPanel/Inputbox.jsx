@@ -92,11 +92,16 @@ class Inputbox extends Component {
   };
 
   renderInvalidInputExists = () => (
-    <div className="editing-box_hidden"> InvalidInput </div>
+    <div className="editing-box_validation"> InvalidInput </div>
   );
 
   renderGhostField = () => (
-    <div className="input-area ghost" ref={this.setGhostRef} aria-hidden="true">
+    <div
+      className="editing-box_hidden"
+      id="input-area-ghost"
+      ref={this.setGhostRef}
+      aria-hidden="true"
+    >
       {this.state.msgBody}
     </div>
   );
