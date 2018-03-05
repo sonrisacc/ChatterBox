@@ -1,4 +1,6 @@
 .footer {
   border: none;
-  @include whiteBtn;
+  & button {
+    @include whiteBtn;
+  }
 }
