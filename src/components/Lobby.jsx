@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
-import { setLoginUserName, getApiDetails } from '../actions/actionCreators';
+import {
+  setLoginUserName,
+  getApiDetails,
+  getRoomApiDetails
+} from '../actions/actionCreators';
 
 import Header from './Header';
 import Footer from './Footer';
@@ -23,6 +27,7 @@ class Lobby extends Component {
     history: ReactRouterPropTypes.history.isRequired,
     handleLoginUserNameChange: PropTypes.func.isRequired,
     handleGetApiDetails: PropTypes.func.isRequired,
+
     loginUsername: PropTypes.string.isRequired
   };
 
@@ -54,6 +59,7 @@ class Lobby extends Component {
 
   handleAddRoom = () => {
     this.addRoom('test');
+
     // this.toggleHasNewitem();
     // setTimeout(this.toggleHasNewitem, 300);
   };
@@ -76,6 +82,10 @@ class Lobby extends Component {
 
   handleUpdateOnlineUserList = data => {
     this.setState({ userList: data });
+  };
+
+  handleUpdateRoomList = data => {
+    console.log('hahahahahhah room', data);
   };
 
   handleToggleUserPrivateChat = () => {
@@ -123,7 +133,8 @@ class Lobby extends Component {
 
 const mapStateToProps = state => ({
   loginUsername: state.loginUsername,
-  roomLists: state.roomList
+  roomLists: state.roomList,
+  roomData: state.roomData
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -132,6 +143,9 @@ const mapDispatchToProps = dispatch => ({
   },
   handleGetApiDetails(room) {
     dispatch(getApiDetails(room));
+  },
+  handleGetRoomDetails() {
+    dispatch(getRoomApiDetails());
   }
 });
 

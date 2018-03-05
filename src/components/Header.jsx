@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+// import { getRoomApiDetails } from '../actions/actionCreators';
 // import { Link } from 'react-router-dom';
 
 const Header = props => (
@@ -38,7 +39,8 @@ Header.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  loginUsername: state.loginUsername
+  loginUsername: state.loginUsername,
+  roomData: state.roomData
 });
 
 export default connect(mapStateToProps)(Header);

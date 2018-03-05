@@ -11,8 +11,8 @@ export function addAPIData(apiData) {
   return { type: ADD_API_DATA, payload: apiData };
 }
 
-export function addAPIRoomData(apiData) {
-  return { type: ADD_API_ROOM_DATA, payload: apiData };
+export function addRoomAPIData(roomData) {
+  return { type: ADD_API_ROOM_DATA, payload: roomData };
 }
 
 export function getApiDetails(roomName) {
@@ -32,14 +32,14 @@ export function getApiDetails(roomName) {
   };
 }
 
-export function getApiRoomDetails() {
+export function getRoomApiDetails() {
   console.log('hmmmm getting rooms');
   return dispatch => {
     axios
       .get(`${URL}/api/rooms`)
       .then(res => {
         console.log('get room request res', res.data);
-        dispatch(addAPIRoomData(res.data));
+        dispatch(addRoomAPIData(res.data));
       })
       .catch(error => console.error('Error:', error));
   };
