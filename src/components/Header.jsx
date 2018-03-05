@@ -14,7 +14,7 @@ const Header = props => (
           value={props.optionsState}
           onChange={props.change}
         >
-          <option value="" disabled="disabled" selected="selected">
+          <option value="" disabled="disabled">
             Choose a room
           </option>
           <option value="Lobby">Lobby</option>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { emitDeleteMessage } from '../utli/socketHelpers';
+import { emitDeleteMessage } from '../../utli/socketHelpers';
 
 class MessageCard extends Component {
   static propTypes = {

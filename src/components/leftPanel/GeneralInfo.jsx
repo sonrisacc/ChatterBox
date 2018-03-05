@@ -5,7 +5,7 @@ import {
   receiveNewUser,
   receiveOffLineUser,
   receiveOnlineUserNumber
-} from '../utli/socketHelpers';
+} from '../../utli/socketHelpers';
 
 const ONLINE_USER_NUM = 1;
 

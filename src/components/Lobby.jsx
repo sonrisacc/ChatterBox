@@ -4,21 +4,17 @@ import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { setLoginUserName, getApiDetails } from '../actions/actionCreators';
 
-import MessageCard from './MessageCard';
 import Header from './Header';
-import Inputbox from './Inputbox';
+
 import Footer from './Footer';
-import GeneralInfo from './GeneralInfo';
-import Loading from './Loading';
-import OnlineUser from './OnlineUser';
+
 import Privatechat from './Privatechat';
+import LeftPanel from './LeftPanel';
+import RightPanel from './RightPanel';
 
 import {
   updateOnlineUserList,
   emitUserLeft,
-  receiveNewMessage,
-  receiveOneUserTyping,
-  oneUserStoppedTyping,
   switchRoom
 } from '../utli/socketHelpers';
 
@@ -28,41 +24,22 @@ class Lobby extends Component {
     history: ReactRouterPropTypes.history.isRequired,
     handleLoginUserNameChange: PropTypes.func.isRequired,
     handleGetApiDetails: PropTypes.func.isRequired,
-    loginUsername: PropTypes.string.isRequired,
-    apiData: PropTypes.arrayOf(PropTypes.object).isRequired
+    loginUsername: PropTypes.string.isRequired
   };
 
   state = {
-    isTyping: false,
-    oneUser: 'One user',
     selectValue: DEFAULT_SELECT_VALUE,
-    userList: null,
-    isChating: false
+    isChating: false,
+    userList: {}
     // hasNewitem: false
   };
 
   componentDidMount() {
-    this.scrollToBottom();
-    receiveNewMessage(() =>
-      this.props.handleGetApiDetails(this.state.selectValue)
-    );
-    receiveOneUserTyping(this.handleToggleIsTypingComponent);
-    oneUserStoppedTyping(this.handleToggleStoppedTypingComponent);
     updateOnlineUserList(this.handleUpdateOnlineUserList);
   }
 
-  componentDidUpdate() {
-    this.scrollToBottom();
-  }
-
-  setGhostDiv = node => {
-    this.ghostDiv = node;
-  };
   setNewRoomRef = node => {
     this.newRoomRef = node;
-  };
-  scrollToBottom = () => {
-    this.ghostDiv.scrollIntoView({ behavior: 'smooth' });
   };
 
   goToHistory = () => {
@@ -102,46 +79,10 @@ class Lobby extends Component {
     this.setState({ userList: data });
   };
 
-  handleToggleIsTypingComponent = data => {
-    this.setState({ oneUser: data, isTyping: true });
-  };
-  handleToggleStoppedTypingComponent = data => {
-    this.setState({ oneUser: data, isTyping: false });
-  };
   handleToggleUserPrivateChat = () => {
     console.log('handleUserPrivateChat clicked');
     this.setState({ isChating: !this.state.isChating });
   };
-
-  renderUserIsTyping = () => (
-    <div className="msnCard" id="typing">
-      {this.state.oneUser} is typing:
-      <Loading />
-    </div>
-  );
-
-  renderPrivateChat = () => <Privatechat />;
-
-  renderUserList = userList => {
-    const userListArr = Object.keys(userList);
-    return userListArr.map(curUser => (
-      <OnlineUser
-        key={userList[curUser]}
-        name={curUser}
-        id={userList[curUser]}
-        click={this.handleToggleUserPrivateChat}
-      />
-    ));
-  };
-
-  renderMessageCard = () =>
-    this.props.apiData.map(curMsn => (
-      <MessageCard
-        cur={this.props.loginUsername}
-        key={curMsn._id}
-        {...curMsn}
-      />
-    ));
 
   renderHeader = () => (
     <Header
@@ -152,42 +93,32 @@ class Lobby extends Component {
   );
 
   render() {
-    const { userList, isChating } = this.state;
+    const { userList, isChating, selectValue } = this.state;
 
     return (
       <div className="chatterbox">
-        {!isChating && this.renderHeader()}
-        <div className="chatterbox_container">
-          <div className="chatterbox_container_userlist userlist">
-            <div className="userlist_header">
-              <GeneralInfo />
-            </div>
-            <div className="userlist_body">
-              {!!userList && this.renderUserList(userList)}
-            </div>
-            {/* <div className="userlist_footer">footer</div> */}
-          </div>
-          <div className="private-chat">
-            {!!isChating && this.renderPrivateChat()}
-          </div>
-          <div className="lobby-wrapper">
-            <div className="main">
-              {this.renderMessageCard()}
-              {this.state.isTyping && this.renderUserIsTyping()}
-              <div id="ghost-div" className="msnCard" ref={this.setGhostDiv} />
-            </div>
-            <Inputbox room={this.state.selectValue} />
-          </div>
+        <div className="chatterbox_header">
+          {!isChating && this.renderHeader()}
         </div>
-        <Footer logout={this.handleLogOut} />
+        <div className="chatterbox_container">
+          <LeftPanel
+            userList={userList}
+            isChatting={this.handleToggleUserPrivateChat}
+          />
+          <div className="private-chat">{!!isChating && <Privatechat />}</div>
+          <RightPanel selectValue={selectValue} />
+        </div>
+        <div className="chatterbox_footer">
+          <Footer logout={this.handleLogOut} />
+        </div>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  apiData: state.apiData,
-  loginUsername: state.loginUsername
+  loginUsername: state.loginUsername,
+  roomLists: state.roomList
 });
 
 const mapDispatchToProps = dispatch => ({

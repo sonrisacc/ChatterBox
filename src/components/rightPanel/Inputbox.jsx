@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Dropdown from './Dropdown';
 import {
   emitNewMsg,
   emitTypingEvent,
   emitTypingEventStoped
-} from '../utli/socketHelpers';
+} from '../../utli/socketHelpers';
+
+import Dropdown from './Dropdown';
 
 const DEFAULT_HEIGHT = 20;
 const DEFAULT_SELECT_VALUE = 'A';

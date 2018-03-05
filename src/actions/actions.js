@@ -1,2 +1,3 @@
 export const SET_LOGIN_USERNAME = 'LOGIN_USERNAME';
 export const ADD_API_DATA = 'ADD_API_DATA';
+export const ADD_API_ROOM_DATA = ' ADD_API_ROOM_DATA';
