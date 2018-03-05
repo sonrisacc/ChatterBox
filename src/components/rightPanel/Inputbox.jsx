@@ -92,7 +92,7 @@ class Inputbox extends Component {
   };
 
   renderInvalidInputExists = () => (
-    <div className="form-validation"> InvalidInput </div>
+    <div className="editing-box_hidden"> InvalidInput </div>
   );
 
   renderGhostField = () => (
@@ -104,7 +104,6 @@ class Inputbox extends Component {
   renderExpandableField = () => (
     // <div className="textarea-box">
     <textarea
-      className="input-area"
       rows="4"
       cols="50"
       style={{ height: this.state.textAreaHeight }}
@@ -123,17 +122,17 @@ class Inputbox extends Component {
         {this.renderGhostField()}
         <div className="editing-box">
           {!!this.state.showFormValidation && this.renderInvalidInputExists()}
-          <div className="input-box">
-            <div className="dropdown">
+          <div className="editing-box_body">
+            <div className="editing-box_body_dropdown">
               <Dropdown
                 optionsState={this.state.selectValue}
                 change={this.handleLifeSpanSlection}
               />
             </div>
-            {this.renderExpandableField()}
-            <button className="inputBtn" onClick={this.handleSubmit}>
-              Send
-            </button>
+            <div className="editing-box_body_inputarea">
+              {this.renderExpandableField()}
+              <button onClick={this.handleSubmit}>Send</button>
+            </div>
           </div>
         </div>
       </div>

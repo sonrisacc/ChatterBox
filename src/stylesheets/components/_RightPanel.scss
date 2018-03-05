@@ -1,0 +1,29 @@
+.msgbox {
+  // border: 3px solid purple;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  // border-radius: 10px;
+  // box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  min-width: 40vh;
+  min-height: 40vh;
+  max-width: 60vh;
+  max-height: 60vh;
+  background: white;
+  &_body {
+    // border: 3px solid lightblue;
+    border-radius: 3px;
+    margin-top: 10px;
+    // max-height: 300px;
+    min-height: inherit;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    &_maincards {
+      @import './base/_msgCards';
+    }
+  }
+  &_footer {
+    @import './base/_msgInputbox';
+  }
+}

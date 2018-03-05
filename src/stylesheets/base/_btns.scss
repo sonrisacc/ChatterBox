@@ -3,20 +3,33 @@
   margin: 20px;
   padding: 5px;
   color: Black;
-  width: 50px;
+  // width: 50px;
   border: 2px solid lightblue;
   z-index: 100;
 
   &:hover {
     background-color: #66c2ff;
+    color: white;
+  }
+}
+
+@mixin whiteBtn($color:$lightblue) {
+  border: 2px solid lightblue;
+  color: black;
+  margin: 10px;
+  &:hover {
+    background-color: #66c2ff;
+    color: white;
   }
 }
 
 @mixin blueBtn($color:$lightblue) {
   background-color: lightblue;
+  color: white;
   margin: 0px;
   &:hover {
     background-color: #66c2ff;
+    color: white;
   }
 }
 

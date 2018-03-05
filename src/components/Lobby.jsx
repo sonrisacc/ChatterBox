@@ -5,7 +5,6 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 import { setLoginUserName, getApiDetails } from '../actions/actionCreators';
 
 import Header from './Header';
-
 import Footer from './Footer';
 
 import Privatechat from './Privatechat';
@@ -101,12 +100,18 @@ class Lobby extends Component {
           {!isChating && this.renderHeader()}
         </div>
         <div className="chatterbox_container">
-          <LeftPanel
-            userList={userList}
-            isChatting={this.handleToggleUserPrivateChat}
-          />
-          <div className="private-chat">{!!isChating && <Privatechat />}</div>
-          <RightPanel selectValue={selectValue} />
+          <div className="chatterbox_container_leftpanel">
+            <LeftPanel
+              userList={userList}
+              isChatting={this.handleToggleUserPrivateChat}
+            />
+          </div>
+          <div className="chatterbox_container_midpanel">
+            <div className="private-chat">{!!isChating && <Privatechat />}</div>
+          </div>
+          <div className="chatterbox_container_rightpanel">
+            <RightPanel selectValue={selectValue} />
+          </div>
         </div>
         <div className="chatterbox_footer">
           <Footer logout={this.handleLogOut} />

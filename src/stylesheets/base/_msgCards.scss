@@ -1,0 +1,56 @@
+#ghost-div {
+  //for auto scroll
+  // border: 1px solid Maroon;
+  font-size: 2px;
+  // visibility: hidden;
+  height: 5px;
+}
+
+#typing {
+  // border: 1px solid orange;
+  font-size: 9px;
+  color: lightgrey;
+}
+
+.msnCard {
+  font-family: helvetica;
+  display: flex;
+  flex-direction: column;
+
+  &_header {
+    // border: 1px solid green;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+    // font-size: 10px;
+    &_primary {
+      font-weight: bold;
+    }
+    &_secondary {
+      margin-left: 5px;
+      font-size: 10px;
+    }
+    &_hidden {
+      margin: 0px 5px 0px 5px;
+      font-size: 10px;
+      color: lightgrey;
+      border: none;
+      cursor: pointer;
+      &:hover {
+        color: lightblue;
+        cursor: pointer;
+      }
+    }
+  }
+  &_body {
+    // margin: 2px;
+    font-size: 13px;
+    // border: 1px solid black;
+  }
+}
+
+#msnCard-self-delete {
+  font-size: 10px;
+  color: blue;
+}

@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 
 const Footer = props => (
   <div className="footer">
-    <button className="btn logout-btn" onClick={props.logout}>
-      Log out
-    </button>
+    <button onClick={props.logout}>Log out</button>
   </div>
 );
 

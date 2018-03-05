@@ -74,12 +74,12 @@ class MessageCard extends Component {
   };
 
   renderDeletCard = () => (
-    <button id="msnCard-delete" onClick={this.handleDelete}>
+    <button className="msnCard_header_hidden" onClick={this.handleDelete}>
       delete
     </button>
   );
   renderDestructCard = () => (
-    <div id="msnCard-self-delete">
+    <div className="msnCard_header_hidden" id="msnCard-self-delete">
       {`count down timer: ${this.state.hours}:${this.state.minutes}:${
         this.state.seconds
       }`}
@@ -93,15 +93,19 @@ class MessageCard extends Component {
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
       >
-        <div className="msnCard-header">
-          <div id="msnCard-author">{`${this.props.author}: `}</div>
-          <div id="msnCard-time">{this.handleTimeFormat()}</div>
+        <div className="msnCard_header">
+          <div className="msnCard_header_primary" id="msnCard-author">{`${
+            this.props.author
+          }: `}</div>
+          <div className="msnCard_header_secondary" id="msnCard-time">
+            {this.handleTimeFormat()}
+          </div>
           {!!this.props.selfDestruct && this.renderDestructCard()}
           {!!this.state.mayEdit &&
             !!this.state.isHovering &&
             this.renderDeletCard()}
         </div>
-        <div id="msnCard-body">{this.props.message}</div>
+        <div className="msnCard_body">{this.props.message}</div>
       </div>
     );
   }

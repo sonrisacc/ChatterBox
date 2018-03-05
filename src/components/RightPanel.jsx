@@ -63,20 +63,24 @@ class RightPanel extends Component {
     ));
 
   renderUserIsTyping = () => (
-    <div className="msnCard" id="typing">
+    <div id="typing">
       {this.state.oneUser} is typing:
       <Loading />
     </div>
   );
   render() {
     return (
-      <div className="lobby-wrapper">
-        <div className="main">
-          {this.renderMessageCard()}
-          {this.state.isTyping && this.renderUserIsTyping()}
-          <div id="ghost-div" className="msnCard" ref={this.setGhostDiv} />
+      <div className="msgbox">
+        <div className="msgbox_body">
+          <div className="msgbox_body_maincards">
+            {this.renderMessageCard()}
+            {!!this.state.isTyping && this.renderUserIsTyping()}
+            <div id="ghost-div" ref={this.setGhostDiv} />
+          </div>
         </div>
-        <Inputbox room={this.props.selectValue} />
+        <div className="msgbox_footer">
+          <Inputbox room={this.props.selectValue} />
+        </div>
       </div>
     );
   }

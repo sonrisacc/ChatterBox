@@ -1,17 +1,26 @@
 .chatterbox {
-  border: 2px solid lightblue;
+  // border: 2px solid lightblue;
   display: flex;
   min-height: 100vh;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   &_container {
+    // border: 3px solid lightpink;
     display: flex;
     flex-direction: row;
-    border: 3px solid lightpink;
+    width: 80vh;
+    height: 60vh;
     border-radius: 10px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-
-    @import './components/_LeftPanel';
+    &_leftpanel {
+      @import './_LeftPanel';
+    }
+    &_rightpanel {
+      @import './_RightPanel';
+    }
+  }
+  &_footer {
+    @import './_Footer';
   }
 }

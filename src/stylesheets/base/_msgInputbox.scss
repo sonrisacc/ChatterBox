@@ -1,0 +1,49 @@
+.editing-box {
+  // border: 1px solid Turquoise;
+  display: flex;
+  flex-direction: column-reverse;
+  margin: 10px 0px 10px 0px;
+
+  &_hidden {
+    @include formValidation;
+  }
+  &_body {
+    // border: 2px solid lightgrey;
+    // border-radius: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    // align-items: stretch;
+    width: inherit;
+    z-index: 1;
+    &_dropdown {
+      @include dropdown;
+      text-align: center;
+      align-self: center;
+      border: 1px solid lightblue;
+      margin: 0px 5px 0px 0px;
+    }
+    &_inputarea {
+      display: flex;
+      textarea {
+        border: 1px solid lightblue;
+
+        width: 80%;
+        text-align: left;
+        font-style: italic;
+        font-size: 12px;
+        flex: 1;
+        color: black;
+        min-height: 20px;
+        max-height: 90px;
+        overflow-y: visible;
+        resize: none;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
+      }
+      button {
+        @include blueBtn;
+      }
+    }
+  }
+}

@@ -2,12 +2,9 @@
 @import './base/_mixins';
 @import './base/_preset';
 @import './base/_btns';
-@import './base/_formValidation';
 
 .wrapper {
-  @import './components/_App';
   @import './components/_Header';
-  @import './components/_footer';
   @import './components/_landing';
   @import './components/_lobby';
 }

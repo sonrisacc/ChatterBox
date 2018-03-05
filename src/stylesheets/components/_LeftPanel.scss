@@ -1,9 +1,10 @@
 .userlist {
+  display: flex;
   background: lightblue;
   border-radius: 10px 0 0 10px;
   width: 120px;
-  display: flex;
   flex-direction: column;
+  height: 100%;
   &_header {
     margin: 5px;
     margin-top: 10px;
