@@ -43,3 +43,11 @@ export function getRoomApiDetails() {
       .catch(error => console.error('Error:', error));
   };
 }
+
+// export function doEverything(roomName) {
+//   return dispatch =>
+//     Promise.all([
+//       dispatch(getRoomApiDetails()),
+//       dispatch(getApiDetails(roomName))
+//     ]);
+// }

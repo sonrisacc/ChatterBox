@@ -15,8 +15,7 @@ class Landing extends Component {
   static propTypes = {
     history: ReactRouterPropTypes.history.isRequired,
     handleLoginUserNameChange: PropTypes.func.isRequired,
-    handleGetRoomDetails: PropTypes.func.isRequired,
-    handleGetApiDetails: PropTypes.func.isRequired,
+    handleDoEverything: PropTypes.func.isRequired,
     location: ReactRouterPropTypes.location.isRequired
   };
 
@@ -39,10 +38,10 @@ class Landing extends Component {
       if (data !== null) {
         // if sucessfully logged in
         this.props.handleLoginUserNameChange(data.username);
-        this.props.handleGetApiDetails(this.state.curRoom);
-        this.props.handleGetRoomDetails();
-        emitNewUser(this.state.userNameInput);
-        this.setState({ redirectToReferrer: true });
+        this.props.handleDoEverything(this.state.curRoom).then(() => {
+          emitNewUser(this.state.userNameInput);
+          this.setState({ redirectToReferrer: true });
+        });
       } else if (data === null) {
         // if failed logged in
         this.goToSignUp();
@@ -91,11 +90,11 @@ const mapDispatchToProps = dispatch => ({
   handleLoginUserNameChange(username) {
     dispatch(setLoginUserName(username));
   },
-  handleGetApiDetails(room) {
-    dispatch(getApiDetails(room));
-  },
-  handleGetRoomDetails() {
-    dispatch(getRoomApiDetails());
+  handleDoEverything(room) {
+    return Promise.all([
+      dispatch(getApiDetails(room)),
+      dispatch(getRoomApiDetails())
+    ]);
   }
 });
 

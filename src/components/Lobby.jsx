@@ -34,7 +34,8 @@ class Lobby extends Component {
   state = {
     selectValue: DEFAULT_SELECT_VALUE,
     isChating: false,
-    userList: {}
+    userList: {},
+    showModal: false
     // hasNewitem: false
   };
 
@@ -58,6 +59,8 @@ class Lobby extends Component {
   };
 
   handleAddRoom = () => {
+    console.log('handleAddRoom clicked');
+    this.setState({ showModal: false });
     this.addRoom('test');
 
     // this.toggleHasNewitem();
@@ -88,6 +91,19 @@ class Lobby extends Component {
     console.log('handleUserPrivateChat clicked');
     this.setState({ isChating: !this.state.isChating });
   };
+  renderModal = () => (
+    <div className="modal" id="addRomm">
+      <div className="modal_content">
+        <span className="close">&times;</span>
+        <p>Some text in the Modal..</p>
+        <input id="a" placeholder="add" />
+      </div>
+      <div className="modal_footer">
+        <button>cancel</button>
+        <button>add</button>
+      </div>
+    </div>
+  );
 
   renderHeader = () => (
     <Header
@@ -98,7 +114,7 @@ class Lobby extends Component {
   );
 
   render() {
-    const { userList, isChating, selectValue } = this.state;
+    const { userList, isChating, selectValue, showModal } = this.state;
 
     return (
       <div className="chatterbox">
@@ -122,6 +138,8 @@ class Lobby extends Component {
         <div className="chatterbox_footer">
           <Footer logout={this.handleLogOut} />
         </div>
+        <div className="chatterbox_modal" />
+        {!showModal && this.renderModal()}
       </div>
     );
   }
