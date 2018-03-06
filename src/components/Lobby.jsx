@@ -10,7 +10,7 @@ import {
 
 import Header from './Header';
 import Footer from './Footer';
-
+import RoomModal from './RoomModal';
 import Privatechat from './Privatechat';
 import LeftPanel from './LeftPanel';
 import RightPanel from './RightPanel';
@@ -37,7 +37,8 @@ class Lobby extends Component {
     selectValue: DEFAULT_SELECT_VALUE,
     isChating: false,
     userList: {},
-    showModal: false
+    showModal: false,
+    isPrivate: true
     // hasNewitem: false
   };
 
@@ -52,9 +53,31 @@ class Lobby extends Component {
   setModalInputRef = node => {
     this.modalInput = node;
   };
+  setModalPasswordRef = node => {
+    this.modalPassword = node;
+  };
+
+  setModalPrivacyRef = node => {
+    this.modalPrivacy = node;
+  };
 
   goToHistory = () => {
     this.props.history.push('/history');
+  };
+
+  handelToggelPrivacy = () => {
+    this.setState({ isPrivate: !this.state.isPrivate });
+    if (this.state.isPrivate === true) {
+      this.modalPassword.placeholder = 'type...';
+      this.modalPassword.value = '';
+      this.modalPrivacy.value = 'on';
+      this.modalPassword.disabled = true;
+    } else if (this.state.isPrivate === false) {
+      this.modalPrivacy.value = 'off';
+      this.modalPassword.disabled = false;
+      this.modalPassword.value = '';
+      this.modalPassword.placeholder = 'select private to enable';
+    }
   };
 
   handleAddInModal = () => {
@@ -105,32 +128,14 @@ class Lobby extends Component {
   };
 
   renderModal = () => (
-    <div className="modal ">
-      <div className="modal_content">
-        <div className="modal_content_header">
-          <button className="close" onClick={this.handleCloseModal}>
-            &times;
-          </button>
-        </div>
-        <div className="modal_content_body">
-          <div id="options" className="modal_content_body_row">
-            <p>Is Private:</p>
-            <input type="checkbox" id="a" />
-          </div>
-          <div className="modal_content_body_row">
-            <p>Add a room:</p>
-            <input id="b" ref={this.setModalInputRef} placeholder="add" />
-          </div>
-          <div className="modal_content_body_row">
-            <p>Password:</p>
-            <input id="c" ref={this.setModalPasswordRef} placeholder="add" />
-          </div>
-        </div>
-        <div className="modal_content_footer">
-          <button onClick={this.handleAddInModal}>add</button>
-        </div>
-      </div>
-    </div>
+    <RoomModal
+      handleCloseModal={this.handleCloseModal}
+      setModalInputRef={this.setModalInputRef}
+      setModalPasswordRef={this.setModalPasswordRef}
+      handleAddInModal={this.handleAddInModal}
+      setModalPrivacyRef={this.setModalPrivacyRef}
+      handelToggelPrivacy={this.handelToggelPrivacy}
+    />
   );
 
   renderHeader = () => (
