@@ -17,6 +17,9 @@ export function switchRoom(room) {
   socket.emit('switchRoom', room);
 }
 
+export function emitAddRoom(roomname) {
+  socket.emit('newRoom', { roomname });
+}
 export function emitNewUser(name) {
   socket.emit('userLogIn', { username: name });
 }
@@ -79,6 +82,12 @@ export function oneUserStoppedTyping(cb) {
 
 export function receiveNewMessage(cb) {
   socket.on('oneNewMessage', data => {
+    cb(data);
+  });
+}
+
+export function receiveOneNewRoom(cb) {
+  socket.on('oneNewRoom', data => {
     cb(data);
   });
 }

@@ -1,4 +1,5 @@
 const utli = require('../controlers/messageCtrl.js');
+const utliR = require('../controlers/roomCtrl.js');
 
 const defaultRoom = 'Lobby';
 const usernames = {};
@@ -51,6 +52,13 @@ module.exports = io => {
     socket.on('newMsg', data => {
       utli.addNewMessages(data).then(res => {
         io.sockets.in(socket.room).emit('oneNewMessage', res);
+      });
+    });
+
+    socket.on('newRoom', data => {
+      console.log('newRoom', data);
+      utliR.addNewRoom(data.roomname).then(res => {
+        io.sockets.emit('oneNewRoom', res);
       });
     });
 

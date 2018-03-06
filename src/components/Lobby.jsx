@@ -18,7 +18,9 @@ import RightPanel from './RightPanel';
 import {
   updateOnlineUserList,
   emitUserLeft,
-  switchRoom
+  switchRoom,
+  receiveOneNewRoom,
+  emitAddRoom
 } from '../utli/socketHelpers';
 
 const DEFAULT_SELECT_VALUE = 'Lobby';
@@ -27,7 +29,7 @@ class Lobby extends Component {
     history: ReactRouterPropTypes.history.isRequired,
     handleLoginUserNameChange: PropTypes.func.isRequired,
     handleGetApiDetails: PropTypes.func.isRequired,
-    // handleGetRoomDetails: PropTypes.func.isRequired,
+    handleGetRoomDetails: PropTypes.func.isRequired,
     loginUsername: PropTypes.string.isRequired
   };
 
@@ -41,30 +43,30 @@ class Lobby extends Component {
 
   componentDidMount() {
     updateOnlineUserList(this.handleUpdateOnlineUserList);
+    receiveOneNewRoom(this.handleUpdateRoomList);
   }
 
   setNewRoomRef = node => {
     this.newRoomRef = node;
+  };
+  setModalInputRef = node => {
+    this.modalInput = node;
   };
 
   goToHistory = () => {
     this.props.history.push('/history');
   };
 
-  addRoom = () => {
-    // open modal,
-    // get room name
-    // update renderNewRoomOption
-    // update state
+  handleAddInModal = () => {
+    // need validation
+    if (!this.modalInput.value.replace(/\s/g, '').length) {
+      const roomName = this.modalInput.value;
+      emitAddRoom(roomName);
+    }
   };
 
-  handleAddRoom = () => {
-    console.log('handleAddRoom clicked');
-    this.setState({ showModal: false });
-    this.addRoom('test');
-
-    // this.toggleHasNewitem();
-    // setTimeout(this.toggleHasNewitem, 300);
+  handleOpenAddRoomModal = () => {
+    this.setState({ showModal: !this.state.showModal });
   };
 
   handleRoomSlection = e => {
@@ -74,13 +76,18 @@ class Lobby extends Component {
       this.props.handleGetApiDetails(roomName);
       switchRoom(roomName);
     } else {
-      this.handleAddRoom();
+      this.handleOpenAddRoomModal();
     }
   };
 
   handleLogOut = () => {
     emitUserLeft(this.props.loginUsername);
     this.props.handleLoginUserNameChange(null);
+  };
+
+  handleUpdateRoomList = data => {
+    console.log('handleUpdateRoomList', data);
+    this.props.handleGetRoomDetails();
   };
 
   handleUpdateOnlineUserList = data => {
@@ -91,16 +98,25 @@ class Lobby extends Component {
     console.log('handleUserPrivateChat clicked');
     this.setState({ isChating: !this.state.isChating });
   };
+
+  handleCloseModal = () => {
+    this.setState({ showModal: false });
+  };
+
   renderModal = () => (
     <div className="modal" id="addRomm">
       <div className="modal_content">
-        <span className="close">&times;</span>
-        <p>Some text in the Modal..</p>
-        <input id="a" placeholder="add" />
+        <button className="close" onClick={this.handleCloseModal}>
+          &times;
+        </button>
+        <p>Add a room</p>
+        <input id="b" ref={this.setModalInputRef} placeholder="add" />
+        <p>Is Private</p>
+        <input className="option" type="checkbox" id=":13m" />
       </div>
       <div className="modal_footer">
-        <button>cancel</button>
-        <button>add</button>
+        <button onClick={this.handleCloseModal}>cancel</button>
+        <button onClick={this.handleAddInModal}>add</button>
       </div>
     </div>
   );
