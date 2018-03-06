@@ -56,7 +56,6 @@ class Lobby extends Component {
   setModalPasswordRef = node => {
     this.modalPassword = node;
   };
-
   setModalPrivacyRef = node => {
     this.modalPrivacy = node;
   };
@@ -65,6 +64,40 @@ class Lobby extends Component {
     this.props.history.push('/history');
   };
 
+  handleOpenAddRoomModal = () => {
+    this.setState({ showModal: !this.state.showModal });
+  };
+  handleUpdateOnlineUserList = data => {
+    this.setState({ userList: data });
+  };
+  handleCloseModal = () => {
+    this.setState({ showModal: false });
+  };
+  handleToggleUserPrivateChat = () => {
+    console.log('handleUserPrivateChat clicked');
+    this.setState({ isChating: !this.state.isChating });
+  };
+
+  handleLogOut = () => {
+    emitUserLeft(this.props.loginUsername);
+    this.props.handleLoginUserNameChange(null);
+  };
+
+  handleUpdateRoomList = data => {
+    console.log('handleUpdateRoomList', data);
+    this.props.handleGetRoomDetails();
+  };
+
+  handleAddInModal = () => {
+    // need validation
+    if (this.modalInput.value.replace(/\s/g, '').length > 0) {
+      const roomName = this.modalInput.value;
+      const isPrivate = this.modalPrivacy.value;
+      const password = this.modalPassword.value;
+      emitAddRoom(roomName, isPrivate, password);
+      this.handleCloseModal();
+    }
+  };
   handelToggelPrivacy = () => {
     this.setState({ isPrivate: !this.state.isPrivate });
     if (this.state.isPrivate === true) {
@@ -80,19 +113,6 @@ class Lobby extends Component {
     }
   };
 
-  handleAddInModal = () => {
-    // need validation
-    if (this.modalInput.value.replace(/\s/g, '').length > 0) {
-      const roomName = this.modalInput.value;
-      emitAddRoom(roomName);
-      this.handleCloseModal();
-    }
-  };
-
-  handleOpenAddRoomModal = () => {
-    this.setState({ showModal: !this.state.showModal });
-  };
-
   handleRoomSlection = e => {
     const roomName = e.target.value;
     if (roomName !== 'More') {
@@ -102,29 +122,6 @@ class Lobby extends Component {
     } else {
       this.handleOpenAddRoomModal();
     }
-  };
-
-  handleLogOut = () => {
-    emitUserLeft(this.props.loginUsername);
-    this.props.handleLoginUserNameChange(null);
-  };
-
-  handleUpdateRoomList = data => {
-    console.log('handleUpdateRoomList', data);
-    this.props.handleGetRoomDetails();
-  };
-
-  handleUpdateOnlineUserList = data => {
-    this.setState({ userList: data });
-  };
-
-  handleToggleUserPrivateChat = () => {
-    console.log('handleUserPrivateChat clicked');
-    this.setState({ isChating: !this.state.isChating });
-  };
-
-  handleCloseModal = () => {
-    this.setState({ showModal: false });
   };
 
   renderModal = () => (
