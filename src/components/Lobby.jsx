@@ -59,9 +59,10 @@ class Lobby extends Component {
 
   handleAddInModal = () => {
     // need validation
-    if (!this.modalInput.value.replace(/\s/g, '').length) {
+    if (this.modalInput.value.replace(/\s/g, '').length > 0) {
       const roomName = this.modalInput.value;
       emitAddRoom(roomName);
+      this.handleCloseModal();
     }
   };
 
@@ -104,19 +105,30 @@ class Lobby extends Component {
   };
 
   renderModal = () => (
-    <div className="modal" id="addRomm">
+    <div className="modal ">
       <div className="modal_content">
-        <button className="close" onClick={this.handleCloseModal}>
-          &times;
-        </button>
-        <p>Add a room</p>
-        <input id="b" ref={this.setModalInputRef} placeholder="add" />
-        <p>Is Private</p>
-        <input className="option" type="checkbox" id=":13m" />
-      </div>
-      <div className="modal_footer">
-        <button onClick={this.handleCloseModal}>cancel</button>
-        <button onClick={this.handleAddInModal}>add</button>
+        <div className="modal_content_header">
+          <button className="close" onClick={this.handleCloseModal}>
+            &times;
+          </button>
+        </div>
+        <div className="modal_content_body">
+          <div id="options" className="modal_content_body_row">
+            <p>Is Private:</p>
+            <input type="checkbox" id="a" />
+          </div>
+          <div className="modal_content_body_row">
+            <p>Add a room:</p>
+            <input id="b" ref={this.setModalInputRef} placeholder="add" />
+          </div>
+          <div className="modal_content_body_row">
+            <p>Password:</p>
+            <input id="c" ref={this.setModalPasswordRef} placeholder="add" />
+          </div>
+        </div>
+        <div className="modal_content_footer">
+          <button onClick={this.handleAddInModal}>add</button>
+        </div>
       </div>
     </div>
   );
@@ -154,8 +166,9 @@ class Lobby extends Component {
         <div className="chatterbox_footer">
           <Footer logout={this.handleLogOut} />
         </div>
-        <div className="chatterbox_modal" />
-        {!showModal && this.renderModal()}
+        <div className="chatterbox_modal">
+          {!!showModal && this.renderModal()}
+        </div>
       </div>
     );
   }
