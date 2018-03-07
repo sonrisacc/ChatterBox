@@ -7,6 +7,16 @@ const messageSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: 'Please enter roomname.'
+    },
+    isPrivate: {
+      type: Boolean,
+      required: true,
+      default: false
+    },
+    password: {
+      type: String,
+      required: true,
+      deafult: '1234'
     }
   },
   { timestamps: true }

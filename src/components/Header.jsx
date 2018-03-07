@@ -31,8 +31,7 @@ Header.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  loginUsername: state.loginUsername,
-  roomData: state.roomData
+  loginUsername: state.loginUsername
 });
 
 export default connect(mapStateToProps)(Header);

@@ -57,7 +57,7 @@ module.exports = io => {
 
     socket.on('newRoom', data => {
       console.log('newRoom', data);
-      utliR.addNewRoom(data.roomname).then(res => {
+      utliR.addNewRoom(data).then(res => {
         io.sockets.emit('oneNewRoom', res);
       });
     });

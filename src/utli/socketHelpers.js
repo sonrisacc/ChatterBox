@@ -17,8 +17,8 @@ export function switchRoom(room) {
   socket.emit('switchRoom', room);
 }
 
-export function emitAddRoom(roomname) {
-  socket.emit('newRoom', { roomname });
+export function emitAddRoom(roomname, isPrivate, password) {
+  socket.emit('newRoom', { roomname, isPrivate, password });
 }
 export function emitNewUser(name) {
   socket.emit('userLogIn', { username: name });

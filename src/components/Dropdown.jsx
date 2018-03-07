@@ -13,24 +13,35 @@ class Dropdown extends Component {
     roomData: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
-  renderRoomOption = () =>
-    this.props.roomData.map(({ roomname, _id }) => (
+  componentDidMount() {
+    this.renderRoomOption();
+  }
+
+  renderRoomOption = () => {
+    const result = this.props.roomData.map(({ roomname, _id }) => (
       <option key={_id} value={roomname}>
         {roomname}
       </option>
     ));
+    return result;
+  };
+
+  renderDefault = () => <option value="Lobby">Lobby</option>;
 
   render() {
+    console.log('this.props.optionsState Dropdown', this.props.optionsState);
     return (
       <div className="header_dropdown">
         <select
           ref={this.props.setRef}
-          value={this.props.optionsState}
           onChange={this.props.change}
+          value={this.props.optionsState}
         >
           <option value="" disabled="disabled">
             Choose a room
           </option>
+          {/* {this.renderDefault()} */}
+
           {this.renderRoomOption()}
           <option value="More">Add new room</option>
         </select>

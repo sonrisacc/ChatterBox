@@ -2,6 +2,7 @@
 @import './base/_mixins';
 @import './base/_preset';
 @import './base/_btns';
+@import './base/_modal';
 .wrapper {
   @import './components/_Header';
   @import './components/_landing';

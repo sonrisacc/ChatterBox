@@ -4,20 +4,26 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { signUpUser } from '../utli/httpHelpers';
-import { setLoginUserName, getApiDetails } from '../actions/actionCreators';
+import {
+  setLoginUserName,
+  getApiDetails,
+  getRoomApiDetails
+} from '../actions/actionCreators';
 import { emitNewUser } from '../utli/socketHelpers';
 
-const DEFAULT_SELECT_VALUE = 'Lobby';
+// const DEFAULT_SELECT_VALUE = 'Lobby';
 class Signup extends Component {
   static propTypes = {
     handleLoginUserNameChange: PropTypes.func.isRequired,
     history: ReactRouterPropTypes.history.isRequired,
-    handleGetApiDetails: PropTypes.func.isRequired
+    // handleGetApiDetails: PropTypes.func.isRequired,
+    handleDoEverything: PropTypes.func.isRequired
   };
 
   state = {
     userNameInput: '',
-    showFormValidation: false
+    showFormValidation: false,
+    curRoom: 'Lobby'
   };
 
   toggleRenderFormValidation = () => {
@@ -32,9 +38,11 @@ class Signup extends Component {
     signUpUser(this.state.userNameInput).then(data => {
       if (data !== null) {
         this.props.handleLoginUserNameChange(data.username);
-        this.props.handleGetApiDetails(DEFAULT_SELECT_VALUE);
-        emitNewUser(this.state.userNameInput);
-        this.goToLobby();
+        this.props.handleDoEverything(this.state.curRoom).then(() => {
+          emitNewUser(this.state.userNameInput);
+          // need to find a better way
+          setTimeout(() => this.goToLobby(), 500);
+        });
       } else if (data === null) {
         this.toggleRenderFormValidation();
         setTimeout(this.toggleRenderFormValidation, 1000);
@@ -85,8 +93,11 @@ const mapDispatchToProps = dispatch => ({
   handleLoginUserNameChange(username) {
     dispatch(setLoginUserName(username));
   },
-  handleGetApiDetails(room) {
-    dispatch(getApiDetails(room));
+  handleDoEverything(room) {
+    return Promise.all([
+      dispatch(getApiDetails(room)),
+      dispatch(getRoomApiDetails())
+    ]);
   }
 });
 

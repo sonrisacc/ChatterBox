@@ -31,6 +31,7 @@ class Lobby extends Component {
     handleGetApiDetails: PropTypes.func.isRequired,
     handleGetRoomDetails: PropTypes.func.isRequired,
     loginUsername: PropTypes.string.isRequired
+    // roomData: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
   state = {
@@ -104,16 +105,19 @@ class Lobby extends Component {
       this.modalPassword.placeholder = 'type...';
       this.modalPassword.value = '';
       this.modalPrivacy.value = 'on';
-      this.modalPassword.disabled = true;
+      this.modalPassword.disabled = false;
     } else if (this.state.isPrivate === false) {
       this.modalPrivacy.value = 'off';
-      this.modalPassword.disabled = false;
+      this.modalPassword.disabled = true;
       this.modalPassword.value = '';
       this.modalPassword.placeholder = 'select private to enable';
     }
   };
 
   handleRoomSlection = e => {
+    // const text = e.target.value.split(' ');
+    // const roomName = text[0];
+    // const isPrivate = text[1];
     const roomName = e.target.value;
     if (roomName !== 'More') {
       this.setState({ selectValue: roomName });
@@ -145,7 +149,7 @@ class Lobby extends Component {
 
   render() {
     const { userList, isChating, selectValue, showModal } = this.state;
-
+    console.log('selectValue', selectValue);
     return (
       <div className="chatterbox">
         <div className="chatterbox_header">
@@ -177,7 +181,8 @@ class Lobby extends Component {
 }
 
 const mapStateToProps = state => ({
-  loginUsername: state.loginUsername
+  loginUsername: state.loginUsername,
+  roomData: state.apiRoomData
 });
 
 const mapDispatchToProps = dispatch => ({
