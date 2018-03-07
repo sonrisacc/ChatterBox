@@ -10,7 +10,7 @@ const RoomModal = props => (
         </button>
       </div>
       <div className="modal_content_body">
-        <h1>Enter room</h1>
+        <h1>Enter {props.title}</h1>
         <div id="options" className="modal_content_body_row" />
         <div className="modal_content_body_row">
           <p>Please enter password:</p>
@@ -25,6 +25,7 @@ const RoomModal = props => (
 );
 
 RoomModal.propTypes = {
+  title: PropTypes.string.isRequired,
   handleCloseModal: PropTypes.func.isRequired,
   setModalInputRef: PropTypes.func.isRequired,
   handlePwdCheck: PropTypes.func.isRequired

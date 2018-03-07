@@ -24,6 +24,7 @@ import {
   receiveOneNewRoom,
   emitAddRoom
 } from '../utli/socketHelpers';
+import { pwdcheck } from '../utli/httpHelpers';
 
 const DEFAULT_SELECT_VALUE = 'Lobby';
 class Lobby extends Component {
@@ -38,6 +39,7 @@ class Lobby extends Component {
 
   state = {
     selectValue: DEFAULT_SELECT_VALUE,
+    pwdCheckRoomVal: DEFAULT_SELECT_VALUE,
     isChating: false,
     userList: {},
     showAddRoomModal: false,
@@ -78,7 +80,7 @@ class Lobby extends Component {
     this.setState({ showAddRoomModal: !this.state.showAddRoomModal });
   };
   handleCloseAddRoomModal = () => {
-    this.setState({ showAddRoomModal: false });
+    this.setState({ showAddRoomModal: false, isPrivate: true });
   };
   handleToggleUserPrivateChat = () => {
     console.log('handleUserPrivateChat clicked');
@@ -95,6 +97,16 @@ class Lobby extends Component {
   handlePwdCheck = () => {
     const pwd = this.modalPwdInputRef.value;
     console.log('pwd input', pwd);
+    pwdcheck(pwd, this.state.pwdCheckRoomVal).then(isCorrect => {
+      if (isCorrect) {
+        this.setState({ selectValue: this.state.pwdCheckRoomVal });
+        this.props.handleGetApiDetails(this.state.pwdCheckRoomVal);
+        switchRoom(this.state.pwdCheckRoomVal);
+        this.handleCloseEnterRoomModal();
+      } else {
+        console.log('pwd is not correct');
+      }
+    });
   };
 
   handleLogOut = () => {
@@ -102,8 +114,7 @@ class Lobby extends Component {
     this.props.handleLoginUserNameChange(null);
   };
 
-  handleUpdateRoomList = data => {
-    console.log('handleUpdateRoomList', data);
+  handleUpdateRoomList = () => {
     this.props.handleGetRoomDetails();
   };
 
@@ -114,7 +125,7 @@ class Lobby extends Component {
       const isPrivate = this.modalPrivacy.value;
       const password = this.modalPassword.value;
       emitAddRoom(roomName, isPrivate, password);
-      this.handleCloseEnterRoomModal();
+      this.handleCloseAddRoomModal();
     }
   };
 
@@ -135,15 +146,16 @@ class Lobby extends Component {
 
   handleRoomSlection = e => {
     const roomName = e.target.value;
-    const privacyCheck = this.props.roomData[roomName].isPrivate;
+
     if (roomName !== 'More') {
+      const privacyCheck = this.props.roomData[roomName].isPrivate;
       if (privacyCheck !== true) {
         this.setState({ selectValue: roomName });
         this.props.handleGetApiDetails(roomName);
         switchRoom(roomName);
       } else {
-        console.log('privacyCheck', privacyCheck);
-        this.setState({ showEnterRoomModal: true });
+        this.setState({ pwdCheckRoomVal: roomName });
+        this.handleOpenEnterRoomModal();
       }
     } else {
       this.handleOpenAddRoomModal();
@@ -155,6 +167,7 @@ class Lobby extends Component {
       handleCloseModal={this.handleCloseEnterRoomModal}
       setModalInputRef={this.setEnterRoomModalInputRef}
       handlePwdCheck={this.handlePwdCheck}
+      title={this.state.pwdCheckRoomVal}
     />
   );
 
