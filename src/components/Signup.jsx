@@ -39,9 +39,11 @@ class Signup extends Component {
       if (data !== null) {
         this.props.handleLoginUserNameChange(data.username);
         this.props.handleDoEverything(this.state.curRoom).then(() => {
-          emitNewUser(this.state.userNameInput);
           // need to find a better way
-          setTimeout(() => this.goToLobby(), 500);
+          setTimeout(() => {
+            this.goToLobby();
+            emitNewUser(this.state.userNameInput);
+          }, 500);
         });
       } else if (data === null) {
         this.toggleRenderFormValidation();
@@ -75,7 +77,6 @@ class Signup extends Component {
               className="landing_inputbox_btn"
               onClick={this.handleSignUp}
             >
-              {' '}
               SignUp
             </button>
           </div>

@@ -23,6 +23,7 @@ class LeftPanel extends Component {
 
   render() {
     const { userList } = this.props;
+    console.log('signup userlist', userList);
     return (
       <div className="userlist">
         <div className="userlist_header">
