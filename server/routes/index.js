@@ -12,7 +12,12 @@ router.get('/history', (req, res) => {
 
 router.get('/rooms', (req, res) => {
   utliR.loadRoom().then(data => {
-    res.status(200).json(data);
+    const result = {};
+    console.log('hmmmm data');
+    data.forEach(cur => {
+      result[cur.roomname] = cur;
+    });
+    res.status(200).json(result);
   });
 });
 

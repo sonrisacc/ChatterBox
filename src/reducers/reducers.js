@@ -19,9 +19,9 @@ const apiData = (state = [], action) => {
   return state;
 };
 
-const apiRoomData = (state = [], action) => {
+const apiRoomData = (state = {}, action) => {
   if (action.type === ADD_API_ROOM_DATA) {
-    return [...action.payload];
+    return Object.assign({}, state, action.payload);
   }
   return state;
 };

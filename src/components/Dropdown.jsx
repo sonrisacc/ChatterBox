@@ -10,7 +10,7 @@ class Dropdown extends Component {
     optionsState: PropTypes.string.isRequired,
     setRef: PropTypes.func.isRequired,
     change: PropTypes.func.isRequired,
-    roomData: PropTypes.arrayOf(PropTypes.object).isRequired
+    roomData: PropTypes.object.isRequired // eslint-disable-line
   };
 
   componentDidMount() {
@@ -18,7 +18,8 @@ class Dropdown extends Component {
   }
 
   renderRoomOption = () => {
-    const result = this.props.roomData.map(({ roomname, _id }) => (
+    const data = Object.values(this.props.roomData);
+    const result = data.map(({ roomname, _id }) => (
       <option key={_id} value={roomname}>
         {roomname}
       </option>
