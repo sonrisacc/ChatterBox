@@ -10,11 +10,13 @@ import {
 
 import Header from './Header';
 import Footer from './Footer';
-import RoomModal from './RoomModal';
+
 import Privatechat from './Privatechat';
 import LeftPanel from './LeftPanel';
 import RightPanel from './RightPanel';
 
+import RoomModal from './RoomModal';
+import EnterRoomModal from './EnterRoomModal';
 import {
   updateOnlineUserList,
   emitUserLeft,
@@ -30,15 +32,16 @@ class Lobby extends Component {
     handleLoginUserNameChange: PropTypes.func.isRequired,
     handleGetApiDetails: PropTypes.func.isRequired,
     handleGetRoomDetails: PropTypes.func.isRequired,
-    loginUsername: PropTypes.string.isRequired
-    // roomData: PropTypes.arrayOf(PropTypes.object).isRequired
+    loginUsername: PropTypes.string.isRequired,
+    roomData: PropTypes.object.isRequired // eslint-disable-line
   };
 
   state = {
     selectValue: DEFAULT_SELECT_VALUE,
     isChating: false,
     userList: {},
-    showModal: false,
+    showAddRoomModal: false,
+    showEnterRoomModal: false,
     isPrivate: true
     // hasNewitem: false
   };
@@ -60,23 +63,38 @@ class Lobby extends Component {
   setModalPrivacyRef = node => {
     this.modalPrivacy = node;
   };
+  setEnterRoomModalInputRef = node => {
+    this.modalPwdInputRef = node;
+  };
 
   goToHistory = () => {
     this.props.history.push('/history');
   };
 
-  handleOpenAddRoomModal = () => {
-    this.setState({ showModal: !this.state.showModal });
-  };
   handleUpdateOnlineUserList = data => {
     this.setState({ userList: data });
   };
-  handleCloseModal = () => {
-    this.setState({ showModal: false });
+  handleOpenAddRoomModal = () => {
+    this.setState({ showAddRoomModal: !this.state.showAddRoomModal });
+  };
+  handleCloseAddRoomModal = () => {
+    this.setState({ showAddRoomModal: false });
   };
   handleToggleUserPrivateChat = () => {
     console.log('handleUserPrivateChat clicked');
     this.setState({ isChating: !this.state.isChating });
+  };
+
+  handleCloseEnterRoomModal = () => {
+    this.setState({ showEnterRoomModal: false });
+  };
+  handleOpenEnterRoomModal = () => {
+    this.setState({ showEnterRoomModal: !this.state.showEnterRoomModal });
+  };
+
+  handlePwdCheck = () => {
+    const pwd = this.modalPwdInputRef.value;
+    console.log('pwd input', pwd);
   };
 
   handleLogOut = () => {
@@ -96,9 +114,10 @@ class Lobby extends Component {
       const isPrivate = this.modalPrivacy.value;
       const password = this.modalPassword.value;
       emitAddRoom(roomName, isPrivate, password);
-      this.handleCloseModal();
+      this.handleCloseEnterRoomModal();
     }
   };
+
   handelToggelPrivacy = () => {
     this.setState({ isPrivate: !this.state.isPrivate });
     if (this.state.isPrivate === true) {
@@ -115,22 +134,33 @@ class Lobby extends Component {
   };
 
   handleRoomSlection = e => {
-    // const text = e.target.value.split(' ');
-    // const roomName = text[0];
-    // const isPrivate = text[1];
     const roomName = e.target.value;
+    const privacyCheck = this.props.roomData[roomName].isPrivate;
     if (roomName !== 'More') {
-      this.setState({ selectValue: roomName });
-      this.props.handleGetApiDetails(roomName);
-      switchRoom(roomName);
+      if (privacyCheck !== true) {
+        this.setState({ selectValue: roomName });
+        this.props.handleGetApiDetails(roomName);
+        switchRoom(roomName);
+      } else {
+        console.log('privacyCheck', privacyCheck);
+        this.setState({ showEnterRoomModal: true });
+      }
     } else {
       this.handleOpenAddRoomModal();
     }
   };
 
-  renderModal = () => (
+  renderEnterRoomModal = () => (
+    <EnterRoomModal
+      handleCloseModal={this.handleCloseEnterRoomModal}
+      setModalInputRef={this.setEnterRoomModalInputRef}
+      handlePwdCheck={this.handlePwdCheck}
+    />
+  );
+
+  renderAddRoomModal = () => (
     <RoomModal
-      handleCloseModal={this.handleCloseModal}
+      handleCloseModal={this.handleCloseAddRoomModal}
       setModalInputRef={this.setModalInputRef}
       setModalPasswordRef={this.setModalPasswordRef}
       handleAddInModal={this.handleAddInModal}
@@ -148,7 +178,13 @@ class Lobby extends Component {
   );
 
   render() {
-    const { userList, isChating, selectValue, showModal } = this.state;
+    const {
+      userList,
+      isChating,
+      selectValue,
+      showAddRoomModal,
+      showEnterRoomModal
+    } = this.state;
     console.log('selectValue', selectValue);
     return (
       <div className="chatterbox">
@@ -173,7 +209,8 @@ class Lobby extends Component {
           <Footer logout={this.handleLogOut} />
         </div>
         <div className="chatterbox_modal">
-          {!!showModal && this.renderModal()}
+          {!!showAddRoomModal && this.renderAddRoomModal()}
+          {!!showEnterRoomModal && this.renderEnterRoomModal()}
         </div>
       </div>
     );
