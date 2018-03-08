@@ -41,8 +41,6 @@ class Dropdown extends Component {
           <option value="" disabled="disabled">
             Choose a room
           </option>
-          {/* {this.renderDefault()} */}
-
           {this.renderRoomOption()}
           <option value="More">Add new room</option>
         </select>

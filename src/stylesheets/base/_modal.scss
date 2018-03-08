@@ -41,6 +41,13 @@
           margin-right: 10px;
         }
       }
+      &_row-info {
+        display: flex;
+        justify-content: flex-end;
+        & .info {
+          margin: 5px;
+        }
+      }
     }
     &_footer {
       display: flex;

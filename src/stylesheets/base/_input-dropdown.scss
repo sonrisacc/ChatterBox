@@ -1,0 +1,14 @@
+.input-dropdown {
+  display: flex;
+  flex-direction: column;
+  &_content {
+    background: white;
+    &_row {
+      color: blue;
+      &:hover {
+        background: lightblue;
+        color: white;
+      }
+    }
+  }
+}

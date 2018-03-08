@@ -21,8 +21,7 @@ import {
   updateOnlineUserList,
   emitUserLeft,
   switchRoom,
-  receiveOneNewRoom,
-  emitAddRoom
+  receiveOneNewRoom
 } from '../utli/socketHelpers';
 import { pwdcheck } from '../utli/httpHelpers';
 
@@ -41,10 +40,10 @@ class Lobby extends Component {
     selectValue: DEFAULT_SELECT_VALUE,
     pwdCheckRoomVal: DEFAULT_SELECT_VALUE,
     isChating: false,
-    userList: {},
     showAddRoomModal: false,
     showEnterRoomModal: false,
-    isPrivate: true
+    userList: {}
+
     // hasNewitem: false
   };
 
@@ -56,15 +55,7 @@ class Lobby extends Component {
   setNewRoomRef = node => {
     this.newRoomRef = node;
   };
-  setModalInputRef = node => {
-    this.modalInput = node;
-  };
-  setModalPasswordRef = node => {
-    this.modalPassword = node;
-  };
-  setModalPrivacyRef = node => {
-    this.modalPrivacy = node;
-  };
+
   setEnterRoomModalInputRef = node => {
     this.modalPwdInputRef = node;
   };
@@ -73,20 +64,9 @@ class Lobby extends Component {
     this.props.history.push('/history');
   };
 
-  handleUpdateOnlineUserList = data => {
-    this.setState({ userList: data });
-  };
-  handleOpenAddRoomModal = () => {
-    this.setState({ showAddRoomModal: !this.state.showAddRoomModal });
-  };
-  handleCloseAddRoomModal = () => {
-    this.setState({ showAddRoomModal: false, isPrivate: true });
-  };
   handleToggleUserPrivateChat = () => {
-    console.log('handleUserPrivateChat clicked');
     this.setState({ isChating: !this.state.isChating });
   };
-
   handleCloseEnterRoomModal = () => {
     this.setState({ showEnterRoomModal: false });
   };
@@ -96,7 +76,6 @@ class Lobby extends Component {
 
   handlePwdCheck = () => {
     const pwd = this.modalPwdInputRef.value;
-    console.log('pwd input', pwd);
     pwdcheck(pwd, this.state.pwdCheckRoomVal).then(isCorrect => {
       if (isCorrect) {
         this.setState({ selectValue: this.state.pwdCheckRoomVal });
@@ -113,35 +92,18 @@ class Lobby extends Component {
     emitUserLeft(this.props.loginUsername);
     this.props.handleLoginUserNameChange(null);
   };
-
+  handleUpdateOnlineUserList = data => {
+    this.setState({ userList: data });
+  };
   handleUpdateRoomList = () => {
     this.props.handleGetRoomDetails();
   };
 
-  handleAddInModal = () => {
-    // need validation
-    if (this.modalInput.value.replace(/\s/g, '').length > 0) {
-      const roomName = this.modalInput.value;
-      const isPrivate = this.modalPrivacy.value;
-      const password = this.modalPassword.value;
-      emitAddRoom(roomName, isPrivate, password);
-      this.handleCloseAddRoomModal();
-    }
+  handleOpenAddRoomModal = () => {
+    this.setState({ showAddRoomModal: !this.state.showAddRoomModal });
   };
-
-  handelToggelPrivacy = () => {
-    this.setState({ isPrivate: !this.state.isPrivate });
-    if (this.state.isPrivate === true) {
-      this.modalPassword.placeholder = 'type...';
-      this.modalPassword.value = '';
-      this.modalPrivacy.value = 'on';
-      this.modalPassword.disabled = false;
-    } else if (this.state.isPrivate === false) {
-      this.modalPrivacy.value = 'off';
-      this.modalPassword.disabled = true;
-      this.modalPassword.value = '';
-      this.modalPassword.placeholder = 'select private to enable';
-    }
+  handleCloseAddRoomModal = () => {
+    this.setState({ showAddRoomModal: false });
   };
 
   handleRoomSlection = e => {
@@ -162,6 +124,13 @@ class Lobby extends Component {
     }
   };
 
+  renderAddRoomModal = () => (
+    <RoomModal
+      handleCloseAddRoomModal={this.handleCloseAddRoomModal}
+      userList={this.state.userList}
+    />
+  );
+
   renderEnterRoomModal = () => (
     <EnterRoomModal
       handleCloseModal={this.handleCloseEnterRoomModal}
@@ -170,18 +139,6 @@ class Lobby extends Component {
       title={this.state.pwdCheckRoomVal}
     />
   );
-
-  renderAddRoomModal = () => (
-    <RoomModal
-      handleCloseModal={this.handleCloseAddRoomModal}
-      setModalInputRef={this.setModalInputRef}
-      setModalPasswordRef={this.setModalPasswordRef}
-      handleAddInModal={this.handleAddInModal}
-      setModalPrivacyRef={this.setModalPrivacyRef}
-      handelToggelPrivacy={this.handelToggelPrivacy}
-    />
-  );
-
   renderHeader = () => (
     <Header
       optionsState={this.state.selectValue}
@@ -198,7 +155,7 @@ class Lobby extends Component {
       showAddRoomModal,
       showEnterRoomModal
     } = this.state;
-    console.log('selectValue', selectValue);
+
     return (
       <div className="chatterbox">
         <div className="chatterbox_header">
