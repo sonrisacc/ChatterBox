@@ -60,18 +60,21 @@ exports.checkRoomPwd = (password, roomname) =>
 
 exports.addNewRoom = data => {
   let bool;
+  let hash;
   const { roomname, isPrivate, password } = data;
   if (isPrivate === 'on') {
     bool = true;
+    hash = password;
   } else {
     bool = false;
+    hash = 'abcd';
   }
 
   return new Promise((resolve, reject) => {
     Room.findOne({ roomname }, err => {
       if (err) {
         console.error('err', err);
-        reject();
+        reject(err);
       }
     }).then(res => {
       if (res === null) {
@@ -79,9 +82,9 @@ exports.addNewRoom = data => {
         const newRoom = new Room({
           roomname,
           isPrivate: bool,
-          password
+          password: hash
         });
-        console.log('lllllll', newRoom);
+
         newRoom.save((error, doc) => {
           if (error) {
             console.log(error);
@@ -91,6 +94,7 @@ exports.addNewRoom = data => {
           resolve(doc);
         });
       } else if (res !== null) {
+        console.log('already exists');
         resolve(null);
       }
     });

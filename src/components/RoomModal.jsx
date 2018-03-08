@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { emitAddRoom } from '../utli/socketHelpers';
+import { addRoom } from '../utli/httpHelpers';
 
 class RoomModal extends Component {
   state = {
@@ -32,7 +33,19 @@ class RoomModal extends Component {
       const roomName = this.modalInput.value;
       const isPrivate = this.modalPrivacy.value;
       const password = this.modalPassword.value;
-      emitAddRoom(roomName, isPrivate, password);
+      addRoom(roomName, isPrivate, password).then(res => {
+        console.log('handleAddInModal', res);
+        if (res === null) {
+          // already exists
+        } else {
+          emitAddRoom(roomName, isPrivate, password);
+          console.log('asdasdads', this.state.curRoomUserList);
+          // emitNotifiySelectedUser(this.state.curRoomUserList);
+          // clear  this.state.curRoomUserList
+          // notify added user
+        }
+      });
+
       this.props.handleCloseAddRoomModal();
     }
   };

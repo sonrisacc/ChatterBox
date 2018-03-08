@@ -55,3 +55,22 @@ export function signUpUser(name) {
       });
   });
 }
+
+export function addRoom(roomname, isPrivate, password) {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(`${URL}/api/rooms`, {
+        roomname,
+        isPrivate,
+        password
+      })
+      .then(res => {
+        console.log('post room res', res);
+        resolve(res.data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        reject(error);
+      });
+  });
+}

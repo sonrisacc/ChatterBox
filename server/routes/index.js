@@ -21,4 +21,11 @@ router.get('/rooms', (req, res) => {
   });
 });
 
+router.post('/rooms', (req, res) => {
+  utliR.addNewRoom(req.body).then(data => {
+    console.log('hmmmm data post to rooms', data);
+    res.status(200).json(data);
+  });
+});
+
 module.exports = router;
