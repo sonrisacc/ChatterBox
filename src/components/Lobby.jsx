@@ -159,9 +159,7 @@ class Lobby extends Component {
 
     return (
       <div className="chatterbox">
-        <div className="chatterbox_header">
-          {!isChating && this.renderHeader()}
-        </div>
+        <div className="chatterbox_header">{this.renderHeader()}</div>
         <div className="chatterbox_container">
           <div className="chatterbox_container_leftpanel">
             <LeftPanel

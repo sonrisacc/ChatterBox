@@ -2,8 +2,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
   &_container {
     @include landing;
+    min-height: 300px;
+    min-width: 300px;
   }
   &_title {
     @include title;
