@@ -23,6 +23,11 @@ class RoomModal extends Component {
     this.modalPrivacy = node;
   };
 
+  resetCurRoomUserList = () => {
+    const { curRoomUserList } = this.state;
+    Object.keys(curRoomUserList).forEach(cur => delete curRoomUserList[cur]);
+  };
+
   handleShowDropdown = () => {
     this.setState({ showDropdown: true });
   };
@@ -35,18 +40,20 @@ class RoomModal extends Component {
       const password = this.modalPassword.value;
       addRoom(roomName, isPrivate, password).then(res => {
         console.log('handleAddInModal', res);
+        console.log('this.state.curRoomUserList', this.state.curRoomUserList);
         if (res === null) {
           // already exists
+          console.log('already exists');
         } else {
           emitAddRoom(roomName, isPrivate, password);
-          console.log('asdasdads', this.state.curRoomUserList);
+
           // emitNotifiySelectedUser(this.state.curRoomUserList);
-          // clear  this.state.curRoomUserList
           // notify added user
+
+          this.props.handleCloseAddRoomModal();
+          this.resetCurRoomUserList();
         }
       });
-
-      this.props.handleCloseAddRoomModal();
     }
   };
 
@@ -113,7 +120,9 @@ class RoomModal extends Component {
     Object.keys(this.props.userList)
       .filter(
         cur =>
-          this.modalRoomate.value && cur.indexOf(this.modalRoomate.value) === 0
+          this.modalRoomate.value &&
+          cur !== this.props.loginUsername &&
+          cur.indexOf(this.modalRoomate.value) === 0
       )
       .map(cur => (
         <div
@@ -196,7 +205,8 @@ class RoomModal extends Component {
 
 RoomModal.propTypes = {
   handleCloseAddRoomModal: PropTypes.func.isRequired,
-  userList: PropTypes.object.isRequired // eslint-disable-line
+  userList: PropTypes.object.isRequired, // eslint-disable-line
+  loginUsername: PropTypes.string.isRequired
   // filteredUser: PropTypes.array.isRequired, // eslint-disable-line
   // showDropdown: PropTypes.bool.isRequired,
   // selectedUser: PropTypes.array.isRequired // eslint-disable-line

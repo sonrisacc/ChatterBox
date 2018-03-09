@@ -128,6 +128,7 @@ class Lobby extends Component {
     <RoomModal
       handleCloseAddRoomModal={this.handleCloseAddRoomModal}
       userList={this.state.userList}
+      loginUsername={this.props.loginUsername}
     />
   );
 
