@@ -19,9 +19,10 @@ class Dropdown extends Component {
 
   renderRoomOption = () => {
     const data = Object.values(this.props.roomData);
-    const result = data.map(({ roomname, _id }) => (
+    const result = data.map(({ roomname, _id, isPrivate }) => (
       <option key={_id} value={roomname}>
-        {roomname}
+        {isPrivate && `&#xf023; ${roomname}`}
+        {!isPrivate && roomname}
       </option>
     ));
     return result;

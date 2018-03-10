@@ -57,6 +57,10 @@ export function emitDeleteMessage(id) {
   socket.emit('oneDeletedMsg', id);
 }
 
+export function emitNotifiySelectedUser(data) {
+  console.log('emitNotifiySelectedUser', data);
+}
+
 export function updateOnlineUserList(cb) {
   socket.on('cur online user list', data => cb(data));
 }
