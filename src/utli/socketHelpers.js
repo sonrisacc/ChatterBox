@@ -59,10 +59,15 @@ export function emitDeleteMessage(id) {
 
 export function emitNotifiySelectedUser(data) {
   console.log('emitNotifiySelectedUser', data);
+  socket.emit('sendInvitationForJoinRoom', data);
 }
 
 export function updateOnlineUserList(cb) {
   socket.on('cur online user list', data => cb(data));
+}
+
+export function receiveNotifiySelectedUser(cb) {
+  socket.on('receiveInvitationForJoinRoom', data => cb(data));
 }
 
 export function receiveNewUser(cb) {

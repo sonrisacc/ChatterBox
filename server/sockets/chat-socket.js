@@ -73,6 +73,15 @@ module.exports = io => {
       socket.in(socket.room).broadcast.emit('oneUserStoppedTyping', data);
     });
 
+    socket.on('sendInvitationForJoinRoom', data => {
+      console.log('sendInvitationForJoinRoom', data);
+      const { roomMember } = data;
+      const rommates = Object.values(roomMember);
+      rommates.forEach(cur => {
+        console.log('sending invites to', cur);
+        io.to(cur).emit('receiveInvitationForJoinRoom', data);
+      });
+    });
     socket.on('disconnect', () => {
       delete usernames[socket.username];
       numUsers = Object.keys(usernames).length;
