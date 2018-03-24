@@ -7,7 +7,8 @@ import { signUpUser } from '../utli/httpHelpers';
 import {
   setLoginUserName,
   getApiDetails,
-  getRoomApiDetails
+  getRoomApiDetails,
+  updateLocalData
 } from '../actions/actionCreators';
 import { emitNewUser } from '../utli/socketHelpers';
 
@@ -17,7 +18,8 @@ class Signup extends Component {
     handleLoginUserNameChange: PropTypes.func.isRequired,
     history: ReactRouterPropTypes.history.isRequired,
     // handleGetApiDetails: PropTypes.func.isRequired,
-    handleDoEverything: PropTypes.func.isRequired
+    handleDoEverything: PropTypes.func.isRequired,
+    handlePrivateDetails: PropTypes.func.isRequired
   };
 
   state = {
@@ -37,6 +39,10 @@ class Signup extends Component {
   handleSignUp = () => {
     signUpUser(this.state.userNameInput).then(data => {
       if (data !== null) {
+        const privateDetails = JSON.parse(
+          window.localStorage.getItem('username')
+        );
+        this.props.handlePrivateDetails(privateDetails);
         this.props.handleLoginUserNameChange(data.username);
         this.props.handleDoEverything(this.state.curRoom).then(() => {
           // need to find a better way
@@ -99,6 +105,9 @@ const mapDispatchToProps = dispatch => ({
       dispatch(getApiDetails(room)),
       dispatch(getRoomApiDetails())
     ]);
+  },
+  handlePrivateDetails(data) {
+    dispatch(updateLocalData(data));
   }
 });
 

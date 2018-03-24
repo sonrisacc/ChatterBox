@@ -40,7 +40,7 @@ class Landing extends Component {
       if (data !== null) {
         // if sucessfully logged in
         const privateDetails = JSON.parse(
-          window.localStorage.getItem('username')
+          window.localStorage.getItem('roomdetail')
         );
         this.props.handlePrivateDetails(privateDetails);
         this.props.handleLoginUserNameChange(data.username);

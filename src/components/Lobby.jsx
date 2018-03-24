@@ -44,7 +44,6 @@ class Lobby extends Component {
     showAddRoomModal: false,
     showEnterRoomModal: false,
     userList: {}
-
     // hasNewitem: false
   };
 
@@ -95,6 +94,8 @@ class Lobby extends Component {
 
   handleLogOut = () => {
     emitUserLeft(this.props.loginUsername);
+    const privateDetails = JSON.stringify(this.props.localData);
+    window.localStorage.setItem('roomdetail', privateDetails);
     this.props.handleLoginUserNameChange(null);
   };
   handleUpdateOnlineUserList = data => {
