@@ -2,7 +2,8 @@ import { combineReducers } from 'redux';
 import {
   SET_LOGIN_USERNAME,
   ADD_API_DATA,
-  ADD_API_ROOM_DATA
+  ADD_API_ROOM_DATA,
+  SET_LOCA_ROOM_DATA
 } from '../actions/actions';
 
 const loginUsername = (state = '', action) => {
@@ -25,6 +26,19 @@ const apiRoomData = (state = {}, action) => {
   }
   return state;
 };
-const rootReducer = combineReducers({ loginUsername, apiData, apiRoomData });
+
+const localData = (state = {}, action) => {
+  if (action.type === SET_LOCA_ROOM_DATA) {
+    return Object.assign({}, state, action.payload);
+  }
+  return state;
+};
+
+const rootReducer = combineReducers({
+  loginUsername,
+  apiData,
+  apiRoomData,
+  localData
+});
 
 export default rootReducer;

@@ -11,7 +11,7 @@ import {
 import Header from './Header';
 import Footer from './Footer';
 
-import Privatechat from './Privatechat';
+import Privatechat from './leftPanel/Privatechat';
 import LeftPanel from './LeftPanel';
 import RightPanel from './RightPanel';
 
@@ -33,7 +33,8 @@ class Lobby extends Component {
     handleGetApiDetails: PropTypes.func.isRequired,
     handleGetRoomDetails: PropTypes.func.isRequired,
     loginUsername: PropTypes.string.isRequired,
-    roomData: PropTypes.object.isRequired // eslint-disable-line
+    roomData: PropTypes.object.isRequired, // eslint-disable-line
+    localData: PropTypes.object.isRequired // eslint-disable-line
   };
 
   state = {
@@ -65,6 +66,10 @@ class Lobby extends Component {
   };
 
   handleToggleUserPrivateChat = () => {
+    // console.log(
+    //   'handleToggleUserPrivateChat',
+    //   e.target.innerText.slice(1).trim().length
+    // );
     this.setState({ isChating: !this.state.isChating });
   };
   handleCloseEnterRoomModal = () => {
@@ -168,7 +173,11 @@ class Lobby extends Component {
             />
           </div>
           <div className="chatterbox_container_midpanel">
-            <div className="private-chat">{!!isChating && <Privatechat />}</div>
+            <div className="private-chat">
+              {!!isChating && (
+                <Privatechat localDetail={this.props.localData} />
+              )}
+            </div>
           </div>
           <div className="chatterbox_container_rightpanel">
             <RightPanel selectValue={selectValue} />
@@ -188,7 +197,8 @@ class Lobby extends Component {
 
 const mapStateToProps = state => ({
   loginUsername: state.loginUsername,
-  roomData: state.apiRoomData
+  roomData: state.apiRoomData,
+  localData: state.localData
 });
 
 const mapDispatchToProps = dispatch => ({

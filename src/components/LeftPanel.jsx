@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import GeneralInfo from './leftPanel/GeneralInfo';
 import OnlineUser from './leftPanel/OnlineUser';
 import { receiveNotifiySelectedUser } from '../utli/socketHelpers';
 
+import { updateLocalData } from '../actions/actionCreators';
+
 class LeftPanel extends Component {
   static propTypes = {
     userList: PropTypes.object.isRequired, // eslint-disable-line
-    isChatting: PropTypes.func.isRequired
+    localData: PropTypes.object.isRequired, // eslint-disable-line
+    isChatting: PropTypes.func.isRequired,
+    handlePrivateDetails: PropTypes.func.isRequired
   };
   state = {
     showNotification: false
@@ -19,6 +24,12 @@ class LeftPanel extends Component {
 
   handleReceiveInvitation = data => {
     console.log('handle show showNotification', data);
+    const pre = this.props.localData;
+    const { roomName } = data;
+    const cur = {};
+    cur[roomName] = data;
+    const updated = Object.assign(pre, cur);
+    this.props.handlePrivateDetails(updated);
     this.setState({ showNotification: true });
     setTimeout(() => {
       this.setState({ showNotification: false });
@@ -57,4 +68,12 @@ class LeftPanel extends Component {
     );
   }
 }
-export default LeftPanel;
+
+const mapStateToProps = state => ({ localData: state.localData });
+const mapDispatchToProps = dispatch => ({
+  handlePrivateDetails(data) {
+    dispatch(updateLocalData(data));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LeftPanel);

@@ -6,7 +6,8 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 import {
   setLoginUserName,
   getApiDetails,
-  getRoomApiDetails
+  getRoomApiDetails,
+  updateLocalData
 } from '../actions/actionCreators';
 import { checkUserNameExistence } from '../utli/httpHelpers';
 import { emitNewUser } from '../utli/socketHelpers';
@@ -16,7 +17,8 @@ class Landing extends Component {
     history: ReactRouterPropTypes.history.isRequired,
     handleLoginUserNameChange: PropTypes.func.isRequired,
     handleDoEverything: PropTypes.func.isRequired,
-    location: ReactRouterPropTypes.location.isRequired
+    location: ReactRouterPropTypes.location.isRequired,
+    handlePrivateDetails: PropTypes.func.isRequired
   };
 
   state = {
@@ -37,6 +39,10 @@ class Landing extends Component {
     checkUserNameExistence(this.state.userNameInput).then(data => {
       if (data !== null) {
         // if sucessfully logged in
+        const privateDetails = JSON.parse(
+          window.localStorage.getItem('username')
+        );
+        this.props.handlePrivateDetails(privateDetails);
         this.props.handleLoginUserNameChange(data.username);
         this.props.handleDoEverything(this.state.curRoom).then(() => {
           emitNewUser(this.state.userNameInput);
@@ -95,6 +101,9 @@ const mapDispatchToProps = dispatch => ({
       dispatch(getApiDetails(room)),
       dispatch(getRoomApiDetails())
     ]);
+  },
+  handlePrivateDetails(data) {
+    dispatch(updateLocalData(data));
   }
 });
 

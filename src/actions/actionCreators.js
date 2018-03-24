@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { SET_LOGIN_USERNAME, ADD_API_DATA, ADD_API_ROOM_DATA } from './actions';
+import {
+  SET_LOGIN_USERNAME,
+  ADD_API_DATA,
+  ADD_API_ROOM_DATA,
+  SET_LOCA_ROOM_DATA
+} from './actions';
 
 const URL = process.env.HEROKU_URL || 'http://localhost:1111';
 
@@ -13,6 +18,10 @@ export function addAPIData(apiData) {
 
 export function addRoomAPIData(roomData) {
   return { type: ADD_API_ROOM_DATA, payload: roomData };
+}
+
+export function updateLocalData(localData) {
+  return { type: SET_LOCA_ROOM_DATA, payload: localData };
 }
 
 export function getApiDetails(roomName) {
